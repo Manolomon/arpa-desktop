@@ -4,6 +4,9 @@
 /dist
 /tmp
 /out-tsc
+/electron/dist
+/release
+
 # Only exists if Bazel was run
 /bazel-out
 
