@@ -28,10 +28,11 @@
             ],
             "styles": [
               {
-                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+                "input": "node_modules/@progress/kendo-theme-bootstrap/dist/all.css"
               },
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/kendo-ui.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.slim.min.js",

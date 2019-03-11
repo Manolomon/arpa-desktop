@@ -30,6 +30,8 @@
     "@progress/kendo-angular-inputs": "^4.2.0",
     "@progress/kendo-angular-intl": "^1.4.0",
     "@progress/kendo-angular-l10n": "^1.1.0",
+    "@progress/kendo-angular-upload": "^4.2.2",
+    "@progress/kendo-theme-bootstrap": "^3.2.2",
     "@progress/kendo-theme-default": "latest",
     "@progress/kendo-ui": "^2019.1.307",
     "@types/electron": "^1.6.10",
