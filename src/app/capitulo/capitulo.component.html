@@ -1,0 +1,87 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <!-- Título del Libro -->
+      <div class="form-group">
+        <input type="text" id="tituloLibro" class="form-control" required>
+        <label class="form-control-placeholder" for="tituloLibro">Título del Libro</label>
+      </div>
+      <!-- Propósito -->
+      <div class="form-group">
+        <input type="text" id="proposito" class="form-control" required>
+        <label class="form-control-placeholder" for="proposito">Propósito</label>
+      </div>
+      <div class="form-group">
+        <div class="form-row mb-4">
+          <div class="col">
+            <!-- Editorial -->
+            <input type="text" id="editorial" class="form-control" required>
+            <label class="form-control-placeholder" for="editorial">Editorial</label>
+          </div>
+          <div class="col">
+            <!-- Pais -->
+            <input type="text" id="pais" class="form-control" required>
+            <label class="form-control-placeholder" for="pais">Pais</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row mb-4">
+          <div class="col">
+            <!-- Página Inicio -->
+            <input type="number" id="pagInicio" class="form-control" required>
+            <label class="form-control-placeholder" for="pagInicio">Página Inicio</label>
+          </div>
+          <div class="col">
+            <!-- Página Final -->
+            <input type="number" id="pagFinal" class="form-control" required>
+            <label class="form-control-placeholder" for="pagFinal">Página Final</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mx-auto">
+      <div class="form-row mb-3">
+        <div class="col">
+          <!-- ISBN -->
+          <input type="text" id="isbn" class="form-control" required>
+          <label class="form-control-placeholder" for="isbn">ISBN</label>
+        </div>
+        <div class="col">
+          <!-- Año -->
+          <input type="text" id="año" class="form-control" required>
+          <label class="form-control-placeholder" for="año">Año</label>
+        </div>
+        <div class="col">
+          <!-- Edición -->
+          <input type="text" id="edicion" class="form-control" required>
+          <label class="form-control-placeholder" for="edicion">Edición</label>
+        </div>
+      </div>
+      <div class="form-row mb-4">
+        <div class="col">
+          <!-- Línea de Generación -->
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="example-config">
+  Current value: {{value | json}}
+</div>
+<div class="example-wrapper">
+  <p>Favorite sport:</p>
+  <kendo-multiselect [data]="listItems" [(ngModel)]="value"></kendo-multiselect>
+</div>

@@ -1,18 +1,16 @@
-<p>
-  <table>
-    <thead>
-      <th>Id</th>
-      <th>Nombre</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let policy of policies">
-  
-        <td>{{miembro.miembroId}}</td>
-        <td>{{miembro.miembroNombre}}</td>
-        <td>
-            <button (click)="delete(miembro.id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</p>
+<table>
+  <thead>
+    <th>Id</th>
+    <th>Nombre</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let policy of policies">
+
+      <td>{{miembro.miembroId}}</td>
+      <td>{{miembro.miembroNombre}}</td>
+      <td>
+        <button (click)="delete(miembro.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
