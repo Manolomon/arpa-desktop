@@ -7,7 +7,6 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListaMiembroComponent } from './lista-miembro/lista-miembro.component';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CapituloComponent } from './capitulo/capitulo.component';
@@ -16,15 +15,9 @@ import { FormsModule } from '@angular/forms';
 import { UploadModule } from '@progress/kendo-angular-upload';
 import { HttpClientModule } from '@angular/common/http';
 
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
-    ListaMiembroComponent,
     CapituloComponent
   ],
   imports: [
