@@ -1,6 +1,6 @@
 # ArpaDesktop
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a7464d5a202f421086deb3fd25f6860e)](https://app.codacy.com/app/Manolomon/arpa-desktop?utm_source=github.com&utm_medium=referral&utm_content=Manolomon/arpa-desktop&utm_campaign=Badge_Grade_Dashboard) ![Travis (.org)](https://img.shields.io/travis/Manolomon/arpa-desktop.svg?logo=travis-ci&logoColor=white)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a7464d5a202f421086deb3fd25f6860e)](https://app.codacy.com/app/Manolomon/arpa-desktop?utm_source=github.com&utm_medium=referral&utm_content=Manolomon/arpa-desktop&utm_campaign=Badge_Grade_Dashboard) [![Travis (.org)](https://img.shields.io/travis/Manolomon/arpa-desktop.svg?logo=travis-ci&logoColor=white)](https://travis-ci.org/Manolomon/arpa-desktop)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.4.
 
