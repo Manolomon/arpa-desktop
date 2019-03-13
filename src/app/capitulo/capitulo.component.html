@@ -31,12 +31,12 @@
             <div class="form-row mb-4">
               <div class="col">
                 <!-- Página Inicio -->
-                <input type="text" id="pagInicio" class="form-control" required>
+                <input type="number" id="pagInicio" class="form-control" required>
                 <label class="form-control-placeholder" for="pagInicio">Página Inicio</label>
               </div>
               <div class="col">
                 <!-- Página Final -->
-                <input type="text" id="pagFinal" class="form-control" required>
+                <input type="number" id="pagFinal" class="form-control" required>
                 <label class="form-control-placeholder" for="pagFinal">Página Final</label>
               </div>
             </div>
@@ -109,11 +109,15 @@
             </kendo-multiselect>
           </div>
         </div>
+        <div class="col">
+          <kendo-upload [saveUrl]="uploadSaveUrl" [removeUrl]="uploadRemoveUrl">
+          </kendo-upload>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col">
-    <kendo-upload [saveUrl]="uploadSaveUrl" [removeUrl]="uploadRemoveUrl">
-    </kendo-upload>
+  <div class="text-right">
+    <button type="button" class="btn btn-outline-secondary btn-space">Cancelar</button>
+    <button class="btn btn-primary btn-space" type="submit">Guardar</button>
   </div>
 </div>
