@@ -8,7 +8,8 @@ import { ProductoService } from '../servicios/productos.service';
 })
 export class CapituloComponent implements OnInit {
 
-  @ViewChild('tituloLibro') tituloInput: ElementRef;
+  //Input() capituloL: any;
+  public tituloLibro: String;
   capitulo: any;
 
   constructor(public productoService: ProductoService) { 
@@ -16,15 +17,17 @@ export class CapituloComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.productoService.obtenerProducto('jebeYQiQSlEkTTTskJaY').subscribe(datos =>{
-      let resultado = datos['data'];
-      if (resultado) {
-        this.capitulo = resultado.payload.data();
-        this.capitulo.id = resultado.payload.id;
-      }
-    })
-    console.log(this.capitulo.titulo);
-    this.tituloInput.nativeElement.value = this.capitulo.titulo;
+    /*this.productoService.obtenerProducto('JWH08mF6WvFXv9RdFb8l').subscribe(datos =>{
+      //console.log(datos.payload.data());
+      this.capitulo = datos.payload.data();
+      this.capitulo.id = datos.payload.id;
+      //console.log(this.capitulo.titulo);
+      //console.log(this.capitulo.id);
+      this.tituloLibro = this.capitulo.titulo;
+    })*/
+    if (this.capitulo != null) {
+       
+    }
   }
 
   public source: Array<string> = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan'];
