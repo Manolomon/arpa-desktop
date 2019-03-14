@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ProductoService } from '../servicios/productos.service';
 
 @Component({
   selector: 'app-capitulo',
@@ -7,11 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CapituloComponent implements OnInit {
 
-  constructor() { 
+  @ViewChild('tituloLibro') tituloInput: ElementRef;
+  capitulo: any;
+
+  constructor(public productoService: ProductoService) { 
     this.data = this.source.slice();
   }
 
   ngOnInit() {
+    this.productoService.obtenerProducto('jebeYQiQSlEkTTTskJaY').subscribe(datos =>{
+      let resultado = datos['data'];
+      if (resultado) {
+        this.capitulo = resultado.payload.data();
+        this.capitulo.id = resultado.payload.id;
+      }
+    })
+    console.log(this.capitulo.titulo);
+    this.tituloInput.nativeElement.value = this.capitulo.titulo;
   }
 
   public source: Array<string> = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan'];

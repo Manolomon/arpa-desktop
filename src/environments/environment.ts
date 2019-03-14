@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebaseConfig : {
-    apiKey: "AIzaSyAMyssZtyciWa3d12GP3tZQ_HPe64B5QSA",
-    authDomain: "transitoxd-1537973286980.firebaseapp.com",
-    databaseURL: "https://transitoxd-1537973286980.firebaseio.com",
-    projectId: "transitoxd-1537973286980",
-    storageBucket: "transitoxd-1537973286980.appspot.com",
-    messagingSenderId: "325821250313"
+    apiKey: "AIzaSyB8U1sGZ0nv84GoFy68BUYg9qxIjOc7dwM",
+    authDomain: "arpa-desktop.firebaseapp.com",
+    databaseURL: "https://arpa-desktop.firebaseio.com",
+    projectId: "arpa-desktop",
+    storageBucket: "arpa-desktop.appspot.com",
+    messagingSenderId: "778256506602"
   }
 };
 

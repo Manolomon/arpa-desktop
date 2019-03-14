@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService {
+export class ProyectoService {
 
   constructor(public db: AngularFirestore) {}
 

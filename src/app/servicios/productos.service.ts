@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService {
+export class ProductoService {
 
   constructor(public db: AngularFirestore) {}
 
@@ -12,6 +12,10 @@ export class FirebaseService {
       return this.db.collection('productos', ref => ref.where(
           'colaboradores', 'array-contains', idMiembro
       )).snapshotChanges(); 
+  }
+
+  obtenerProducto(idProducto) {
+      return this.db.collection('productos').doc(idProducto).snapshotChanges();
   }
 
   agregarProducto(producto) {
