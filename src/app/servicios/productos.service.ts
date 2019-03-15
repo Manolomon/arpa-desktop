@@ -8,10 +8,14 @@ export class ProductoService {
 
   constructor(public db: AngularFirestore) {}
 
-  obtenerProductos(idMiembro) {
+  obtenerProductosMiembro(idMiembro) {
       return this.db.collection('productos', ref => ref.where(
           'colaboradores', 'array-contains', idMiembro
       )).snapshotChanges(); 
+  }
+
+  obtenerProductos() {
+      return this.db.collection('productos').snapshotChanges();
   }
 
   obtenerProducto(idProducto) {
