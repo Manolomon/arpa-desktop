@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../servicios/productos.service';
 
 @Component({
-  selector: 'app-capitulo',
-  templateUrl: './capitulo.component.html',
-  styleUrls: ['/capitulo.component.scss']
+  selector: 'app-articulo',
+  templateUrl: './articulo.component.html',
+  styleUrls: ['./articulo.component.scss']
 })
-export class CapituloComponent implements OnInit {
+export class ArticuloComponent implements OnInit {
 
   //Input() capituloL: any;
   public tituloLibro: String;
@@ -66,5 +66,6 @@ export class CapituloComponent implements OnInit {
 
   uploadSaveUrl = 'saveUrl'; // should represent an actual API endpoint
   uploadRemoveUrl = 'removeUrl'; // should represent an actual API endpoint
+
 
 }

@@ -15,11 +15,28 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { FormsModule } from '@angular/forms';
 import { UploadModule } from '@progress/kendo-angular-upload';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductosComponent } from './productos/productos.component';
+
+import {
+  MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule,
+  MatCardModule, MatMenuModule, MatTooltipModule,
+  MatDialogModule, MatChipsModule, MatAutocompleteModule, MatFormFieldModule,
+  MatInputModule, MatSnackBarModule, MatSlideToggleModule, MatExpansionModule
+} from '@angular/material';
+import { LibroComponent } from './libro/libro.component';
+import { ArticuloComponent } from './articulo/articulo.component';
+import { MemoriaComponent } from './memoria/memoria.component';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    CapituloComponent
+    CapituloComponent,
+    ProductosComponent,
+    LibroComponent,
+    ArticuloComponent,
+    MemoriaComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +48,23 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     DropDownsModule,
     UploadModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatSlideToggleModule,
+    DateInputsModule
   ],
   providers: [ProductoService],
   bootstrap: [AppComponent]

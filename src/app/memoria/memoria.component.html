@@ -3,41 +3,48 @@
     <div class="container my-5">
       <div class="row">
         <div class="col-md-6 mx-auto">
-          <!-- Título del Libro -->
+          <!-- Autor -->
           <div class="form-group">
-            <input type="text" id="tituloLibro" class="form-control" required [(ngModel)]="tituloLibro">
-            <label class="form-control-placeholder" for="tituloLibro">Título del Libro</label>
+            <input type="text" id="autor" class="form-control" required>
+            <label class="form-control-placeholder" for="autor">Autor</label>
           </div>
           <!-- Propósito -->
           <div class="form-group">
             <input type="text" id="proposito" class="form-control" required>
             <label class="form-control-placeholder" for="proposito">Propósito</label>
           </div>
+          <!-- Nombre del Congreso -->
+          <div class="form-group">
+            <input type="text" id="nombreCongreso" class="form-control" required>
+            <label class="form-control-placeholder" for="nombreCongreso">Nombre del Congreso</label>
+          </div>
           <div class="form-group">
             <div class="form-row mb-4">
               <div class="col">
-                <!-- Editorial -->
-                <input type="text" id="editorial" class="form-control" required>
-                <label class="form-control-placeholder" for="editorial">Editorial</label>
+                <!-- Ciudad -->
+                <input type="text" id="ciudad" class="form-control" required>
+                <label class="form-control-placeholder" for="ciudad">Ciudad</label>
               </div>
               <div class="col">
-                <!-- Pais -->
-                <input type="text" id="pais" class="form-control" required>
-                <label class="form-control-placeholder" for="pais">Pais</label>
+                <!-- Estado -->
+                <input type="text" id="estado" class="form-control" required>
+                <label class="form-control-placeholder" for="estado">Estado</label>
               </div>
             </div>
           </div>
           <div class="form-group">
             <div class="form-row mb-4">
               <div class="col">
-                <!-- Página Inicio -->
-                <input type="number" id="pagInicio" class="form-control" required>
-                <label class="form-control-placeholder" for="pagInicio">Página Inicio</label>
+                <!-- Pais -->
+                <input type="text" id="pais" class="form-control" required>
+                <label class="form-control-placeholder" for="pais">Pais</label>
               </div>
               <div class="col">
-                <!-- Página Final -->
-                <input type="number" id="pagFinal" class="form-control" required>
-                <label class="form-control-placeholder" for="pagFinal">Página Final</label>
+                <!-- Fecha de Publicación -->
+                <label class="form-control-placeholder" for="publicacion" style="font-size: 75%;
+                      transform: translate3d(0, -110%, 0);
+                      opacity: 1;">Pais</label>
+                <kendo-datepicker [(value)]="valueDate"></kendo-datepicker>
               </div>
             </div>
           </div>
@@ -45,22 +52,18 @@
         <div class="col-md-6 mx-auto">
           <div class="form-row mb-3">
             <div class="col">
-              <!-- ISBN -->
-              <input type="text" id="isbn" class="form-control" required>
-              <label class="form-control-placeholder" for="isbn">ISBN</label>
+              <!-- Página Inicio -->
+              <input type="number" id="pagInicio" class="form-control" required>
+              <label class="form-control-placeholder" for="pagInicio">Página Inicio</label>
             </div>
             <div class="col">
-              <!-- Año -->
-              <input type="number" id="año" class="form-control" required>
-              <label class="form-control-placeholder" for="año">Año</label>
+              <!-- Página Final -->
+              <input type="number" id="pagFinal" class="form-control" required>
+              <label class="form-control-placeholder" for="pagFinal">Página Final</label>
             </div>
-            <div class="col">
-              <!-- Edición -->
-              <input type="text" id="edicion" class="form-control" required>
-              <label class="form-control-placeholder" for="edicion">Edición</label>
-            </div>
+            
           </div>
-          <div class="form-row mb-3" style="transform: translate3d(0, 13%, 0);">
+          <div class="form-row mb-3" style="transform: translate3d(0, 30%, 0);">
             <div class="col">
               <div class="form-group">
                 <!-- Línea de Generación -->
@@ -84,14 +87,14 @@
                 <label class="form-control-placeholder" for="lgac" style="font-size: 75%;
                       transform: translate3d(0, -110%, 0);
                       opacity: 1;">Estatus</label>
-                <kendo-dropdownlist id="estatus" [data]="listItems" style="width: 10.7em;">
+                <kendo-dropdownlist id="lgac" [data]="listItems" style="width: 10.7em;">
                 </kendo-dropdownlist>
               </div>
             </div>
           </div>
 
           <!-- Colaborador Interno -->
-          <div class="form-group" style="transform: translate3d(0, -15%, 0);">
+          <div class="form-group">
             <label class="form-control-placeholder" for="lgac" style="font-size: 75%;
           transform: translate3d(0, -110%, 0);
           opacity: 1;">Colaboradores Internos</label>
@@ -100,7 +103,7 @@
             </kendo-multiselect>
           </div>
           <!-- Colaborador Externo -->
-          <div class="form-group" style="transform: translate3d(0, -15%, 0);">
+          <div class="form-group">
             <label class="form-control-placeholder" for="lgac" style="font-size: 75%;
             transform: translate3d(0, -110%, 0);
             opacity: 1;">Externos</label>
@@ -116,7 +119,7 @@
       </div>
     </div>
   </div>
-  <div class="text-right">
+  <div class="number-right">
     <button type="button" class="btn btn-outline-secondary btn-space">Cancelar</button>
     <button class="btn btn-primary btn-space" type="submit">Guardar</button>
   </div>

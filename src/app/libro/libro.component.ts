@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../servicios/productos.service';
 
 @Component({
-  selector: 'app-capitulo',
-  templateUrl: './capitulo.component.html',
-  styleUrls: ['/capitulo.component.scss']
+  selector: 'app-libro',
+  templateUrl: './libro.component.html',
+  styleUrls: ['./libro.component.scss']
 })
-export class CapituloComponent implements OnInit {
+export class LibroComponent implements OnInit {
 
   //Input() capituloL: any;
   public tituloLibro: String;

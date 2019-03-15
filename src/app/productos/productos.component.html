@@ -1,0 +1,54 @@
+<mat-card>
+      <mat-expansion-panel (opened)="opened = true" (closed)="opened = false" hideToggle="true">
+        <mat-expansion-panel-header>
+          <div
+            class="message-toolbar"
+            fxLayoutAlign="start center"
+            fxLayout="row">
+            <h3>Prueba de Capítulo de Libro</h3>
+          </div>
+          </mat-expansion-panel-header>
+          <div class="message-body" fxLayout="row">
+            <app-capitulo></app-capitulo>
+          </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="opened = true" (closed)="opened = false" hideToggle="true">
+        <mat-expansion-panel-header>
+          <div
+            class="message-toolbar"
+            fxLayoutAlign="start center"
+            fxLayout="row">
+            <h3>Prueba de Libro</h3>
+          </div>
+          </mat-expansion-panel-header>
+          <div class="message-body" fxLayout="row">
+            <app-libro></app-libro>
+          </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="opened = true" (closed)="opened = false" hideToggle="true">
+        <mat-expansion-panel-header>
+          <div
+            class="message-toolbar"
+            fxLayoutAlign="start center"
+            fxLayout="row">
+            <h3>Prueba de Artículo</h3>
+          </div>
+          </mat-expansion-panel-header>
+          <div class="message-body" fxLayout="row">
+            <app-articulo></app-articulo>
+          </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="opened = true" (closed)="opened = false" hideToggle="true">
+        <mat-expansion-panel-header>
+          <div
+            class="message-toolbar"
+            fxLayoutAlign="start center"
+            fxLayout="row">
+            <h3>Prueba de Memoria</h3>
+          </div>
+          </mat-expansion-panel-header>
+          <div class="message-body" fxLayout="row">
+            <app-memoria></app-memoria>
+          </div>
+      </mat-expansion-panel>
+</mat-card>

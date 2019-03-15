@@ -3,10 +3,10 @@
     <div class="container my-5">
       <div class="row">
         <div class="col-md-6 mx-auto">
-          <!-- Título del Libro -->
+          <!-- Autor -->
           <div class="form-group">
-            <input type="text" id="tituloLibro" class="form-control" required [(ngModel)]="tituloLibro">
-            <label class="form-control-placeholder" for="tituloLibro">Título del Libro</label>
+            <input type="text" id="autor" class="form-control" required>
+            <label class="form-control-placeholder" for="autor">Autor</label>
           </div>
           <!-- Propósito -->
           <div class="form-group">
@@ -16,9 +16,9 @@
           <div class="form-group">
             <div class="form-row mb-4">
               <div class="col">
-                <!-- Editorial -->
-                <input type="text" id="editorial" class="form-control" required>
-                <label class="form-control-placeholder" for="editorial">Editorial</label>
+                <!-- Páginas -->
+                <input type="number" id="paginas" class="form-control" required>
+                <label class="form-control-placeholder" for="paginas">Páginas</label>
               </div>
               <div class="col">
                 <!-- Pais -->
@@ -30,14 +30,9 @@
           <div class="form-group">
             <div class="form-row mb-4">
               <div class="col">
-                <!-- Página Inicio -->
-                <input type="number" id="pagInicio" class="form-control" required>
-                <label class="form-control-placeholder" for="pagInicio">Página Inicio</label>
-              </div>
-              <div class="col">
-                <!-- Página Final -->
-                <input type="number" id="pagFinal" class="form-control" required>
-                <label class="form-control-placeholder" for="pagFinal">Página Final</label>
+                <!-- Editorial -->
+                <input type="number" id="editorial" class="form-control" required>
+                <label class="form-control-placeholder" for="editorial">Editorial</label>
               </div>
             </div>
           </div>
@@ -84,7 +79,7 @@
                 <label class="form-control-placeholder" for="lgac" style="font-size: 75%;
                       transform: translate3d(0, -110%, 0);
                       opacity: 1;">Estatus</label>
-                <kendo-dropdownlist id="estatus" [data]="listItems" style="width: 10.7em;">
+                <kendo-dropdownlist id="lgac" [data]="listItems" style="width: 10.7em;">
                 </kendo-dropdownlist>
               </div>
             </div>

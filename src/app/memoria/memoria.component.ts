@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../servicios/productos.service';
 
 @Component({
-  selector: 'app-capitulo',
-  templateUrl: './capitulo.component.html',
-  styleUrls: ['/capitulo.component.scss']
+  selector: 'app-memoria',
+  templateUrl: './memoria.component.html',
+  styleUrls: ['./memoria.component.scss']
 })
-export class CapituloComponent implements OnInit {
+export class MemoriaComponent implements OnInit {
 
   //Input() capituloL: any;
   public tituloLibro: String;
+  public valueDate: Date = new Date(2000, 2, 10);
   capitulo: any;
 
   constructor(public productoService: ProductoService) { 

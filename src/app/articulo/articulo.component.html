@@ -3,22 +3,41 @@
     <div class="container my-5">
       <div class="row">
         <div class="col-md-6 mx-auto">
-          <!-- Título del Libro -->
+          <!-- Descripción -->
           <div class="form-group">
-            <input type="text" id="tituloLibro" class="form-control" required [(ngModel)]="tituloLibro">
-            <label class="form-control-placeholder" for="tituloLibro">Título del Libro</label>
+            <input type="text" id="descripcion" class="form-control" required>
+            <label class="form-control-placeholder" for="descripcion">Descripción</label>
           </div>
           <!-- Propósito -->
           <div class="form-group">
             <input type="text" id="proposito" class="form-control" required>
             <label class="form-control-placeholder" for="proposito">Propósito</label>
           </div>
+          <!-- Autor -->
+          <div class="form-group">
+            <input type="text" id="autor" class="form-control" required>
+            <label class="form-control-placeholder" for="autor">Autor</label>
+          </div>
           <div class="form-group">
             <div class="form-row mb-4">
+              <div class="col">
+                <!-- Nombre de Revista -->
+                <input type="text" id="nombreRevista" class="form-control" required>
+                <label class="form-control-placeholder" for="nombreRevista">Nombre de la Revista</label>
+              </div>
               <div class="col">
                 <!-- Editorial -->
                 <input type="text" id="editorial" class="form-control" required>
                 <label class="form-control-placeholder" for="editorial">Editorial</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row mb-4">
+              <div class="col">
+                <!-- Dirección Electrónica -->
+                <input type="text" id="direccionElectronica" class="form-control" required>
+                <label class="form-control-placeholder" for="direccionElectronica">Dirección Electrónica</label>
               </div>
               <div class="col">
                 <!-- Pais -->
@@ -27,27 +46,13 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <div class="form-row mb-4">
-              <div class="col">
-                <!-- Página Inicio -->
-                <input type="number" id="pagInicio" class="form-control" required>
-                <label class="form-control-placeholder" for="pagInicio">Página Inicio</label>
-              </div>
-              <div class="col">
-                <!-- Página Final -->
-                <input type="number" id="pagFinal" class="form-control" required>
-                <label class="form-control-placeholder" for="pagFinal">Página Final</label>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="col-md-6 mx-auto">
           <div class="form-row mb-3">
             <div class="col">
-              <!-- ISBN -->
-              <input type="text" id="isbn" class="form-control" required>
-              <label class="form-control-placeholder" for="isbn">ISBN</label>
+              <!-- ISSN -->
+              <input type="text" id="issn" class="form-control" required>
+              <label class="form-control-placeholder" for="issn">ISSN</label>
             </div>
             <div class="col">
               <!-- Año -->
@@ -55,12 +60,29 @@
               <label class="form-control-placeholder" for="año">Año</label>
             </div>
             <div class="col">
-              <!-- Edición -->
-              <input type="text" id="edicion" class="form-control" required>
-              <label class="form-control-placeholder" for="edicion">Edición</label>
+              <!-- Volumen -->
+              <input type="text" id="volumen" class="form-control" required>
+              <label class="form-control-placeholder" for="volumen">Volumen</label>
             </div>
           </div>
-          <div class="form-row mb-3" style="transform: translate3d(0, 13%, 0);">
+          <div class="form-row mb-3" style="transform: translate3d(0, 16%, 0);">
+            <div class="col">
+              <!-- Índice -->
+              <input type="text" id="indice" class="form-control" required>
+              <label class="form-control-placeholder" for="indice">Índice</label>
+            </div>
+            <div class="col">
+              <!-- Página Inicio -->
+              <input type="number" id="pagInicio" class="form-control" required>
+              <label class="form-control-placeholder" for="pagInicio">Página Inicio</label>
+            </div>
+            <div class="col">
+              <!-- Página Final -->
+              <input type="number" id="pagFinal" class="form-control" required>
+              <label class="form-control-placeholder" for="pagFinal">Página Final</label>
+            </div>
+          </div>
+          <div class="form-row mb-3" style="transform: translate3d(0, 25%, 0);">
             <div class="col">
               <div class="form-group">
                 <!-- Línea de Generación -->
@@ -84,14 +106,14 @@
                 <label class="form-control-placeholder" for="lgac" style="font-size: 75%;
                       transform: translate3d(0, -110%, 0);
                       opacity: 1;">Estatus</label>
-                <kendo-dropdownlist id="estatus" [data]="listItems" style="width: 10.7em;">
+                <kendo-dropdownlist id="lgac" [data]="listItems" style="width: 10.7em;">
                 </kendo-dropdownlist>
               </div>
             </div>
           </div>
 
           <!-- Colaborador Interno -->
-          <div class="form-group" style="transform: translate3d(0, -15%, 0);">
+          <div class="form-group">
             <label class="form-control-placeholder" for="lgac" style="font-size: 75%;
           transform: translate3d(0, -110%, 0);
           opacity: 1;">Colaboradores Internos</label>
@@ -100,7 +122,7 @@
             </kendo-multiselect>
           </div>
           <!-- Colaborador Externo -->
-          <div class="form-group" style="transform: translate3d(0, -15%, 0);">
+          <div class="form-group">
             <label class="form-control-placeholder" for="lgac" style="font-size: 75%;
             transform: translate3d(0, -110%, 0);
             opacity: 1;">Externos</label>

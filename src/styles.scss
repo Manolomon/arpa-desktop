@@ -181,7 +181,7 @@ label {
   margin-bottom: 0.5rem; }
 
 button {
-  border-radius: 0; }
+  border-radius: 0.6rem; }
 
 button:focus {
   outline: 1px dotted;
@@ -417,7 +417,7 @@ kbd {
   font-size: 87.5%;
   color: #fff;
   background-color: #47485D;
-  border-radius: 0.2rem; }
+  border-radius: 0.6rem }
   kbd kbd {
     padding: 0;
     font-size: 100%;
@@ -1361,7 +1361,7 @@ select.form-control:focus::-ms-value {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
-  border-radius: 0.2rem; }
+  border-radius: 0.6rem; }
 
 .form-control-lg {
   height: calc(1.5em + 1rem + 3px);
@@ -2064,7 +2064,7 @@ fieldset:disabled a.btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
-  border-radius: 0.2rem; }
+  border-radius: 0.6rem; }
 
 .btn-block {
   display: block;
@@ -2510,7 +2510,7 @@ input[type="button"].btn-block {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
-  border-radius: 0.2rem; }
+  border-radius: 0.6rem; }
 
 .input-group-lg > .custom-select,
 .input-group-sm > .custom-select {
@@ -2624,14 +2624,14 @@ input[type="button"].btn-block {
     left: -2.25rem;
     width: 1.75rem;
     pointer-events: all;
-    border-radius: 0.5rem; }
+    border-radius: 0.6rem; }
   .custom-switch .custom-control-label::after {
     top: calc(0.25rem + 3px);
     left: calc(-2.25rem + 3px);
     width: calc(1rem - 6px);
     height: calc(1rem - 6px);
     background-color: #adb5bd;
-    border-radius: 0.5rem;
+    border-radius: 0.6rem;
     transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
     @media (prefers-reduced-motion: reduce) {
       .custom-switch .custom-control-label::after {
@@ -3331,10 +3331,10 @@ input[type="button"].btn-block {
 .accordion > .card {
   overflow: hidden; }
   .accordion > .card:not(:first-of-type) .card-header:first-child {
-    border-radius: 0; }
+    border-radius: 0.6rem; }
   .accordion > .card:not(:first-of-type):not(:last-of-type) {
     border-bottom: 0;
-    border-radius: 0; }
+    border-radius: 0.6rem; }
   .accordion > .card:first-of-type {
     border-bottom: 0;
     border-bottom-right-radius: 0;
@@ -3471,7 +3471,7 @@ input[type="button"].btn-block {
 .badge-pill {
   padding-right: 0.6em;
   padding-left: 0.6em;
-  border-radius: 10rem; }
+  border-radius: 0.6rem; }
 
 .badge-primary {
   color: #fff;
@@ -3565,7 +3565,7 @@ input[type="button"].btn-block {
 .jumbotron-fluid {
   padding-right: 0;
   padding-left: 0;
-  border-radius: 0; }
+  border-radius: 0.6rem; }
 
 .alert {
   position: relative;
@@ -3830,7 +3830,7 @@ input[type="button"].btn-block {
 .list-group-flush .list-group-item {
   border-right: 0;
   border-left: 0;
-  border-radius: 0; }
+  border-radius: 0.6rem; }
   .list-group-flush .list-group-item:last-child {
     margin-bottom: -1.5px; }
 
@@ -3959,10 +3959,10 @@ a.close.disabled {
   background-color: rgba(255, 255, 255, 0.85);
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0.25rem 0.75rem rgba(71, 72, 93, 0.1);
+  box-shadow: 0 0.6rem 0.75rem rgba(71, 72, 93, 0.1);
   backdrop-filter: blur(10px);
   opacity: 0;
-  border-radius: 0.25rem; }
+  border-radius: 0.6rem; }
   .toast:not(:last-child) {
     margin-bottom: 0.75rem; }
   .toast.showing {
@@ -4675,7 +4675,7 @@ button.bg-dark:focus {
   border-color: #fff !important; }
 
 .rounded-sm {
-  border-radius: 0.2rem !important; }
+  border-radius: 0.6rem !important; }
 
 .rounded {
   border-radius: 0.6rem !important; }
