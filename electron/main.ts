@@ -16,11 +16,11 @@ app.on("activate", () => {
 function createWindow() {
 
     mainWindow = new BrowserWindow({
-        width: 800,
+        width: 1100,
         height: 600,
-        minWidth: 200,
-        minHeight: 150,
-        icon: path.join(__dirname, '/../../src/assets/icons/png/128x128.png'),
+        minWidth: 1000,
+        minHeight: 300,
+        icon: path.join(__dirname, '/../../assets/icons/png/128x128.png'),
         webPreferences: {
             nodeIntegration: false,
             nodeIntegrationInWorker: false,

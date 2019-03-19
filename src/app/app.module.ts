@@ -1,32 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
-import { ProductoService } from './servicios/productos.service';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CapituloComponent } from './capitulo/capitulo.component';
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import { FormsModule } from '@angular/forms';
-import { UploadModule } from '@progress/kendo-angular-upload';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductosComponent } from './productos/productos.component';
 
-import {
-  MatSidenavModule, MatToolbarModule, MatButtonModule, MatIconModule,
-  MatCardModule, MatMenuModule, MatTooltipModule,
-  MatDialogModule, MatChipsModule, MatAutocompleteModule, MatFormFieldModule,
-  MatInputModule, MatSnackBarModule, MatSlideToggleModule, MatExpansionModule
-} from '@angular/material';
-import { LibroComponent } from './libro/libro.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+import { MaterialModule } from './material-module';
+import { FlexLayoutModule } from "@angular/flex-layout";
+
+import { environment } from '../environments/environment';
+import { ProductosComponent } from './productos/productos.component';
 import { ArticuloComponent } from './articulo/articulo.component';
+import { CapituloComponent } from './capitulo/capitulo.component';
+import { LibroComponent } from './libro/libro.component';
 import { MemoriaComponent } from './memoria/memoria.component';
-import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { ProductoService } from './servicios/productos.service';
 
 
 @NgModule({
@@ -44,27 +37,11 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     FormsModule,
-    InputsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
     BrowserAnimationsModule,
-    DropDownsModule,
-    UploadModule,
     HttpClientModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatMenuModule,
-    MatTooltipModule,
-    MatDialogModule,
-    MatChipsModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatExpansionModule,
-    MatSlideToggleModule,
-    DateInputsModule
+    MaterialModule
   ],
   providers: [ProductoService],
   bootstrap: [AppComponent]
