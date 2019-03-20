@@ -82,6 +82,4 @@ export class MemoriaComponent implements OnInit {
 
   uploadSaveUrl = "saveUrl"; // should represent an actual API endpoint
   uploadRemoveUrl = "removeUrl"; // should represent an actual API endpoint
-
-  getMemorias() {}
 }

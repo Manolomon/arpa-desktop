@@ -20,7 +20,6 @@ import { CapituloComponent } from "./capitulo/capitulo.component";
 import { LibroComponent } from "./libro/libro.component";
 import { MemoriaComponent } from "./memoria/memoria.component";
 import { ProductoService } from "./servicios/productos.service";
-import { MemoriaService } from "./servicios/memoria.service";
 
 @NgModule({
   declarations: [
@@ -43,7 +42,7 @@ import { MemoriaService } from "./servicios/memoria.service";
     HttpClientModule,
     MaterialModule
   ],
-  providers: [ProductoService, MemoriaService],
+  providers: [ProductoService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
