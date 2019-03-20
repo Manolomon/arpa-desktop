@@ -1,15 +1,13 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Injectable } from "@angular/core";
+import { AngularFirestore } from "@angular/fire/firestore";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class MiembroService {
-
   constructor(public db: AngularFirestore) {}
 
   obtenerMiembros() {
-      return this.db.collection('miembros').snapshotChanges();
+    return this.db.collection("miembros").snapshotChanges();
   }
-
 }
