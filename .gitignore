@@ -5,7 +5,7 @@
 /tmp
 /out-tsc
 /electron/dist
-/release
+/builds
 
 # Only exists if Bazel was run
 /bazel-out
