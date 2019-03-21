@@ -1,6 +1,8 @@
 export interface Capitulo {
+  id?: string;
   titulo?: string;
   estado?: string;
+  tipo?: string;
   consideradoPCA?: boolean;
   evidencia?: File;
   year?: number;

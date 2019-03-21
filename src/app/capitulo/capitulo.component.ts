@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Capitulo } from '../models/CapituloInterface';
 import { ProductoService } from '../servicios/productos.service';
-import {NgForm} from '@angular/forms/src/directives/ng_form';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 
 @Component({
@@ -11,23 +11,24 @@ import {NgForm} from '@angular/forms/src/directives/ng_form';
   styleUrls: ["./capitulo.component.scss"]
 })
 export class CapituloComponent implements OnInit {
-  capitulo: Capitulo ={
-      titulo: '',
-      estado: '',
-      consideradoPCA: false,
-      evidencia: null,
-      year: 0,
-      editorial: '',
-      isbn: '',
-      numEdicion: 0,
-      paginaInicio: 0,
-      paginaFinal: 0,
-      pais: '',
-      proposito: '',
-      tituloLibro: '',
-      lineaGeneracion: ''
+  capitulo: Capitulo = {
+    titulo: '',
+    estado: '',
+    tipo: 'Capitulo de libro',
+    consideradoPCA: false,
+    evidencia: null,
+    year: 0,
+    editorial: '',
+    isbn: '',
+    numEdicion: 0,
+    paginaInicio: 0,
+    paginaFinal: 0,
+    pais: '',
+    proposito: '',
+    tituloLibro: '',
+    lineaGeneracion: ''
   };
-  
+
   evidencia: string = "Evidencia";
   toppings = new FormControl();
   toppingList: string[] = [
@@ -39,16 +40,16 @@ export class CapituloComponent implements OnInit {
     "Tomato"
   ];
 
-  constructor(private productoService: ProductoService) {}
+  constructor(private productoService: ProductoService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onChange(event) {
-   this.capitulo.consideradoPCA = !this.capitulo.consideradoPCA;
-   console.log("Consideracion cambiada");
+    this.capitulo.consideradoPCA = !this.capitulo.consideradoPCA;
+    console.log("Consideracion cambiada");
   }
 
-  onGuardarCapitulo(myForm: NgForm){
+  onGuardarCapitulo(myForm: NgForm) {
     this.productoService.agregarProducto(this.capitulo);
   }
 
