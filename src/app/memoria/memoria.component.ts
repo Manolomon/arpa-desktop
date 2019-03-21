@@ -1,11 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { ProductoService } from "../servicios/productos.service";
-import { MemoriaInterface } from "../models/MemoriaInterface";
+import { Component, OnInit } from '@angular/core';
+import { ProductoService } from '../servicios/productos.service';
 
 @Component({
-  selector: "app-memoria",
-  templateUrl: "./memoria.component.html",
-  styleUrls: ["./memoria.component.scss"]
+  selector: 'app-memoria',
+  templateUrl: './memoria.component.html',
+  styleUrls: ['./memoria.component.scss']
 })
 export class MemoriaComponent implements OnInit {
   //Input() capituloL: any;
