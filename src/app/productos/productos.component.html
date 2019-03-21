@@ -1,0 +1,113 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+      <span><p style="color: #47485D">Second Line</p></span>
+      <span class="example-spacer"></span>
+  
+      <mat-icon class="example-icon" style="color: #47485D"
+        >account_circle</mat-icon
+      >
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <content>
+    <div class="example-margin" layout="row">
+      <img
+        style="padding-right: 15px;"
+        src="../assets/product-icon.svg"
+        alt="Product-Icon"
+      />
+      <div fxLayout="column" fxLayoutGap="-15px" fxFlex="80">
+        <h2>Productos</h2>
+        <p class="subtitle">Administración y Registro de Producción Académica</p>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <mat-form-field appearance="outline">
+          <mat-label>Buscar Producto</mat-label>
+          <input matInput/>
+          <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxFlexAlign="center" fxLayoutAlign="center center">
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p>Sobre la Teoría de la Relatividad</p>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>Capítulo</mat-chip>
+              </mat-chip-list>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-capitulo></app-capitulo>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p>El Origen de las Especies</p>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>Artículo</mat-chip>
+              </mat-chip-list>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-articulo></app-articulo>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p>Una Breve Historia del Tiempo</p>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>Libro</mat-chip>
+              </mat-chip-list>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-libro></app-libro>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p>Propiedades de los Universos en Expansión</p>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>Tesis</mat-chip>
+              </mat-chip-list>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-tesis></app-tesis>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p>Sobre la Teoría de la Relatividad</p>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>Capítulo</mat-chip>
+              </mat-chip-list>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-capitulo></app-capitulo>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p>Sobre la Teoría de la Relatividad</p>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>Capítulo</mat-chip>
+              </mat-chip-list>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-capitulo></app-capitulo>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </content>

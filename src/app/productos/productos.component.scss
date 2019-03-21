@@ -1,0 +1,53 @@
+.example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  mat-toolbar {
+    background-color: white;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12),
+      0 3px 1px -1px rgba(0, 0, 0, 0.2);
+  }
+  docs-primary-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  h1 {
+    outline: none;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  mat-form-field {
+    margin-right: 12px;
+  }
+  
+  .example-margin {
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+    display: flex;
+    align-items: center;
+  }
+  
+  h2 {
+    color: #47485D;
+  }
+  
+  .subtitle {
+    font-weight: lighter;
+    color: #A9ADCC;
+  }
