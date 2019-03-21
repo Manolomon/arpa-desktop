@@ -1,25 +1,28 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AngularFireModule } from "@angular/fire";
-import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
-import { MaterialModule } from "./material-module";
+import { MaterialModule } from './material-module';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { environment } from "../environments/environment";
-import { ProductosComponent } from "./productos/productos.component";
-import { ArticuloComponent } from "./articulo/articulo.component";
-import { CapituloComponent } from "./capitulo/capitulo.component";
-import { LibroComponent } from "./libro/libro.component";
-import { MemoriaComponent } from "./memoria/memoria.component";
-import { ProductoService } from "./servicios/productos.service";
+import { environment } from '../environments/environment';
+import { ProductosComponent } from './productos/productos.component';
+import { ArticuloComponent } from './articulo/articulo.component';
+import { CapituloComponent } from './capitulo/capitulo.component';
+import { LibroComponent } from './libro/libro.component';
+import { MemoriaComponent } from './memoria/memoria.component';
+import { TesisComponent } from './tesis/tesis.component';
+
+import { ProductoService } from './servicios/productos.service';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { ProductoService } from "./servicios/productos.service";
     ProductosComponent,
     LibroComponent,
     ArticuloComponent,
-    MemoriaComponent
+    MemoriaComponent,
+    TesisComponent
   ],
   imports: [
     BrowserModule,
@@ -45,4 +49,4 @@ import { ProductoService } from "./servicios/productos.service";
   providers: [ProductoService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

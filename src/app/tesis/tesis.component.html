@@ -8,72 +8,16 @@
     fxLayoutGap.sm="0px"
   >
     <mat-form-field fxFlex appearance="outline">
-      <mat-label>Título del Artículo</mat-label>
+      <mat-label>Título de Tesis</mat-label>
       <input matInput required />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
-      <mat-label>Descripción</mat-label>
-      <input matInput required />
-    </mat-form-field>
-    <div
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="7px"
-      fxLayoutGap.sm="0px"
-    >
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>ISNN</mat-label>
-        <input matInput required />
-      </mat-form-field>
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>Año</mat-label>
-        <input type="number" min="0" step="1" matInput required />
-      </mat-form-field>
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>Volumen</mat-label>
-        <input type="number" min="0" step="1" matInput required />
-      </mat-form-field>
-    </div>
-  </div>
-  <div
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="7px"
-    fxLayoutGap.sm="0px"
-  >
-    <mat-form-field fxFlex appearance="outline">
-      <mat-label>Propósito</mat-label>
-      <input matInput required />
-    </mat-form-field>
-    <div
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="7px"
-      fxLayoutGap.sm="0px"
-    >
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>Página Inicial</mat-label>
-        <input type="number" min="0" step="1" matInput required />
-      </mat-form-field>
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>Página Final</mat-label>
-        <input type="number" min="0" step="1" matInput required />
-      </mat-form-field>
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>País</mat-label>
-        <input matInput />
-      </mat-form-field>
-    </div>
-  </div>
-  <div
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="7px"
-    fxLayoutGap.sm="0px"
-  >
-    <mat-form-field fxFlex appearance="outline">
-      <mat-label>Autor</mat-label>
-      <input matInput required />
+      <mat-label>Tipo de Artículo</mat-label>
+      <mat-select [(value)]="selected" required>
+        <mat-option value="licenciatura">Licenciatura</mat-option>
+        <mat-option value="maestria">Maestría</mat-option>
+        <mat-option value="doctorado">Doctorado</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Línea de Generación</mat-label>
@@ -105,12 +49,16 @@
       fxLayoutGap.sm="0px"
     >
       <mat-form-field fxFlex appearance="outline">
-        <mat-label>Nombre de la Revista</mat-label>
-        <input matInput required />
+        <mat-label>Fecha de Inicio</mat-label>
+        <input [value]="date.value" matInput [matDatepicker]="myPicker" placeholder="Fecha" required/>
+        <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+        <mat-datepicker #myPicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
-        <mat-label>Editorial</mat-label>
-        <input matInput required />
+        <mat-label>Fecha de Finalización</mat-label>
+        <input [value]="date.value" matInput [matDatepicker]="myPicker2" placeholder="Fecha" required/>
+        <mat-datepicker-toggle matSuffix [for]="myPicker2"></mat-datepicker-toggle>
+        <mat-datepicker #myPicker2></mat-datepicker>
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
@@ -146,28 +94,8 @@
       fxLayoutGap.sm="0px"
     >
       <mat-form-field fxFlex appearance="outline">
-        <mat-label>Tipo de Artículo</mat-label>
-        <mat-select [(value)]="selected" required>
-          <mat-option value="default">Default</mat-option>
-          <mat-option value="indexado">Indexado</mat-option>
-          <mat-option value="arbitrado">Arbitrado</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field
-        *ngIf="selected === 'indexado'"
-        fxFlex
-        appearance="outline"
-      >
-        <mat-label>Índice</mat-label>
-        <input matInput required />
-      </mat-form-field>
-      <mat-form-field
-        *ngIf="selected === 'arbitrado'"
-        fxFlex
-        appearance="outline"
-      >
-        <mat-label>Dirección Electrónica</mat-label>
-        <input matInput required />
+        <mat-label>Alumnos Participantes</mat-label>
+        <input type="number" min="0" step="1" matInput required />
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">

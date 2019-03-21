@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
 
 @Component({
-  selector: 'app-libro',
-  templateUrl: './libro.component.html',
-  styleUrls: ['./libro.component.scss']
+  selector: 'app-tesis',
+  templateUrl: './tesis.component.html',
+  styleUrls: ['./tesis.component.scss']
 })
-export class LibroComponent implements OnInit {
+export class TesisComponent implements OnInit {
 
+  date  =  new  FormControl(new  Date());
+
+  selected = 'licenciatura';
   evidencia: string = "Evidencia";
   toppings = new FormControl();
   toppingList: string[] = [
@@ -22,4 +25,5 @@ export class LibroComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
 }

@@ -8,6 +8,10 @@
     fxLayoutGap.sm="0px"
   >
     <mat-form-field fxFlex appearance="outline">
+      <mat-label>Título del Capítulo</mat-label>
+      <input matInput required />
+    </mat-form-field>
+    <mat-form-field fxFlex appearance="outline">
       <mat-label>Título del Libro</mat-label>
       <input matInput required />
     </mat-form-field>
@@ -51,10 +55,11 @@
       </mat-select>
     </mat-form-field>
     <section class="example-section">
-      <button mat-raised-button color="primary" (click)="fileInput.click()">Evidencia
+      <button mat-raised-button color="primary" (click)="fileInput.click()">
+        Evidencia
         <mat-icon>create_new_folder</mat-icon>
       </button>
-      <input hidden type="file" #fileInput>
+      <input hidden type="file" #fileInput />
     </section>
   </div>
   <div
@@ -112,23 +117,11 @@
     >
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Página Inicio</mat-label>
-        <input
-          type="number"
-          min="0"
-          step="1"
-          matInput
-                   required
-        />
+        <input type="number" min="0" step="1" matInput required />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Página Final</mat-label>
-        <input
-          type="number"
-          min="0"
-          step="1"
-          matInput
-                   required
-        />
+        <input type="number" min="0" step="1" matInput required />
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
