@@ -4,7 +4,7 @@ export interface Capitulo {
   estado?: string;
   tipo?: string;
   consideradoPCA?: boolean;
-  evidencia?: File;
+  evidencia?: FileList;
   year?: number;
   editorial?: string;
   isbn?: string;
@@ -15,4 +15,6 @@ export interface Capitulo {
   proposito?: string;
   tituloLibro?: string;
   lineaGeneracion?: string;
+  colaboradores: string[];
+
 }

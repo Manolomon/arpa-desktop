@@ -38,10 +38,9 @@ export class ProductoService {
         return this.db.doc('productos/' + idProducto).delete();
     }
 
-    subirArchivo(upload: File, producto) {
+    subirArchivo(upload: File, idProducto: string, progreso: number) {
         let refAlmacenamiento = firebase.storage().ref();
-        let progreso: number;
-        this.uploadTask = refAlmacenamiento.child(`${this.filePath}/${producto.id}/`).put(upload);
+        this.uploadTask = refAlmacenamiento.child(`${this.filePath}/${idProducto}/`).put(upload);
         this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
             (snapshot) => {
                 progreso = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
@@ -50,7 +49,7 @@ export class ProductoService {
                 console.log(error)
             },
             () => {
-                this.db.collection('productos/' + producto.id).add(upload);
+                return this.db.collection('productos/' + idProducto).add(upload);
             }
         );
     }
