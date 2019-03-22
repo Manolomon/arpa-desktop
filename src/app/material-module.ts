@@ -11,7 +11,7 @@ import {
   MatCheckboxModule,
   MatDatepickerModule,
   MatNativeDateModule, 
-  //MatMomentDateModule,
+  MatTooltipModule,
   MatFormFieldModule,
   MatCardModule,
   MatExpansionModule
@@ -30,7 +30,7 @@ import {
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule, 
-    //MatMomentDateModule,
+    MatTooltipModule,
     MatFormFieldModule,
     MatCardModule,
     MatExpansionModule

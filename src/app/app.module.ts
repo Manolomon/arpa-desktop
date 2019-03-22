@@ -22,6 +22,7 @@ import { MemoriaComponent } from './memoria/memoria.component';
 import { TesisComponent } from './tesis/tesis.component';
 
 import { ProductoService } from './servicios/productos.service';
+import { PatenteComponent } from './patente/patente.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ProductoService } from './servicios/productos.service';
     LibroComponent,
     ArticuloComponent,
     MemoriaComponent,
-    TesisComponent
+    TesisComponent,
+    PatenteComponent
   ],
   imports: [
     BrowserModule,

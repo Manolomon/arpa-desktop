@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ProductoService } from '../servicios/productos.service';
 
 @Component({
-  selector: 'app-memoria',
-  templateUrl: './memoria.component.html',
-  styleUrls: ['./memoria.component.scss']
+  selector: 'app-patente',
+  templateUrl: './patente.component.html',
+  styleUrls: ['./patente.component.scss']
 })
-export class MemoriaComponent implements OnInit {
-  
+export class PatenteComponent implements OnInit {
+
   date  =  new  FormControl(new  Date());
 
   evidencia: string = "Evidencia";
@@ -25,4 +24,5 @@ export class MemoriaComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
 }
