@@ -52,15 +52,15 @@ export class CapituloComponent implements OnInit {
       tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       tituloLibroControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       isbnControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      yearControl: new FormControl('', Validators.required),
-      edicionControl: new FormControl('', Validators.required),
+      yearControl: new FormControl('', [Validators.required, Validators.min(1900)]),
+      edicionControl: new FormControl('', [Validators.required, Validators.min(1)]),
       propositoControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       editorialControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       paisControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      pagInicioControl: new FormControl('', Validators.required),
-      pagFinalControl: new FormControl('', Validators.required),
-      lineaGeneracionControl: new FormControl('', Validators.required),
-      estadoControl: new FormControl('', Validators.required),
+      pagInicioControl: new FormControl('', [Validators.required, Validators.min(1)]),
+      pagFinalControl: new FormControl('', [Validators.required, Validators.min(2)]),
+      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.min(2)]),
+      estadoControl: new FormControl('', [Validators.required, Validators.minLength(1)]),
     });
   }
 
@@ -79,20 +79,23 @@ export class CapituloComponent implements OnInit {
   }
 
   onGuardarCapitulo(myForm: NgForm) {
-    let idGenerado: string;
-    this.productoService.agregarProducto(this.capitulo)
-      .then(function (docRef) {
-        idGenerado = docRef.id;
-      })
-      .catch(function (error) {
-        console.error("Error al añadir documento: ", error);
-      });
+    if (this.capituloForm.valid) {
+      let idGenerado: string;
+      this.productoService.agregarProducto(this.capitulo)
+        .then(function (docRef) {
+          idGenerado = docRef.id;
+        })
+        .catch(function (error) {
+          console.error("Error al añadir documento: ", error);
+        });
 
-    if (this.archivo != null) {
-      this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+      if (this.archivo != null) {
+        this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+      }
+      console.log(this.capitulo.colaboradores);
+    } else {
+      alert("Datos incompletos o inválidos");
     }
-
-    console.log(this.capitulo.colaboradores);
   }
 
 }

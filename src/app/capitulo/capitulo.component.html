@@ -1,6 +1,6 @@
 <mat-divider></mat-divider>
 <br />
-<form [formGroup]="capituloForm" novalidate (ngSubmit)="onGuardarCapitulo(formNew)" #formNew="ngForm" fxLayout="column">
+<form novalidate [formGroup]="capituloForm" (ngSubmit)="onGuardarCapitulo(formNew)" #formNew="ngForm" fxLayout="column">
   <div
     fxLayout="row"
     fxLayout.xs="column"
@@ -59,7 +59,7 @@
         Evidencia
         <mat-icon>create_new_folder</mat-icon>
       </button>
-      <input hidden type="file" #fileInput (change)="detectarArchivos($event)">
+      <input hidden type="file" #fileInput (change)="detectarArchivos($event)" accept="application/pdf" />
     </section>
   </div>
   <div

@@ -17,7 +17,7 @@ export class ProductosComponent implements OnInit {
     this.productoService.obtenerProductos().subscribe(datos => {
       console.log(datos);
       for (let i = 0; i < datos.length; i++) {
-        let temporal = (datos[i].payload.doc.data()); 
+        let temporal = (datos[i].payload.doc.data());
         this.productos.push(temporal);
         this.productos[i].id = datos[i].payload.doc.id;
       }
