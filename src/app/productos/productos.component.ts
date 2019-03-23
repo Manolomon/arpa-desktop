@@ -13,6 +13,7 @@ export class ProductosComponent implements OnInit {
   productos: Array<any> = []
 
   ngOnInit() {
+    this.productos = [];
     console.log("Inicio de gestionar productos");
     this.productoService.obtenerProductos().subscribe(datos => {
       console.log(datos);

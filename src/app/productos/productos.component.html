@@ -51,7 +51,7 @@
             </div>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-capitulo *ngIf="producto.tipo === 'capitulo'"></app-capitulo>
+        <app-capitulo [capituloObjeto]=producto *ngIf="producto.tipo === 'capitulo'"></app-capitulo>
         <app-tesis *ngIf="producto.tipo === 'tesis'"></app-tesis>
       </mat-expansion-panel>
       <mat-expansion-panel class="hideOption">
