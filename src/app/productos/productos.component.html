@@ -36,6 +36,7 @@
     <div fxLayout="row" fxLayoutAlign="end center">
       <div class="dropdown">
         <button
+          (click)="showNotification($event)"
           class="btn btn-primary dropdown-toggle"
           type="button"
           id="dropdownMenu2"
@@ -176,3 +177,4 @@
     </mat-accordion>
   </div>
 </content>
+<notifier-container></notifier-container>

@@ -1,7 +1,9 @@
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
+
 @import '~@angular/material/theming';
+@import "~angular-notifier/styles";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -135,4 +137,40 @@ html, body {
 body {
     margin: 0;
     font-family: 'Open Sans', Roboto, "Helvetica Neue", sans-serif; 
+}
+
+.notifier__notification--info {
+	background-color: #8cacfc;
+	color: #324B89;
+
+	.notifier__notification-button-icon {
+		fill: #324B89;
+	}
+}
+
+.notifier__notification--success {
+	background-color: #76E298;
+	color: #2B8A49;
+
+	.notifier__notification-button-icon {
+		fill: #2B8A49;
+	}
+}
+
+.notifier__notification--warning {
+	background-color: #FEDC98;
+	color: #A2803C;
+
+	.notifier__notification-button-icon {
+		fill: #A2803C;
+	}
+}
+
+.notifier__notification--error {
+	background-color: #FEA2A2;
+	color: #A24646;
+
+	.notifier__notification-button-icon {
+		fill: #A24646;
+	}
 }

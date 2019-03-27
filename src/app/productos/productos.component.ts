@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../servicios/productos.service';
 
+import { NotifierService } from 'angular-notifier';
+
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
@@ -8,7 +10,11 @@ import { ProductoService } from '../servicios/productos.service';
 })
 export class ProductosComponent implements OnInit {
 
-  constructor(public productoService: ProductoService) { }
+  private notifier: NotifierService;
+
+  constructor(public productoService: ProductoService, notifier: NotifierService) {
+    this.notifier = notifier;
+   }
 
   productos: Array<any> = []
 
@@ -24,6 +30,10 @@ export class ProductosComponent implements OnInit {
       }
       console.log(this.productos);
     })
+  }
+
+  public showNotification(event): void{
+    this.notifier.notify( 'warning', 'You are awesome! I mean it!' );
   }
 
 }
