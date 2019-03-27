@@ -1,6 +1,6 @@
 <mat-toolbar>
   <mat-toolbar-row>
-    <span><p style="color: #47485D">Second Line</p></span>
+    <span style="padding-top: 13px;"><p style="color: #47485D">Arpa Desktop</p></span>
     <span class="example-spacer"></span>
 
     <mat-icon class="example-icon" style="color: #47485D"
@@ -16,7 +16,7 @@
       src="../assets/product-icon.svg"
       alt="Product-Icon"
     />
-    <div fxLayout="column" fxLayoutGap="-15px" fxFlex="80">
+    <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
       <h2>Productos</h2>
       <p class="subtitle">Administración y Registro de Producción Académica</p>
     </div>
@@ -28,78 +28,151 @@
       </mat-form-field>
     </div>
   </div>
+  <div layout="row" style="padding-bottom: 25px;">
+    <div fxLayout="column" fxFlex="10"></div>
+    <div fxLayout="column" fxFlex="70">
+      <p class="additional_info">Vista de la producción individual del miembro</p>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <div class="dropdown">
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          id="dropdownMenu2"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Agregar Producto
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button">Artículo</button>
+          <button class="dropdown-item" type="button">Capítulo de Libro</button>
+          <button class="dropdown-item" type="button">Libro</button>
+          <button class="dropdown-item" type="button">Memoria</button>
+          <button class="dropdown-item" type="button">Producción Innovadora</button>
+          <button class="dropdown-item" type="button">Tesis</button>
+        </div>
+      </div>
+    </div>
+    <mat-divider class="br_div"></mat-divider>
+  </div>
   <div fxFlexAlign="center" fxLayoutAlign="center center">
     <mat-accordion class="example-headers-align">
-      <mat-expansion-panel *ngFor="let producto of productos" class="hideOption">
+      <mat-expansion-panel
+        *ngFor="let producto of productos"
+        class="hideOption"
+      >
         <mat-expansion-panel-header>
           <mat-panel-title>
             <p>{{ producto.titulo }}</p>
           </mat-panel-title>
           <mat-panel-description>
-              <mat-chip-list>
-                <mat-chip color="primary" selected>
-                  {{producto.tipo.charAt(0).toUpperCase() + producto.tipo.slice(1)}}
-                </mat-chip>
-              </mat-chip-list>
-              <div class="example-icon showOption">
-                <button mat-icon-button matTooltip="Editar" matTooltipPosition="above">
-                  <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
-                </button>
-                <button mat-icon-button matTooltip="Eliminar" matTooltipPosition="above">
-                  <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
-                </button> 
+            <mat-chip-list>
+              <mat-chip color="primary" selected>
+                {{
+                  producto.tipo.charAt(0).toUpperCase() + producto.tipo.slice(1)
+                }}
+              </mat-chip>
+            </mat-chip-list>
+            <div class="example-icon showOption">
+              <button
+                mat-icon-button
+                matTooltip="Editar"
+                matTooltipPosition="above"
+              >
+                <mat-icon aria-label="Example icon-button with a heart icon"
+                  >edit</mat-icon
+                >
+              </button>
+              <button
+                mat-icon-button
+                matTooltip="Eliminar"
+                matTooltipPosition="above"
+              >
+                <mat-icon aria-label="Example icon-button with a heart icon"
+                  >delete</mat-icon
+                >
+              </button>
             </div>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-capitulo [capituloObjeto]=producto *ngIf="producto.tipo === 'capitulo'"></app-capitulo>
+        <app-capitulo
+          [capituloObjeto]="producto"
+          *ngIf="producto.tipo === 'capitulo'"
+        ></app-capitulo>
         <app-tesis *ngIf="producto.tipo === 'tesis'"></app-tesis>
       </mat-expansion-panel>
       <mat-expansion-panel class="hideOption">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <p>Meoria</p>
-            </mat-panel-title>
-            <mat-panel-description>
-                <mat-chip-list>
-                  <mat-chip color="primary" selected>
-                    Memoria
-                  </mat-chip>
-                </mat-chip-list>
-                <div class="example-icon showOption">
-                  <button mat-icon-button matTooltip="Editar" matTooltipPosition="above">
-                    <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
-                  </button>
-                  <button mat-icon-button matTooltip="Eliminar" matTooltipPosition="above">
-                    <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
-                  </button> 
-              </div>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <app-memoria></app-memoria>
-        </mat-expansion-panel>
-        <mat-expansion-panel class="hideOption">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <p>Patente</p>
-            </mat-panel-title>
-            <mat-panel-description>
-                <mat-chip-list>
-                  <mat-chip color="primary" selected>
-                    Patente
-                  </mat-chip>
-                </mat-chip-list>
-                <div class="example-icon showOption">
-                  <button mat-icon-button matTooltip="Editar" matTooltipPosition="above">
-                    <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
-                  </button>
-                  <button mat-icon-button matTooltip="Eliminar" matTooltipPosition="above">
-                    <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
-                  </button> 
-              </div>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <app-patente></app-patente>
-        </mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <p>Meoria</p>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-chip-list>
+              <mat-chip color="primary" selected>
+                Memoria
+              </mat-chip>
+            </mat-chip-list>
+            <div class="example-icon showOption">
+              <button
+                mat-icon-button
+                matTooltip="Editar"
+                matTooltipPosition="above"
+              >
+                <mat-icon aria-label="Example icon-button with a heart icon"
+                  >edit</mat-icon
+                >
+              </button>
+              <button
+                mat-icon-button
+                matTooltip="Eliminar"
+                matTooltipPosition="above"
+              >
+                <mat-icon aria-label="Example icon-button with a heart icon"
+                  >delete</mat-icon
+                >
+              </button>
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-memoria></app-memoria>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="hideOption">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <p>Patente</p>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-chip-list>
+              <mat-chip color="primary" selected>
+                Patente
+              </mat-chip>
+            </mat-chip-list>
+            <div class="example-icon showOption">
+              <button
+                mat-icon-button
+                matTooltip="Editar"
+                matTooltipPosition="above"
+              >
+                <mat-icon aria-label="Example icon-button with a heart icon"
+                  >edit</mat-icon
+                >
+              </button>
+              <button
+                mat-icon-button
+                matTooltip="Eliminar"
+                matTooltipPosition="above"
+              >
+                <mat-icon aria-label="Example icon-button with a heart icon"
+                  >delete</mat-icon
+                >
+              </button>
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-patente></app-patente>
+      </mat-expansion-panel>
     </mat-accordion>
   </div>
 </content>
