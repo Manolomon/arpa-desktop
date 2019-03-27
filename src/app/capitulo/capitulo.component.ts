@@ -83,6 +83,7 @@ export class CapituloComponent implements OnInit {
     });
 
     console.log(this.idCapitulo);
+    console.log(this.capitulo.titulo);
   }
 
   public hasError = (controlName: string, errorName: string) => {
@@ -102,18 +103,34 @@ export class CapituloComponent implements OnInit {
   onGuardarCapitulo(myForm: NgForm) {
     if (this.capituloForm.valid) {
       let idGenerado: string;
-      this.productoService.agregarProducto(this.capitulo)
-        .then(function (docRef) {
-          idGenerado = docRef.id;
-        })
-        .catch(function (error) {
-          console.error("Error al añadir documento: ", error);
-        });
+      console.log(this.idCapitulo);
+      if (this.idCapitulo.length == 0) {
+        console.log("Agregando producto");
+        this.productoService.agregarProducto(this.capitulo)
+          .then(function (docRef) {
+            idGenerado = docRef.id;
+          })
+          .catch(function (error) {
+            console.error("Error al añadir documento: ", error);
+          });
 
-      if (this.archivo != null) {
-        this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+        if (this.archivo != null) {
+          this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+        }
+        console.log(this.capitulo.colaboradores);
+      } else {
+        console.log("Modificando producto");
+        this.capitulo.id = this.idCapitulo;
+        this.productoService.modificarProducto(this.capitulo)
+          .catch(function (error) {
+            console.error("Error al añadir documento: ", error);
+          });
+
+        if (this.archivo != null) {
+          this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+        }
+        console.log(this.capitulo.colaboradores);
       }
-      console.log(this.capitulo.colaboradores);
     } else {
       alert("Datos incompletos o inválidos");
     }

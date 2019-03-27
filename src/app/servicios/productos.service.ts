@@ -31,6 +31,7 @@ export class ProductoService {
     }
 
     modificarProducto(producto) {
+        console.log(producto.id);
         return this.db.doc('productos/' + producto.id).set(producto);
     }
 

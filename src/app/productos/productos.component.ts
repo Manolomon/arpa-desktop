@@ -13,9 +13,9 @@ export class ProductosComponent implements OnInit {
   productos: Array<any> = []
 
   ngOnInit() {
-    this.productos = [];
     console.log("Inicio de gestionar productos");
     this.productoService.obtenerProductos().subscribe(datos => {
+      this.productos = [];
       console.log(datos);
       for (let i = 0; i < datos.length; i++) {
         let temporal = (datos[i].payload.doc.data());
