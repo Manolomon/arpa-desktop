@@ -16,7 +16,7 @@ export class CapituloComponent implements OnInit {
   @Input() capituloObjeto: any;
   idCapitulo: string;
   cargaDeArchivo: number;
-  archivo: FileList;
+  archivo: File;
   capituloForm: FormGroup;
   capitulo: Capitulo = {
     titulo: '',
@@ -37,13 +37,15 @@ export class CapituloComponent implements OnInit {
   };
 
   evidencia: string = "Evidencia";
-  toppings = new FormControl();
+  btnEvidenciaControl = new FormControl();
+  colaboradoresControl = new FormControl();
+  colaboradoresExternosControl = new FormControl();
   colaboradores: string[] = [];
 
-  constructor(private productoService: ProductoService,private miembroService: MiembroService) { }
+  constructor(private productoService: ProductoService, private miembroService: MiembroService) { }
 
   ngOnInit() {
-    if (this.capituloObjeto!=null) {
+    if (this.capituloObjeto != null) {
       this.capitulo.titulo = this.capituloObjeto.titulo;
       this.capitulo.estado = this.capituloObjeto.estado;
       this.capitulo.tipo = this.capituloObjeto.tipo;
@@ -60,7 +62,7 @@ export class CapituloComponent implements OnInit {
       this.capitulo.lineaGeneracion = this.capituloObjeto.lineaGeneracion;
       this.idCapitulo = this.capituloObjeto.id;
     }
-    
+
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
       for (let i = 0; i < datos.length; i++) {
@@ -82,10 +84,15 @@ export class CapituloComponent implements OnInit {
       pagFinalControl: new FormControl('', [Validators.required, Validators.min(2)]),
       lineaGeneracionControl: new FormControl('', [Validators.required, Validators.min(2)]),
       estadoControl: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      btnConsideradoControl: new FormControl('')
     });
-
+    this.capituloForm.addControl("colaboradoresControl", this.colaboradoresControl);
+    this.capituloForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
+    this.capituloForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
+    this.cargaDeArchivo = 0;
     console.log(this.idCapitulo);
     console.log(this.capitulo.titulo);
+    this.capituloForm.disable();
   }
 
   public hasError = (controlName: string, errorName: string) => {
@@ -94,7 +101,7 @@ export class CapituloComponent implements OnInit {
 
   detectarArchivos(event) {
     this.archivo = event.target.files;
-    console.log(this.archivo.item(0).size);
+    console.log(this.archivo.size);
   }
 
   onChange(event) {
@@ -103,6 +110,7 @@ export class CapituloComponent implements OnInit {
   }
 
   onGuardarCapitulo(myForm: NgForm) {
+    this.cargaDeArchivo = 0;
     if (this.capituloForm.valid) {
       let idGenerado: string;
       console.log(this.idCapitulo);
@@ -117,7 +125,7 @@ export class CapituloComponent implements OnInit {
           });
 
         if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+          this.productoService.subirArchivo(this.archivo, idGenerado, this.cargaDeArchivo);
         }
         console.log(this.capitulo.colaboradores);
       } else {
@@ -128,7 +136,7 @@ export class CapituloComponent implements OnInit {
             console.error("Error al añadir documento: ", error);
           });
         if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+          this.productoService.subirArchivo(this.archivo, this.idCapitulo, this.cargaDeArchivo);
         }
         console.log(this.capitulo.colaboradores);
       }
