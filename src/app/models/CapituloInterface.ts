@@ -4,7 +4,6 @@ export interface Capitulo {
   estado?: string;
   tipo?: string;
   consideradoPCA?: boolean;
-  evidencia?: FileList;
   year?: number;
   editorial?: string;
   isbn?: string;

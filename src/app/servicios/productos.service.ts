@@ -50,7 +50,8 @@ export class ProductoService {
                 console.log(error)
             },
             () => {
-                return this.db.collection('productos/' + idProducto).add(upload);
+                let path = 'productos/' + idProducto; 
+                //return this.db.collection(path).add(upload); 
             }
         );
     }

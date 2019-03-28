@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Capitulo } from '../models/CapituloInterface';
 import { ProductoService } from '../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
+import { MiembroService } from '../servicios/miembro.service';
 
 
 @Component({
@@ -22,7 +23,6 @@ export class CapituloComponent implements OnInit {
     estado: '',
     tipo: 'capitulo',
     consideradoPCA: false,
-    evidencia: null,
     year: 0,
     editorial: '',
     isbn: '',
@@ -38,16 +38,9 @@ export class CapituloComponent implements OnInit {
 
   evidencia: string = "Evidencia";
   toppings = new FormControl();
-  toppingList: string[] = [
-    "Extra cheese",
-    "Mushroom",
-    "Onion",
-    "Pepperoni",
-    "Sausage",
-    "Tomato"
-  ];
+  colaboradores: string[] = [];
 
-  constructor(private productoService: ProductoService) { }
+  constructor(private productoService: ProductoService,private miembroService: MiembroService) { }
 
   ngOnInit() {
     if (this.capituloObjeto!=null) {
@@ -57,6 +50,7 @@ export class CapituloComponent implements OnInit {
       this.capitulo.consideradoPCA = this.capituloObjeto.consideradoPCA;
       this.capitulo.year = this.capituloObjeto.year;
       this.capitulo.editorial = this.capituloObjeto.editorial;
+      this.capitulo.numEdicion = this.capituloObjeto.numEdicion;
       this.capitulo.isbn = this.capituloObjeto.isbn;
       this.capitulo.paginaInicio = this.capituloObjeto.paginaInicio;
       this.capitulo.paginaFinal = this.capituloObjeto.paginaFinal;
@@ -67,6 +61,14 @@ export class CapituloComponent implements OnInit {
       this.idCapitulo = this.capituloObjeto.id;
     }
     
+    this.miembroService.obtenerMiembros().subscribe(datos => {
+      this.colaboradores = [];
+      for (let i = 0; i < datos.length; i++) {
+        let temporal: any = (datos[i].payload.doc.data());
+        this.colaboradores.push(temporal.nombre);
+      }
+    })
+
     this.capituloForm = new FormGroup({
       tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       tituloLibroControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -125,7 +127,6 @@ export class CapituloComponent implements OnInit {
           .catch(function (error) {
             console.error("Error al añadir documento: ", error);
           });
-
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
         }

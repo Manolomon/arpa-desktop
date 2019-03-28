@@ -86,8 +86,8 @@
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Colaboradores</mat-label>
       <mat-select [formControl]="toppings" multiple [(ngModel)]="capitulo.colaboradores" name="colaboradores">
-        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-          topping
+        <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador">{{
+          colaborador
         }}</mat-option>
       </mat-select>
       <mat-icon matSuffix class="material-icon"
