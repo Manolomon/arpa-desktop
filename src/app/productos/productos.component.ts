@@ -33,7 +33,10 @@ export class ProductosComponent implements OnInit {
   }
 
   public showNotification(event): void{
-    this.notifier.notify( 'warning', 'You are awesome! I mean it!' );
+    this.notifier.notify( 'info', 'Mensaje de información complementaria' );
+    this.notifier.notify( 'success', 'Mensaje de éxito, sí se pudo' );
+    this.notifier.notify( 'warning', 'Mensaje de advertencia algo raro pasó' );
+    this.notifier.notify( 'error', 'Mensaje de error, algo salió mal' );
   }
 
 }

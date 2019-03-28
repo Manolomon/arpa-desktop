@@ -14,7 +14,8 @@ import {
   MatTooltipModule,
   MatFormFieldModule,
   MatCardModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 @NgModule({
@@ -33,7 +34,8 @@ import {
     MatTooltipModule,
     MatFormFieldModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule {}

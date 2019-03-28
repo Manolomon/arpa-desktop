@@ -1,6 +1,12 @@
 <mat-divider></mat-divider>
 <br />
-<form novalidate [formGroup]="capituloForm" (ngSubmit)="onGuardarCapitulo(formNew)" #formNew="ngForm" fxLayout="column">
+<form
+  novalidate
+  [formGroup]="capituloForm"
+  (ngSubmit)="onGuardarCapitulo(formNew)"
+  #formNew="ngForm"
+  fxLayout="column"
+>
   <div
     fxLayout="row"
     fxLayout.xs="column"
@@ -9,11 +15,23 @@
   >
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Título del Capítulo</mat-label>
-      <input formControlName="tituloControl" [(ngModel)]="capitulo.titulo" name="titulo" matInput required />
+      <input
+        formControlName="tituloControl"
+        [(ngModel)]="capitulo.titulo"
+        name="titulo"
+        matInput
+        required
+      />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Título del Libro</mat-label>
-      <input formControlName="tituloLibroControl" [(ngModel)]="capitulo.tituloLibro" name="tituloLibro" matInput required />
+      <input
+        formControlName="tituloLibroControl"
+        [(ngModel)]="capitulo.tituloLibro"
+        name="tituloLibro"
+        matInput
+        required
+      />
     </mat-form-field>
     <div
       fxLayout="row"
@@ -23,15 +41,33 @@
     >
       <mat-form-field fxFlex appearance="outline">
         <mat-label>ISBN</mat-label>
-        <input formControlName="isbnControl" [(ngModel)]="capitulo.isbn" name="isbn" matInput required />
+        <input
+          formControlName="isbnControl"
+          [(ngModel)]="capitulo.isbn"
+          name="isbn"
+          matInput
+          required
+        />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Año</mat-label>
-        <input formControlName="yearControl" [(ngModel)]="capitulo.year" name="year" matInput required />
+        <input
+          formControlName="yearControl"
+          [(ngModel)]="capitulo.year"
+          name="year"
+          matInput
+          required
+        />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Edición</mat-label>
-        <input formControlName="edicionControl" [(ngModel)]="capitulo.numEdicion" name="numEdicion" matInput required />
+        <input
+          formControlName="edicionControl"
+          [(ngModel)]="capitulo.numEdicion"
+          name="numEdicion"
+          matInput
+          required
+        />
       </mat-form-field>
     </div>
   </div>
@@ -43,11 +79,22 @@
   >
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Propósito</mat-label>
-      <input formControlName="propositoControl" [(ngModel)]="capitulo.proposito" name="proposito" matInput required />
+      <input
+        formControlName="propositoControl"
+        [(ngModel)]="capitulo.proposito"
+        name="proposito"
+        matInput
+        required
+      />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Línea de Generación</mat-label>
-      <mat-select formControlName="lineaGeneracionControl" [(ngModel)]="capitulo.lineaGeneracion" name="lineaGeneracion" required>
+      <mat-select
+        formControlName="lineaGeneracionControl"
+        [(ngModel)]="capitulo.lineaGeneracion"
+        name="lineaGeneracion"
+        required
+      >
         <mat-option value="volvo">Volvo</mat-option>
         <mat-option value="saab">Saab</mat-option>
         <mat-option value="mercedes">Mercedes</mat-option>
@@ -55,11 +102,39 @@
       </mat-select>
     </mat-form-field>
     <section class="example-section">
-      <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
-        Evidencia
-        <mat-icon>create_new_folder</mat-icon>
-      </button>
-      <input hidden type="file" #fileInput (change)="detectarArchivos($event)" accept="application/pdf" />
+      <div
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutGap="7px"
+        fxLayoutGap.sm="0px"
+      >
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          (click)="fileInput.click()"
+        >
+          Evidencia
+          <mat-icon>create_new_folder</mat-icon>
+        </button>
+        <input
+          hidden
+          type="file"
+          #fileInput
+          (change)="detectarArchivos($event)"
+          accept="application/pdf"
+        />
+        <mat-progress-spinner
+          *ngIf="cargaDeArchivo > 0"
+          fxFlex
+          [color]="color"
+          [mode]="determinate"
+          [value]="cargaDeArchivo"
+          [diameter]="40"
+          style="padding-right: 10px"
+        >
+        </mat-progress-spinner>
+      </div>
     </section>
   </div>
   <div
@@ -76,19 +151,38 @@
     >
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Editorial</mat-label>
-        <input formControlName="editorialControl" [(ngModel)]="capitulo.editorial" name="editorial" matInput required />
+        <input
+          formControlName="editorialControl"
+          [(ngModel)]="capitulo.editorial"
+          name="editorial"
+          matInput
+          required
+        />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>País</mat-label>
-        <input formControlName="paisControl" [(ngModel)]="capitulo.pais" name="pais" matInput required />
+        <input
+          formControlName="paisControl"
+          [(ngModel)]="capitulo.pais"
+          name="pais"
+          matInput
+          required
+        />
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Colaboradores</mat-label>
-      <mat-select [formControl]="toppings" multiple [(ngModel)]="capitulo.colaboradores" name="colaboradores">
-        <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador">{{
-          colaborador
-        }}</mat-option>
+      <mat-select
+        [formControl]="toppings"
+        multiple
+        [(ngModel)]="capitulo.colaboradores"
+        name="colaboradores"
+      >
+        <mat-option
+          *ngFor="let colaborador of colaboradores"
+          [value]="colaborador"
+          >{{ colaborador }}</mat-option
+        >
       </mat-select>
       <mat-icon matSuffix class="material-icon"
         >supervised_user_circle</mat-icon
@@ -96,7 +190,12 @@
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Estado</mat-label>
-      <mat-select formControlName="estadoControl" [(ngModel)]="capitulo.estado" name="estado" required>
+      <mat-select
+        formControlName="estadoControl"
+        [(ngModel)]="capitulo.estado"
+        name="estado"
+        required
+      >
         <mat-option value="publicado">Publicado</mat-option>
         <mat-option value="terminado">Terminado</mat-option>
         <mat-option value="en_proceso">En Proceso</mat-option>
@@ -117,11 +216,29 @@
     >
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Página Inicio</mat-label>
-        <input formControlName="pagInicioControl" type="number" min="0" step="1" [(ngModel)]="capitulo.paginaInicio" name="paginaInicio" matInput required />
+        <input
+          formControlName="pagInicioControl"
+          type="number"
+          min="0"
+          step="1"
+          [(ngModel)]="capitulo.paginaInicio"
+          name="paginaInicio"
+          matInput
+          required
+        />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Página Final</mat-label>
-        <input formControlName="pagFinalControl" type="number" min="0" step="1" [(ngModel)]="capitulo.paginaFinal" name="paginaFinal" matInput required />
+        <input
+          formControlName="pagFinalControl"
+          type="number"
+          min="0"
+          step="1"
+          [(ngModel)]="capitulo.paginaFinal"
+          name="paginaFinal"
+          matInput
+          required
+        />
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
@@ -136,7 +253,12 @@
       >
     </mat-form-field>
     <section class="example-section">
-      <mat-checkbox [checked]="capitulo.consideradoPCA" (change)="onChange($event)" class="example-margin" color="primary">
+      <mat-checkbox
+        [checked]="capitulo.consideradoPCA"
+        (change)="onChange($event)"
+        class="example-margin"
+        color="primary"
+      >
         Considerar para Cuerpo Académico
       </mat-checkbox>
     </section>

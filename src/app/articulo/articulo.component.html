@@ -85,11 +85,39 @@
       </mat-select>
     </mat-form-field>
     <section class="example-section">
-      <button mat-raised-button color="primary" (click)="fileInput.click()">
-        Evidencia
-        <mat-icon>create_new_folder</mat-icon>
-      </button>
-      <input hidden type="file" #fileInput />
+      <div
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutGap="7px"
+        fxLayoutGap.sm="0px"
+      >
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          (click)="fileInput.click()"
+        >
+          Evidencia
+          <mat-icon>create_new_folder</mat-icon>
+        </button>
+        <input
+          hidden
+          type="file"
+          #fileInput
+          (change)="detectarArchivos($event)"
+          accept="application/pdf"
+        />
+        <mat-progress-spinner
+          *ngIf="cargaDeArchivo > 0"
+          fxFlex
+          [color]="color"
+          [mode]="determinate"
+          [value]="cargaDeArchivo"
+          [diameter]="40"
+          style="padding-right: 10px"
+        >
+        </mat-progress-spinner>
+      </div>
     </section>
   </div>
   <div
