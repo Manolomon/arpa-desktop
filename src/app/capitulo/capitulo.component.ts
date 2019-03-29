@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
 import { Capitulo } from '../models/CapituloInterface';
 import { ProductoService } from '../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
@@ -10,22 +10,26 @@ import * as firebase from 'firebase';
 @Component({
   selector: "app-capitulo",
   templateUrl: "./capitulo.component.html",
-  styleUrls: ["./capitulo.component.scss"]
+  styleUrls: ["./capitulo.component.scss"],
 })
+
 export class CapituloComponent implements OnInit, OnChanges {
 
   @Input() private capituloObjeto: any;
   @Input() private habilitaCampos: boolean;
-  private evidencia: string = "Evidencia";
-  private btnEvidenciaControl:FormControl = new FormControl();
-  private colaboradoresControl: FormControl = new FormControl();
-  private colaboradoresExternosControl: FormControl = new FormControl();
+  @Input() private eliminarProducto: boolean;
 
-  private colaboradores: string[] = [];
   private idCapitulo: string;
   private cargaDeArchivo: number;
   private archivo: File;
   private capituloForm: FormGroup;
+  private evidencia = "Evidencia";
+  private btnEvidenciaControl: FormControl = new FormControl();
+  private colaboradoresControl: FormControl = new FormControl();
+  private colaboradoresExternosControl: FormControl = new FormControl();
+
+  private colaboradores: string[] = [];
+
 
   capitulo: Capitulo = {
     titulo: '',
@@ -68,27 +72,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.cargaDeArchivo = 0;
   }
 
-    this.capituloForm = new FormGroup({
-      tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      tituloLibroControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      isbnControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      yearControl: new FormControl('', [Validators.required, Validators.min(1900)]),
-      edicionControl: new FormControl('', [Validators.required, Validators.min(1)]),
-      propositoControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      editorialControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      paisControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      pagInicioControl: new FormControl('', [Validators.required, Validators.min(1)]),
-      pagFinalControl: new FormControl('', [Validators.required, Validators.min(2)]),
-      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.min(2)]),
-      estadoControl: new FormControl('', [Validators.required, Validators.minLength(1)]),
-      btnConsideradoControl: new FormControl('')
-    });
-    this.capituloForm.addControl("colaboradoresControl", this.colaboradoresControl);
-    this.capituloForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
-    this.capituloForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
-  }
-
-  llenarCampos() {
+  private llenarCampos() {
     this.capitulo.titulo = this.capituloObjeto.titulo;
     this.capitulo.estado = this.capituloObjeto.estado;
     this.capitulo.tipo = this.capituloObjeto.tipo;
@@ -107,7 +91,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.capitulo.registrado = this.capituloObjeto.registrado;
   }
 
- public ngOnInit() {
+  public ngOnInit() {
     if (this.capituloObjeto != null) {
       this.llenarCampos();
     }
@@ -128,6 +112,9 @@ export class CapituloComponent implements OnInit, OnChanges {
       this.capituloForm.enable();
     } else {
       this.capituloForm.disable();
+    }
+    if (this.eliminarProducto) {
+      this.productoService.eliminarProducto(this.idCapitulo);
     }
   }
 

@@ -12,13 +12,15 @@ export class ProductosComponent implements OnInit {
 
   private notifier: NotifierService;
   private camposHabilitados: boolean;
+  private eliminaProducto: boolean;
   private productos: Array<any> = [];
   constructor(public productoService: ProductoService, notifier: NotifierService) {
     this.notifier = notifier;
     this.camposHabilitados = false;
+    this.eliminaProducto = false;
   }
 
-  
+
 
   public ngOnInit() {
     console.log("Inicio de gestionar productos");
@@ -44,6 +46,11 @@ export class ProductosComponent implements OnInit {
   public habilitarCampos() {
     console.log("Habilitando campos...");
     this.camposHabilitados = !this.camposHabilitados;
+  }
+
+  public eliminarProducto() {
+    console.log("ELiminando producto...");
+    this.eliminaProducto = !this.eliminaProducto;
   }
 
 }

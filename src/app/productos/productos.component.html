@@ -86,7 +86,7 @@
                   >edit</mat-icon
                 >
               </button>
-              <button
+              <button (click)="eliminarProducto()"
                 mat-icon-button
                 matTooltip="Eliminar"
                 matTooltipPosition="above"
@@ -101,6 +101,7 @@
         <app-capitulo
           [capituloObjeto]="producto"
           [habilitaCampos] = "camposHabilitados"
+          [eliminarProducto] = "eliminaProducto"
           *ngIf="producto.tipo === 'capitulo'"
         ></app-capitulo>
         <app-tesis *ngIf="producto.tipo === 'tesis'"></app-tesis>
