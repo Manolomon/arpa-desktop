@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Capitulo } from '../models/CapituloInterface';
 import { ProductoService } from '../servicios/productos.service';
@@ -12,13 +12,16 @@ import * as firebase from 'firebase';
   templateUrl: "./capitulo.component.html",
   styleUrls: ["./capitulo.component.scss"]
 })
-export class CapituloComponent implements OnInit {
+export class CapituloComponent implements OnInit, OnChanges {
 
   @Input() capituloObjeto: any;
+  @Input() habilitaCampos: boolean;
+
   idCapitulo: string;
   cargaDeArchivo: number;
   archivo: File;
   capituloForm: FormGroup;
+
   capitulo: Capitulo = {
     titulo: '',
     estado: '',
@@ -41,9 +44,30 @@ export class CapituloComponent implements OnInit {
   btnEvidenciaControl = new FormControl();
   colaboradoresControl = new FormControl();
   colaboradoresExternosControl = new FormControl();
+
   colaboradores: string[] = [];
 
-  constructor(private productoService: ProductoService, private miembroService: MiembroService) { }
+  constructor(private productoService: ProductoService, private miembroService: MiembroService) {
+
+    this.capituloForm = new FormGroup({
+      tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      tituloLibroControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      isbnControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      yearControl: new FormControl('', [Validators.required, Validators.min(1900)]),
+      edicionControl: new FormControl('', [Validators.required, Validators.min(1)]),
+      propositoControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      editorialControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      paisControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      pagInicioControl: new FormControl('', [Validators.required, Validators.min(1)]),
+      pagFinalControl: new FormControl('', [Validators.required, Validators.min(2)]),
+      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.min(2)]),
+      estadoControl: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      btnConsideradoControl: new FormControl('')
+    });
+    this.capituloForm.addControl("colaboradoresControl", this.colaboradoresControl);
+    this.capituloForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
+    this.capituloForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
+  }
 
   llenarCampos() {
     this.capitulo.titulo = this.capituloObjeto.titulo;
@@ -65,7 +89,7 @@ export class CapituloComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.capituloObjeto!=null) {
+    if (this.capituloObjeto != null) {
       this.llenarCampos();
     }
 
@@ -75,30 +99,19 @@ export class CapituloComponent implements OnInit {
         let temporal: any = (datos[i].payload.doc.data());
         this.colaboradores.push(temporal.nombre);
       }
-    })
-
-    this.capituloForm = new FormGroup({
-      tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      tituloLibroControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      isbnControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      yearControl: new FormControl('', [Validators.required, Validators.min(1900)]),
-      edicionControl: new FormControl('', [Validators.required, Validators.min(1)]),
-      propositoControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      editorialControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      paisControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      pagInicioControl: new FormControl('', [Validators.required, Validators.min(1)]),
-      pagFinalControl: new FormControl('', [Validators.required, Validators.min(2)]),
-      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.min(2)]),
-      estadoControl: new FormControl('', [Validators.required, Validators.minLength(1)]),
-      btnConsideradoControl: new FormControl('')
     });
-    this.capituloForm.addControl("colaboradoresControl", this.colaboradoresControl);
-    this.capituloForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
-    this.capituloForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
+
     this.cargaDeArchivo = 0;
     console.log(this.idCapitulo);
     console.log(this.capitulo.titulo);
-    this.capituloForm.disable();
+  }
+
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+    if (this.habilitaCampos) {
+      this.capituloForm.enable();
+    } else {
+      this.capituloForm.disable();
+    }
   }
 
   public hasError = (controlName: string, errorName: string) => {
