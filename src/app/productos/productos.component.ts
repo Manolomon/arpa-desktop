@@ -1,26 +1,27 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ProductoService } from '../servicios/productos.service';
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { ProductoService } from "../servicios/productos.service";
 
-import { NotifierService } from 'angular-notifier';
+import { NotifierService } from "angular-notifier";
 
 @Component({
-  selector: 'app-productos',
-  templateUrl: './productos.component.html',
-  styleUrls: ['./productos.component.scss']
+  selector: "app-productos",
+  templateUrl: "./productos.component.html",
+  styleUrls: ["./productos.component.scss"]
 })
 export class ProductosComponent implements OnInit {
-
   private notifier: NotifierService;
   private camposHabilitados: boolean;
   private eliminaProducto: boolean;
   private productos: Array<any> = [];
-  constructor(public productoService: ProductoService, notifier: NotifierService) {
+  private indexExpanded: number = -1;
+  constructor(
+    public productoService: ProductoService,
+    notifier: NotifierService
+  ) {
     this.notifier = notifier;
     this.camposHabilitados = false;
     this.eliminaProducto = false;
   }
-
-
 
   public ngOnInit() {
     console.log("Inicio de gestionar productos");
@@ -28,19 +29,19 @@ export class ProductosComponent implements OnInit {
       this.productos = [];
       console.log(datos);
       for (let i = 0; i < datos.length; i++) {
-        let temporal = (datos[i].payload.doc.data());
+        let temporal = datos[i].payload.doc.data();
         this.productos.push(temporal);
         this.productos[i].id = datos[i].payload.doc.id;
       }
       console.log(this.productos);
-    })
+    });
   }
 
   public showNotification(event): void {
-    this.notifier.notify('info', 'Mensaje de información complementaria');
-    this.notifier.notify('success', 'Mensaje de éxito, sí se pudo');
-    this.notifier.notify('warning', 'Mensaje de advertencia algo raro pasó');
-    this.notifier.notify('error', 'Mensaje de error, algo salió mal');
+    this.notifier.notify("info", "Mensaje de información complementaria");
+    this.notifier.notify("success", "Mensaje de éxito, sí se pudo");
+    this.notifier.notify("warning", "Mensaje de advertencia algo raro pasó");
+    this.notifier.notify("error", "Mensaje de error, algo salió mal");
   }
 
   public habilitarCampos() {
@@ -53,4 +54,7 @@ export class ProductosComponent implements OnInit {
     this.eliminaProducto = !this.eliminaProducto;
   }
 
+  togglePanels(index: number) {
+    this.indexExpanded = index == this.indexExpanded ? -1 : index;
+  }
 }
