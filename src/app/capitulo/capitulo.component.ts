@@ -4,6 +4,7 @@ import { Capitulo } from '../models/CapituloInterface';
 import { ProductoService } from '../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { MiembroService } from '../servicios/miembro.service';
+import * as firebase from 'firebase';
 
 
 @Component({
@@ -44,23 +45,28 @@ export class CapituloComponent implements OnInit {
 
   constructor(private productoService: ProductoService, private miembroService: MiembroService) { }
 
+  llenarCampos() {
+    this.capitulo.titulo = this.capituloObjeto.titulo;
+    this.capitulo.estado = this.capituloObjeto.estado;
+    this.capitulo.tipo = this.capituloObjeto.tipo;
+    this.capitulo.consideradoPCA = this.capituloObjeto.consideradoPCA;
+    this.capitulo.year = this.capituloObjeto.year;
+    this.capitulo.editorial = this.capituloObjeto.editorial;
+    this.capitulo.numEdicion = this.capituloObjeto.numEdicion;
+    this.capitulo.isbn = this.capituloObjeto.isbn;
+    this.capitulo.paginaInicio = this.capituloObjeto.paginaInicio;
+    this.capitulo.paginaFinal = this.capituloObjeto.paginaFinal;
+    this.capitulo.pais = this.capituloObjeto.pais;
+    this.capitulo.proposito = this.capituloObjeto.proposito;
+    this.capitulo.tituloLibro = this.capituloObjeto.tituloLibro;
+    this.capitulo.lineaGeneracion = this.capituloObjeto.lineaGeneracion;
+    this.idCapitulo = this.capituloObjeto.id;
+    this.capitulo.registrado = this.capituloObjeto.registrado;
+  }
+
   ngOnInit() {
-    if (this.capituloObjeto != null) {
-      this.capitulo.titulo = this.capituloObjeto.titulo;
-      this.capitulo.estado = this.capituloObjeto.estado;
-      this.capitulo.tipo = this.capituloObjeto.tipo;
-      this.capitulo.consideradoPCA = this.capituloObjeto.consideradoPCA;
-      this.capitulo.year = this.capituloObjeto.year;
-      this.capitulo.editorial = this.capituloObjeto.editorial;
-      this.capitulo.numEdicion = this.capituloObjeto.numEdicion;
-      this.capitulo.isbn = this.capituloObjeto.isbn;
-      this.capitulo.paginaInicio = this.capituloObjeto.paginaInicio;
-      this.capitulo.paginaFinal = this.capituloObjeto.paginaFinal;
-      this.capitulo.pais = this.capituloObjeto.pais;
-      this.capitulo.proposito = this.capituloObjeto.proposito;
-      this.capitulo.tituloLibro = this.capituloObjeto.tituloLibro;
-      this.capitulo.lineaGeneracion = this.capituloObjeto.lineaGeneracion;
-      this.idCapitulo = this.capituloObjeto.id;
+    if (this.capituloObjeto!=null) {
+      this.llenarCampos();
     }
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
@@ -116,6 +122,7 @@ export class CapituloComponent implements OnInit {
       console.log(this.idCapitulo);
       if (this.idCapitulo.length == 0) {
         console.log("Agregando producto");
+        this.capitulo.registrado = firebase.firestore.Timestamp.fromDate(new Date());
         this.productoService.agregarProducto(this.capitulo)
           .then(function (docRef) {
             idGenerado = docRef.id;

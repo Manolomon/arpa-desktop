@@ -12,4 +12,5 @@ export interface MemoriaInterface {
   paginaFin?: number;
   pais?: string;
   proposito?: string;
+  registrado?: firebase.firestore.Timestamp;
 }

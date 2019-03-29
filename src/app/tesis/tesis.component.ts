@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
+import { Tesis } from '../models/TesisInterface';
 
 @Component({
   selector: 'app-tesis',
