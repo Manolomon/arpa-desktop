@@ -11,15 +11,16 @@ import { NotifierService } from 'angular-notifier';
 export class ProductosComponent implements OnInit {
 
   private notifier: NotifierService;
-  public camposHabilitados: boolean;
+  private camposHabilitados: boolean;
+  private productos: Array<any> = [];
   constructor(public productoService: ProductoService, notifier: NotifierService) {
     this.notifier = notifier;
     this.camposHabilitados = false;
   }
 
-  productos: Array<any> = []
+  
 
-  ngOnInit() {
+  public ngOnInit() {
     console.log("Inicio de gestionar productos");
     this.productoService.obtenerProductos().subscribe(datos => {
       this.productos = [];

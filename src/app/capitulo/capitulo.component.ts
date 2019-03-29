@@ -14,13 +14,18 @@ import * as firebase from 'firebase';
 })
 export class CapituloComponent implements OnInit, OnChanges {
 
-  @Input() capituloObjeto: any;
-  @Input() habilitaCampos: boolean;
+  @Input() private capituloObjeto: any;
+  @Input() private habilitaCampos: boolean;
+  private evidencia: string = "Evidencia";
+  private btnEvidenciaControl:FormControl = new FormControl();
+  private colaboradoresControl: FormControl = new FormControl();
+  private colaboradoresExternosControl: FormControl = new FormControl();
 
-  idCapitulo: string;
-  cargaDeArchivo: number;
-  archivo: File;
-  capituloForm: FormGroup;
+  private colaboradores: string[] = [];
+  private idCapitulo: string;
+  private cargaDeArchivo: number;
+  private archivo: File;
+  private capituloForm: FormGroup;
 
   capitulo: Capitulo = {
     titulo: '',
@@ -40,14 +45,28 @@ export class CapituloComponent implements OnInit, OnChanges {
     colaboradores: []
   };
 
-  evidencia: string = "Evidencia";
-  btnEvidenciaControl = new FormControl();
-  colaboradoresControl = new FormControl();
-  colaboradoresExternosControl = new FormControl();
-
-  colaboradores: string[] = [];
-
   constructor(private productoService: ProductoService, private miembroService: MiembroService) {
+
+    this.capituloForm = new FormGroup({
+      tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      tituloLibroControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      isbnControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      yearControl: new FormControl('', [Validators.required, Validators.min(1900)]),
+      edicionControl: new FormControl('', [Validators.required, Validators.min(1)]),
+      propositoControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      editorialControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      paisControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      pagInicioControl: new FormControl('', [Validators.required, Validators.min(1)]),
+      pagFinalControl: new FormControl('', [Validators.required, Validators.min(2)]),
+      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.min(2)]),
+      estadoControl: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      btnConsideradoControl: new FormControl(''),
+    });
+    this.capituloForm.addControl("colaboradoresControl", this.colaboradoresControl);
+    this.capituloForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
+    this.capituloForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
+    this.cargaDeArchivo = 0;
+  }
 
     this.capituloForm = new FormGroup({
       tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -88,7 +107,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.capitulo.registrado = this.capituloObjeto.registrado;
   }
 
-  ngOnInit() {
+ public ngOnInit() {
     if (this.capituloObjeto != null) {
       this.llenarCampos();
     }
@@ -100,13 +119,11 @@ export class CapituloComponent implements OnInit, OnChanges {
         this.colaboradores.push(temporal.nombre);
       }
     });
-
-    this.cargaDeArchivo = 0;
     console.log(this.idCapitulo);
     console.log(this.capitulo.titulo);
   }
 
-  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+  public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     if (this.habilitaCampos) {
       this.capituloForm.enable();
     } else {
@@ -118,17 +135,17 @@ export class CapituloComponent implements OnInit, OnChanges {
     return this.capituloForm.controls[controlName].hasError(errorName);
   }
 
-  detectarArchivos(event) {
+  public detectarArchivos(event) {
     this.archivo = event.target.files;
     console.log(this.archivo.size);
   }
 
-  onChange(event) {
+  public onChange(event) {
     this.capitulo.consideradoPCA = !this.capitulo.consideradoPCA;
     console.log("Consideracion cambiada");
   }
 
-  onGuardarCapitulo(myForm: NgForm) {
+  public onGuardarCapitulo(myForm: NgForm) {
     this.cargaDeArchivo = 0;
     if (this.capituloForm.valid) {
       let idGenerado: string;
