@@ -14,6 +14,9 @@ export class ProductosComponent implements OnInit {
   private eliminaProducto: boolean;
   private productos: Array<any> = [];
   private indexExpanded: number = -1;
+  private tipoProducto: string;
+  private agregaProducto: boolean;
+
   constructor(
     public productoService: ProductoService,
     notifier: NotifierService
@@ -21,6 +24,7 @@ export class ProductosComponent implements OnInit {
     this.notifier = notifier;
     this.camposHabilitados = false;
     this.eliminaProducto = false;
+    this.agregaProducto = false;
   }
 
   public ngOnInit() {
@@ -57,4 +61,14 @@ export class ProductosComponent implements OnInit {
   togglePanels(index: number) {
     this.indexExpanded = index == this.indexExpanded ? -1 : index;
   }
+
+  public agregarProducto(tipo: string) {
+    this.tipoProducto = tipo;
+    this.agregaProducto = true;
+  }
+
+  public creacionCancelada(cancelado: boolean) {
+    this.agregaProducto = !this.agregaProducto;
+  }
+
 }

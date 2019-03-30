@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
 import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
 import { Capitulo } from '../models/CapituloInterface';
 import { ProductoService } from '../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { MiembroService } from '../servicios/miembro.service';
 import * as firebase from 'firebase';
+import { isNullOrUndefined } from 'util';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class CapituloComponent implements OnInit, OnChanges {
   @Input() private capituloObjeto: any;
   @Input() private habilitaCampos: boolean;
   @Input() private eliminarProducto: boolean;
+  @Input() private nuevoCapitulo: boolean;
+  @Output() private creacionCancelada = new EventEmitter<boolean>();
 
   private idCapitulo: string;
   private cargaDeArchivo: number;
@@ -46,7 +49,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     proposito: '',
     tituloLibro: '',
     lineaGeneracion: '',
-    colaboradores: []
+    colaboradores: [],
   };
 
   constructor(private productoService: ProductoService, private miembroService: MiembroService) {
@@ -166,6 +169,15 @@ export class CapituloComponent implements OnInit, OnChanges {
       }
     } else {
       alert("Datos incompletos o inválidos");
+    }
+  }
+
+  public cancelarEdicion() {
+    if (!isNullOrUndefined(this.capitulo.id)) {
+      this.llenarCampos();
+    } else {
+      this.nuevoCapitulo = !this.nuevoCapitulo;
+      this.creacionCancelada.emit(false);
     }
   }
 

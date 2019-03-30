@@ -48,7 +48,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
           <button class="dropdown-item" type="button">Artículo</button>
-          <button class="dropdown-item" type="button">Capítulo de Libro</button>
+          <button class="dropdown-item" type="button" (click)="agregarProducto('capitulo')">Capítulo de Libro</button>
           <button class="dropdown-item" type="button">Libro</button>
           <button class="dropdown-item" type="button">Memoria</button>
           <button class="dropdown-item" type="button">Producción Innovadora</button>
@@ -57,6 +57,12 @@
       </div>
     </div>
     <mat-divider class="br_div"></mat-divider>
+  </div>
+  <div fxFlexAlign="center" fxLayoutAlign="center center">
+    <app-capitulo 
+      (creacionCancelada)="creacionCancelada($event)"
+      *ngIf="agregaProducto && tipoProducto === 'capitulo'">
+    </app-capitulo>
   </div>
   <div fxFlexAlign="center" fxLayoutAlign="center center">
     <mat-accordion class="example-headers-align">
