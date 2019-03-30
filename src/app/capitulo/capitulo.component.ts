@@ -95,6 +95,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.idCapitulo = this.capituloObjeto.id;
     this.capitulo.registrado = this.capituloObjeto.registrado;
     this.capitulo.evidencia = this.capituloObjeto.evidencia;
+    this.capitulo.colaboradores = this.capituloObjeto.colaboradores;
   }
 
   public ngOnInit() {

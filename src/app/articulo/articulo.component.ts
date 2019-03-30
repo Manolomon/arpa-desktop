@@ -53,6 +53,7 @@ export class ArticuloComponent implements OnInit {
     this.articulo.proposito = this.articuloObjeto.proposito;
     this.articulo.volumen = this.articuloObjeto.volumen;
     this.articulo.evidencia = this.articuloObjeto.evidencia;
+    this.articulo.colaboradores = this.articuloObjeto.colaboradores;
   }
 
   public articulo: Articulo = {

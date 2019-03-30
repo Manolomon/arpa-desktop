@@ -77,6 +77,7 @@ export class TesisComponent implements OnInit, OnChanges {
     this.idTesis = this.tesisObjeto.id;
     this.tesis.registrado = this.tesisObjeto.registrado;
     this.tesis.evidencia = this.tesisObjeto.evidencia;
+    this.tesis.colaboradores = this.tesisObjeto.colaboradores;
   }
 
   public ngOnInit() {

@@ -48,6 +48,7 @@ export class LibroComponent implements OnInit, OnChanges {
     this.idLibro = this.libroObjeto.id;
     this.libro.registrado = this.libroObjeto.registrado;
     this.libro.ejemplares = this.libroObjeto.ejemplares;
+    this.libro.colaboradores = this.libroObjeto.colaboradores;
   }
 
   public libro: Libro = {
