@@ -18,4 +18,5 @@ export interface Articulo {
     proposito?: string;
     volumen?: number;
     registrado?: firebase.firestore.Timestamp;
+    evidencia?: string;
 }

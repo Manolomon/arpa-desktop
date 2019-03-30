@@ -15,4 +15,5 @@ export interface Libro {
     lineaGeneracion?: string;
     colaboradores: string[];
     registrado?: firebase.firestore.Timestamp;
+    evidencia?: string;
   }

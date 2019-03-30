@@ -3,7 +3,7 @@ export interface MemoriaInterface {
   fechaRegistro?: any;
   estado?: string;
   consideradoParaCA?: boolean;
-  evidencia?: File;
+  evidencia?: string;
   autor?: string;
   ciudad?: string;
   fechaPublicacion?: any;

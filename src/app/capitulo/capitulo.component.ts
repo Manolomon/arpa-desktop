@@ -24,7 +24,7 @@ export class CapituloComponent implements OnInit, OnChanges {
 
   private idCapitulo: string;
   private cargaDeArchivo: number;
-  private archivo: File;
+  private archivo: FileList;
   private capituloForm: FormGroup;
   private evidencia = "Evidencia";
   private btnEvidenciaControl: FormControl = new FormControl();
@@ -92,6 +92,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.capitulo.lineaGeneracion = this.capituloObjeto.lineaGeneracion;
     this.idCapitulo = this.capituloObjeto.id;
     this.capitulo.registrado = this.capituloObjeto.registrado;
+    this.capitulo.evidencia = this.capituloObjeto.evidencia;
   }
 
   public ngOnInit() {
@@ -127,7 +128,9 @@ export class CapituloComponent implements OnInit, OnChanges {
 
   public detectarArchivos(event) {
     this.archivo = event.target.files;
-    console.log(this.archivo.size);
+    console.log(this.archivo.item(0).size);
+    this.evidencia = this.archivo.item(0).name;
+    this.capitulo.evidencia = this.evidencia;
   }
 
   public onChange(event) {
@@ -140,20 +143,20 @@ export class CapituloComponent implements OnInit, OnChanges {
     if (this.capituloForm.valid) {
       let idGenerado: string;
       console.log(this.idCapitulo);
-      if (this.idCapitulo.length == 0) {
+      if (this.idCapitulo == undefined) {
         console.log("Agregando producto");
         this.capitulo.registrado = firebase.firestore.Timestamp.fromDate(new Date());
         this.productoService.agregarProducto(this.capitulo)
           .then(function (docRef) {
             idGenerado = docRef.id;
+            console.log(idGenerado);
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+            }
           })
           .catch(function (error) {
             console.error("Error al añadir documento: ", error);
           });
-
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo, idGenerado, this.cargaDeArchivo);
-        }
         console.log(this.capitulo.colaboradores);
       } else {
         console.log("Modificando producto");
@@ -163,7 +166,7 @@ export class CapituloComponent implements OnInit, OnChanges {
             console.error("Error al añadir documento: ", error);
           });
         if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo, this.idCapitulo, this.cargaDeArchivo);
+          this.productoService.subirArchivo(this.archivo.item(0), this.idCapitulo, this.cargaDeArchivo);
         }
         console.log(this.capitulo.colaboradores);
       }

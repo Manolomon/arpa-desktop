@@ -13,4 +13,5 @@ export interface Produccion {
     uso?: string;
     usuario?: string;
     registrado?: firebase.firestore.Timestamp;
+    evidencia?: string;
 }

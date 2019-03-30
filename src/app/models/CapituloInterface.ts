@@ -16,4 +16,5 @@ export interface Capitulo {
   lineaGeneracion?: string;
   colaboradores: string[];
   registrado?: firebase.firestore.Timestamp;
+  evidencia?: string;
 }

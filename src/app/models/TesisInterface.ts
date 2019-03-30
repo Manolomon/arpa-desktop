@@ -9,4 +9,5 @@ export interface Tesis {
     grado?: string;
     numAlumnos?: number;
     registrado?: firebase.firestore.Timestamp;
+    evidencia?: string;
 }
