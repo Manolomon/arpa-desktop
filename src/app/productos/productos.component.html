@@ -147,12 +147,12 @@
           [eliminarProducto]="eliminaProducto"
           *ngIf="producto.tipo === 'libro'">
         </app-libro>
-        <!--><app-memoria
+        <app-memoria
           [memoriaObjeto]="producto"
           [habilitaCampos]="camposHabilitados"
-          [eliminaProducto]="eliminaProducto"
+          [eliminarProducto]="eliminaProducto"
           *ngIf="producto.tipo === 'memoria'">
-        </app-memoria> -->
+        </app-memoria>
         <app-articulo
           [articuloObjeto]="producto"
           [habilitaCampos]="camposHabilitados"

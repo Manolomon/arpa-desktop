@@ -1,17 +1,19 @@
-export interface MemoriaInterface {
+export interface Memoria {
   id?: string;
   titulo?: string;
-  fechaRegistro?: firebase.firestore.Timestamp;
+  tipo?: string;
   estado?: string;
-  consideradoParaCA?: boolean;
-  evidencia?: string;
+  consideradoPCA?: boolean;
   autor?: string;
   ciudad?: string;
-  fechaPublicacion?: any;
+  fechaPublicacion?: firebase.firestore.Timestamp;
   nombreCongreso?: string;
+  lineaGeneracion?: string;
   paginaInicio?: number;
   paginaFin?: number;
   pais?: string;
   proposito?: string;
+  colaboradores?: string[];
   registrado?: firebase.firestore.Timestamp;
+  evidencia?: string;
 }

@@ -27,7 +27,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
-
+  private notifier: NotifierService;
   private colaboradores: string[] = [];
 
   @Input() private capituloObjeto: any;
@@ -55,9 +55,8 @@ export class CapituloComponent implements OnInit, OnChanges {
   };
 
   constructor(
-    private productoService: ProductoService, 
+    private productoService: ProductoService,
     private miembroService: MiembroService,
-    private notifier: NotifierService
   ) {
     this.minYear = 1900;
     this.minLengthChar = 2;

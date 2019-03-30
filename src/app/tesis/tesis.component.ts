@@ -49,9 +49,9 @@ export class TesisComponent implements OnInit, OnChanges {
     colaboradores: [],
   }
   constructor(
-    private productoService: ProductoService, 
+    private productoService: ProductoService,
     private miembroService: MiembroService,
-    private notifier: NotifierService
+    private notifier: NotifierService,
   ) {
     this.tesisForm = new FormGroup({
       tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -60,7 +60,7 @@ export class TesisComponent implements OnInit, OnChanges {
       btnConsideradoControl: new FormControl(''),
     });
     this.tesisForm.addControl("estadoControl", this.estadoControl);
-    this.tesisForm.addControl("gradoCOntrol", this.gradoControl);
+    this.tesisForm.addControl("gradoControl", this.gradoControl);
     this.tesisForm.addControl("colaboradoresControl", this.colaboradoresControl);
     this.tesisForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
 
@@ -88,8 +88,8 @@ export class TesisComponent implements OnInit, OnChanges {
       this.fechaTerminoControl = new FormControl(this.tesis.fechaTermino.toDate());
       this.fechaInicioControl = new FormControl(this.tesis.fechaInicio.toDate());
     }
-    this.tesisForm.addControl("fechaTerminoControl",this.fechaTerminoControl);
-    this.tesisForm.addControl("fechaInicioControl",this.fechaInicioControl);
+    this.tesisForm.addControl("fechaTerminoControl", this.fechaTerminoControl);
+    this.tesisForm.addControl("fechaInicioControl", this.fechaInicioControl);
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];

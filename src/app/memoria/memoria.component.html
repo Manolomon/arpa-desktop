@@ -1,6 +1,10 @@
 <mat-divider></mat-divider>
 <br />
-<form fxLayout="column">
+<form 
+  [formGroup]="memoriaForm"
+  (ngSubmit)="onGuardarMemoria(formNew)"
+  #formNew=ngForm
+  fxLayout="column">
   <div
     fxLayout="row"
     fxLayout.xs="column"
@@ -9,11 +13,21 @@
   >
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Título de la Memoria</mat-label>
-      <input matInput required />
+      <input 
+        formControlName="tituloControl"
+        [(ngModel)]="memoria.titulo"
+        name="titulo"
+        matInput 
+        required />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Autor</mat-label>
-      <input matInput required />
+      <input 
+        formControlName="autorControl"
+        [(ngModel)]="memoria.autor"
+        name="autor"
+        matInput 
+        required />
     </mat-form-field>
     <div
       fxLayout="row"
@@ -23,11 +37,29 @@
     >
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Página Inicio</mat-label>
-        <input type="number" min="0" step="1" matInput required />
+        <input
+          formControlName="pagInicioControl"
+          type="number"
+          min="0"
+          step="1"
+          [(ngModel)]="memoria.paginaInicio"
+          name="paginaInicio"
+          matInput
+          required
+        />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Página Final</mat-label>
-        <input type="number" min="0" step="1" matInput required />
+        <input
+          formControlName="paginaFinControl"
+          type="number"
+          min="0"
+          step="1"
+          [(ngModel)]="memoria.paginaFin"
+          name="paginaFin"
+          matInput
+          required
+        />
       </mat-form-field>
     </div>
   </div>
@@ -39,15 +71,31 @@
   >
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Propósito</mat-label>
-      <input matInput required />
+      <input
+        formControlName="propositoControl"
+        [(ngModel)]="memoria.proposito"
+        name="proposito"
+        matInput
+        required
+      />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Nombre del Congreso</mat-label>
-      <input matInput required />
+      <input
+        formControlName="congresoControl"
+        [(ngModel)]="memoria.nombreCongreso"
+        name="nombreCongreso"
+        matInput
+        required
+      />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Línea de Generación</mat-label>
-      <mat-select required>
+      <mat-select
+        formControlName="lineaGeneracionControl"
+        [(ngModel)]="memoria.lineaGeneracion"
+        name="lineaGeneracion"
+        required>
         <mat-option value="volvo">Volvo</mat-option>
         <mat-option value="saab">Saab</mat-option>
         <mat-option value="mercedes">Mercedes</mat-option>
@@ -104,19 +152,27 @@
     >
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Ciudad</mat-label>
-        <input matInput required />
-      </mat-form-field>
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>Estado</mat-label>
-        <input matInput required />
+        <input 
+          formControlName="ciudadControl"
+          [(ngModel)]="memoria.ciudad"
+          name="ciudad"
+          matInput 
+          required />
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Colaboradores</mat-label>
-      <mat-select [formControl]="toppings" multiple>
-        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-          topping
-        }}</mat-option>
+      <mat-select
+        [formControl] = "colaboradoresControl"
+        multiple
+        [(ngModel)]="memoria.colaboradores"
+        name="colaboradores"
+      >
+        <mat-option
+          *ngFor="let colaborador of colaboradores"
+          [value]="colaborador"
+          >{{ colaborador }}</mat-option
+        >
       </mat-select>
       <mat-icon matSuffix class="material-icon"
         >supervised_user_circle</mat-icon
@@ -124,7 +180,11 @@
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Estado</mat-label>
-      <mat-select required>
+      <mat-select 
+        formControlName="estadoControl"
+        [(ngModel)]="memoria.estado"
+        name="estado"
+        required>
         <mat-option value="publicado">Publicado</mat-option>
         <mat-option value="terminado">Terminado</mat-option>
         <mat-option value="en_proceso">En Proceso</mat-option>
@@ -145,18 +205,32 @@
     >
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Pais</mat-label>
-        <input matInput required />
+        <input 
+          formControlName="paisControl"
+          [(ngModel)]="memoria.pais"
+          name="pais"
+          matInput 
+          required 
+        />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
           <mat-label>Fecha de Publicación</mat-label>
-          <input [value]="date.value" matInput [matDatepicker]="myPicker" placeholder="Fecha" required/>
+          <input
+             matInput [matDatepicker]="myPicker"
+             formControlName="fechaPublicacion"
+             disabled="memoriaForm.disabled"
+             (dateChange)="setFechaPublicacion($event)"
+             placeholder="Fecha" 
+             required
+            />
           <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
           <mat-datepicker #myPicker></mat-datepicker>
         </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Colaboradores Externos</mat-label>
-      <mat-select [formControl]="toppings" multiple>
+      <mat-select 
+        [formControl]="colaboradoresExternosControl" multiple>
         <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
           topping
         }}</mat-option>
@@ -166,15 +240,20 @@
       >
     </mat-form-field>
     <section class="example-section">
-      <mat-checkbox class="example-margin" color="primary">
+      <mat-checkbox 
+        [checked]="memoria.consideradoPCA"
+        (change)="onChange($event)"
+        class="example-margin" 
+        color="primary">
         Considerar para Cuerpo Académico
       </mat-checkbox>
     </section>
   </div>
   <div fxLayout="row" fxLayoutAlign="end center">
     <div class="example-button-row">
-      <button mat-stroked-button color="primary">Cancelar</button>
-      <button mat-raised-button color="primary">Guardar</button>
+      <button type="button" 
+        mat-stroked-button color="primary" (click) = "cancelarEdicion()">Cancelar</button>
+      <button type = "submit" mat-raised-button color="primary" [disabled]="memoriaForm.disabled">Guardar</button>
     </div>
   </div>
 </form>
