@@ -47,12 +47,12 @@
           Agregar Producto
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button class="dropdown-item" type="button">Artículo</button>
+          <button class="dropdown-item" type="button"  (click)="agregarProducto('articulo')">Artículo</button>
           <button class="dropdown-item" type="button" (click)="agregarProducto('capitulo')">Capítulo de Libro</button>
-          <button class="dropdown-item" type="button">Libro</button>
-          <button class="dropdown-item" type="button">Memoria</button>
-          <button class="dropdown-item" type="button">Producción Innovadora</button>
-          <button class="dropdown-item" type="button">Tesis</button>
+          <button class="dropdown-item" type="button" (click)="agregarProducto('libro')">Libro</button>
+          <button class="dropdown-item" type="button" (click)="agregarProducto('memoria')">Memoria</button>
+          <button class="dropdown-item" type="button" (click)="agregarProducto('produccion')">Producción Innovadora</button>
+          <button class="dropdown-item" type="button" (click)="agregarProducto('tesis')">Tesis</button>
         </div>
       </div>
     </div>
@@ -63,6 +63,26 @@
       (creacionCancelada)="creacionCancelada($event)"
       *ngIf="agregaProducto && tipoProducto === 'capitulo'">
     </app-capitulo>
+    <app-articulo 
+      (creacionCancelada)="creacionCancelada($event)"
+      *ngIf="agregaProducto && tipoProducto === 'articulo'">
+    </app-articulo>
+    <app-tesis 
+      (creacionCancelada)="creacionCancelada($event)"
+      *ngIf="agregaProducto && tipoProducto === 'tesis'">
+    </app-tesis>
+    <app-produccion 
+      (creacionCancelada)="creacionCancelada($event)"
+      *ngIf="agregaProducto && tipoProducto === 'produccion'">
+    </app-produccion>
+    <app-libro 
+      (creacionCancelada)="creacionCancelada($event)"
+      *ngIf="agregaProducto && tipoProducto === 'libro'">
+    </app-libro>
+    <app-memoria 
+      (creacionCancelada)="creacionCancelada($event)"
+      *ngIf="agregaProducto && tipoProducto === 'memoria'">
+    </app-memoria>
   </div>
   <div fxFlexAlign="center" fxLayoutAlign="center center">
     <mat-accordion class="example-headers-align">
@@ -115,7 +135,36 @@
           [eliminarProducto] = "eliminaProducto"
           *ngIf="producto.tipo === 'capitulo'"
         ></app-capitulo>
-        <app-tesis *ngIf="producto.tipo === 'tesis'"></app-tesis>
+        <app-tesis 
+          [tesisObjeto]="producto"
+          [habilitaCampos]="camposHabilitados"
+          [eliminaProducto]="eliminaProducto"
+          *ngIf="producto.tipo === 'tesis'">
+        </app-tesis>
+        <app-libro
+          [libroObjeto]="producto"
+          [habilitaCampos]="camposHabilitados"
+          [eliminaProducto]="eliminaProducto"
+          *ngIf="producto.tipo === 'libro'">
+        </app-libro>
+        <app-memoria
+          [memoriaObjeto]="producto"
+          [habilitaCampos]="camposHabilitados"
+          [eliminaProducto]="eliminaProducto"
+          *ngIf="producto.tipo === 'memoria'">
+        </app-memoria>
+        <app-articulo
+          [articuloObjeto]="producto"
+          [habilitaCampos]="camposHabilitados"
+          [eliminaProducto]="eliminaProducto"
+          *ngIf="producto.tipo === 'articulo'">
+        </app-articulo>
+        <app-produccion
+          [produccionObjeto]="producto"
+          [habilitaCampos]="camposHabilitados"
+          [eliminaProducto]="eliminaProducto"
+          *ngIf="producto.tipo === 'produccion'">
+        </app-produccion>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

@@ -5,7 +5,7 @@ import { ProductoService } from '../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { MiembroService } from '../servicios/miembro.service';
 import * as firebase from 'firebase';
-import { isNullOrUndefined } from 'util';
+import { isNullOrUndefined, isUndefined } from 'util';
 
 @Component({
   selector: 'app-libro',
@@ -19,11 +19,11 @@ export class LibroComponent implements OnInit, OnChanges {
   @Input() private habilitaCampos: boolean;
   @Input() private eliminarProducto: boolean;
   @Input() private nuevoLibro: boolean;
-  @Output() private voted = new EventEmitter<boolean>();
+  @Output() private creacionCancelada = new EventEmitter<boolean>();
 
   private idLibro: string;
   private cargaDeArchivo: number;
-  private archivo: File;
+  private archivo: FileList;
   private libroForm: FormGroup;
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
@@ -120,7 +120,7 @@ export class LibroComponent implements OnInit, OnChanges {
 
   public detectarArchivos(event) {
     this.archivo = event.target.files;
-    console.log(this.archivo.size);
+    console.log(this.archivo.item(0).size);
   }
 
   public onChange(event) {
@@ -129,10 +129,11 @@ export class LibroComponent implements OnInit, OnChanges {
   }
 
   public cancelarEdicion() {
-    if (this.libroObjeto.id.length != 0) {
+    if (!isNullOrUndefined(this.libro.id)) {
       this.llenarCampos();
     } else {
       this.nuevoLibro = !this.nuevoLibro;
+      this.creacionCancelada.emit(false);
     }
   }
 
@@ -140,20 +141,21 @@ export class LibroComponent implements OnInit, OnChanges {
     this.cargaDeArchivo = 0;
     if (this.libroForm.valid) {
       let idGenerado: string;
-      if (this.idLibro.length == 0) {
+      console.log(this.idLibro);
+      if (isUndefined(this.idLibro)) {
         console.log("Agregando producto");
         this.libro.registrado = firebase.firestore.Timestamp.fromDate(new Date());
         this.productoService.agregarProducto(this.libro)
           .then(function (docRef) {
             idGenerado = docRef.id;
+            console.log(idGenerado);
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+            }
           })
           .catch(function (error) {
             console.error("Error al añadir documento: ", error);
           });
-
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo, idGenerado, this.cargaDeArchivo);
-        }
         console.log(this.libro.colaboradores);
       } else {
         console.log("Modificando producto");
@@ -163,7 +165,7 @@ export class LibroComponent implements OnInit, OnChanges {
             console.error("Error al añadir documento: ", error);
           });
         if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo, this.idLibro, this.cargaDeArchivo);
+          this.productoService.subirArchivo(this.archivo.item(0), this.idLibro, this.cargaDeArchivo);
         }
         console.log(this.libro.colaboradores);
       }

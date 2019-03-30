@@ -19,4 +19,5 @@ export interface Articulo {
     volumen?: number;
     registrado?: firebase.firestore.Timestamp;
     evidencia?: string;
+    colaboradores?: string[];
 }

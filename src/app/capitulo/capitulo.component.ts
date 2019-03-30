@@ -5,7 +5,7 @@ import { ProductoService } from '../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { MiembroService } from '../servicios/miembro.service';
 import * as firebase from 'firebase';
-import { isNullOrUndefined } from 'util';
+import { isNullOrUndefined, isUndefined } from 'util';
 
 
 @Component({
@@ -96,7 +96,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   }
 
   public ngOnInit() {
-    if (this.capituloObjeto != null) {
+    if (!isNullOrUndefined(this.capituloObjeto)) {
       this.llenarCampos();
     }
 
@@ -143,7 +143,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     if (this.capituloForm.valid) {
       let idGenerado: string;
       console.log(this.idCapitulo);
-      if (this.idCapitulo == undefined) {
+      if (isUndefined(this.idCapitulo)) {
         console.log("Agregando producto");
         this.capitulo.registrado = firebase.firestore.Timestamp.fromDate(new Date());
         this.productoService.agregarProducto(this.capitulo)

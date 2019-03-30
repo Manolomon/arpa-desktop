@@ -1,4 +1,5 @@
 export interface MemoriaInterface {
+  id?: string;
   titulo?: string;
   fechaRegistro?: any;
   estado?: string;
