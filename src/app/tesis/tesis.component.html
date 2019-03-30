@@ -124,8 +124,8 @@
           [(ngModel)]="tesis.colaboradores"
           name="colaboradores"
           multiple>
-        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-          topping
+        <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador">{{
+          colaborador
         }}</mat-option>
       </mat-select>
       <mat-icon matSuffix class="material-icon"
@@ -135,7 +135,7 @@
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Estado</mat-label>
       <mat-select 
-          [fromControl]="estadoControl"
+          [formControl]="estadoControl"
           [(ngModel)]="tesis.estado"
           name="estado"
           required>
@@ -164,7 +164,7 @@
           min="0" 
           step="1" 
           formControlName="numAlumnosControl"
-          [(ngMOdel)]="tesis.numAlumnos"
+          [(ngModel)]="tesis.numAlumnos"
           name="numAlumnos"
           matInput 
           required />

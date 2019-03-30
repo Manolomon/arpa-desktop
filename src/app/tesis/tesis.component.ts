@@ -15,7 +15,7 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
   styleUrls: ["./tesis.component.scss"],
 })
 
-export class CapituloComponent implements OnInit, OnChanges {
+export class TesisComponent implements OnInit, OnChanges {
 
   private idTesis: string;
   private cargaDeArchivo: number;
@@ -117,7 +117,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     console.log("Consideracion cambiada");
   }
 
-  public onGuardarCapitulo(myForm: NgForm) {
+  public onGuardarTesis(myForm: NgForm) {
     this.cargaDeArchivo = 0;
     if (this.tesisForm.valid) {
       let idGenerado: string;
@@ -169,7 +169,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   public setFechaInicio(event: MatDatepickerInputEvent<Date>) {
     this.tesis.fechaInicio = firebase.firestore.Timestamp.fromDate(event.value);
   }
-  public setFechaFIn(event: MatDatepickerInputEvent<Date>) {
+  public setFechaFin(event: MatDatepickerInputEvent<Date>) {
     this.tesis.fechaTermino = firebase.firestore.Timestamp.fromDate(event.value);
   }
 
