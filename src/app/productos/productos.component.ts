@@ -9,7 +9,6 @@ import { NotifierService } from "angular-notifier";
   styleUrls: ["./productos.component.scss"]
 })
 export class ProductosComponent implements OnInit {
-  private notifier: NotifierService;
   private camposHabilitados: boolean;
   private eliminaProducto: boolean;
   private productos: Array<any> = [];
@@ -18,10 +17,9 @@ export class ProductosComponent implements OnInit {
   private agregaProducto: boolean;
 
   constructor(
-    public productoService: ProductoService,
-    notifier: NotifierService
+    private productoService: ProductoService,
+    private notifier: NotifierService
   ) {
-    this.notifier = notifier;
     this.camposHabilitados = false;
     this.eliminaProducto = false;
     this.agregaProducto = false;

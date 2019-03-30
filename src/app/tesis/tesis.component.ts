@@ -7,6 +7,7 @@ import { MiembroService } from '../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined, isUndefined } from 'util';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
+import { NotifierService } from "angular-notifier";
 
 
 @Component({
@@ -47,7 +48,11 @@ export class TesisComponent implements OnInit, OnChanges {
     lineaGeneracion: '',
     colaboradores: [],
   }
-  constructor(private productoService: ProductoService, private miembroService: MiembroService) {
+  constructor(
+    private productoService: ProductoService, 
+    private miembroService: MiembroService,
+    private notifier: NotifierService
+  ) {
     this.tesisForm = new FormGroup({
       tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       lineaGeneracionControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -129,7 +134,7 @@ export class TesisComponent implements OnInit, OnChanges {
     if (this.tesisForm.valid) {
       let idGenerado: string;
       if (isNullOrUndefined(this.tesis.fechaInicio) || isNullOrUndefined(this.tesis.fechaTermino)) {
-        alert("Error, datos incompletos o inválidos");
+        this.notifier.notify("warning", "Datos incompletos o inválidos");
         return 0;
       }
       if (isUndefined(this.idTesis)) {
@@ -142,8 +147,10 @@ export class TesisComponent implements OnInit, OnChanges {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
+            this.notifier.notify("success", "Tesis almacenada exitosamente");
           })
           .catch(function (error) {
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         console.log(this.tesis.colaboradores);
@@ -152,15 +159,17 @@ export class TesisComponent implements OnInit, OnChanges {
         this.tesis.id = this.idTesis;
         this.productoService.modificarProducto(this.tesis)
           .catch(function (error) {
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idTesis, this.cargaDeArchivo);
         }
+        this.notifier.notify("success", "Tesis modificada exitosamente");
         console.log(this.tesis.colaboradores);
       }
     } else {
-      alert("Datos incompletos o inválidos");
+      this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
   }
 
