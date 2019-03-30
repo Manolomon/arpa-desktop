@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-patente',
-  templateUrl: './patente.component.html',
-  styleUrls: ['./patente.component.scss']
+  selector: 'app-produccion',
+  templateUrl: './produccion.component.html',
+  styleUrls: ['./produccion.component.scss']
 })
-export class PatenteComponent implements OnInit {
+export class ProduccionComponent implements OnInit {
 
   date  =  new  FormControl(new  Date());
 

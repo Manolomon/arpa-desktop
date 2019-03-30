@@ -23,7 +23,7 @@ import { MemoriaComponent } from "./memoria/memoria.component";
 import { TesisComponent } from "./tesis/tesis.component";
 
 import { ProductoService } from "./servicios/productos.service";
-import { PatenteComponent } from "./patente/patente.component";
+import { ProduccionComponent } from "./produccion/produccion.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -75,7 +75,7 @@ const customNotifierOptions: NotifierOptions = {
     ArticuloComponent,
     MemoriaComponent,
     TesisComponent,
-    PatenteComponent
+    ProduccionComponent
   ],
   imports: [
     BrowserModule,
