@@ -14,25 +14,7 @@ import { isNullOrUndefined, isUndefined } from 'util';
 })
 export class ArticuloComponent implements OnInit {
 
-  @Input() private articuloObjeto: any;
-  @Input() private habilitaCampos: boolean;
-  @Input() private eliminarProducto: boolean;
-  @Input() private nuevoArticulo: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
-
-  private idArticulo: string;
-  private cargaDeArchivo: number;
-  private archivo: FileList;
-  private articuloForm: FormGroup;
-  private evidencia = "Evidancia";
-  private btnEvidenciaControl: FormControl = new FormControl();
-  private colaboradoresControl: FormControl = new FormControl();
-  private colaboradoresExternosControl: FormControl = new FormControl();
-  private estadoControl: FormControl = new FormControl('', [Validators.required]);
-  private tipoArticuloControl: FormControl = new FormControl('', Validators.required);
-  private colaboradores: string[] = [];
-
-  articulo: Articulo = {
+  public articulo: Articulo = {
     titulo: '',
     estado: '',
     tipo: 'articulo',
@@ -78,35 +60,14 @@ export class ArticuloComponent implements OnInit {
 
   }
 
-  private llenarCampos() {
-    this.articulo.titulo = this.articuloObjeto.titulo;
-    this.articulo.estado = this.articuloObjeto.estado;
-    this.articulo.tipo = this.articuloObjeto.tipo;
-    this.articulo.consideradoPCA = this.articuloObjeto.consideradoPCA;
-    this.articulo.year = this.articuloObjeto.year;
-    this.articulo.descripcion = this.articuloObjeto.descripcion;
-    this.articulo.direccionElectronica = this.articuloObjeto.direccionELectronica;
-    this.articulo.editorial = this.articuloObjeto.editorial;
-    this.articulo.indice = this.articuloObjeto.indice;
-    this.articulo.tipoArticulo = this.articuloObjeto.tipoArticulo;
-    this.articulo.nombreRevista = this.articuloObjeto.nombreRevista;
-    this.articulo.ISSN = this.articuloObjeto.ISSN;
-    this.articulo.paginaInicio = this.articuloObjeto.paginaInicio;
-    this.articulo.paginaFin = this.articuloObjeto.paginaFin;
-    this.articulo.pais = this.articuloObjeto.pais;
-    this.articulo.proposito = this.articuloObjeto.proposito;
-    this.articulo.volumen = this.articuloObjeto.volumen;
-    this.articulo.evidencia = this.articuloObjeto.evidencia;
-  }
-
-  ngOnInit() {
-    if (!isNullOrUndefined(this.articuloObjeto.id)) {
+  public ngOnInit() {
+    if (!isNullOrUndefined(this.articuloObjeto)) {
       this.llenarCampos();
     }
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
-      for (let i = 0; i < datos.length; i++) {
-        let temporal: any = (datos[i].payload.doc.data());
+      for (let dato of datos) {
+        const temporal: any = (dato.payload.doc.data());
         this.colaboradores.push(temporal.nombre);
       }
     });
@@ -183,6 +144,46 @@ export class ArticuloComponent implements OnInit {
       this.nuevoArticulo = !this.nuevoArticulo;
       this.creacionCancelada.emit(false);
     }
+  }
+
+
+  @Input() private articuloObjeto: any;
+  @Input() private habilitaCampos: boolean;
+  @Input() private eliminarProducto: boolean;
+  @Input() private nuevoArticulo: boolean;
+  @Output() private creacionCancelada = new EventEmitter<boolean>();
+
+  private idArticulo: string;
+  private cargaDeArchivo: number;
+  private archivo: FileList;
+  private articuloForm: FormGroup;
+  private evidencia = "Evidencia";
+  private btnEvidenciaControl: FormControl = new FormControl();
+  private colaboradoresControl: FormControl = new FormControl();
+  private colaboradoresExternosControl: FormControl = new FormControl();
+  private estadoControl: FormControl = new FormControl('', [Validators.required]);
+  private tipoArticuloControl: FormControl = new FormControl('', Validators.required);
+  private colaboradores: string[] = [];
+
+  private llenarCampos() {
+    this.articulo.titulo = this.articuloObjeto.titulo;
+    this.articulo.estado = this.articuloObjeto.estado;
+    this.articulo.tipo = this.articuloObjeto.tipo;
+    this.articulo.consideradoPCA = this.articuloObjeto.consideradoPCA;
+    this.articulo.year = this.articuloObjeto.year;
+    this.articulo.descripcion = this.articuloObjeto.descripcion;
+    this.articulo.direccionElectronica = this.articuloObjeto.direccionELectronica;
+    this.articulo.editorial = this.articuloObjeto.editorial;
+    this.articulo.indice = this.articuloObjeto.indice;
+    this.articulo.tipoArticulo = this.articuloObjeto.tipoArticulo;
+    this.articulo.nombreRevista = this.articuloObjeto.nombreRevista;
+    this.articulo.ISSN = this.articuloObjeto.ISSN;
+    this.articulo.paginaInicio = this.articuloObjeto.paginaInicio;
+    this.articulo.paginaFin = this.articuloObjeto.paginaFin;
+    this.articulo.pais = this.articuloObjeto.pais;
+    this.articulo.proposito = this.articuloObjeto.proposito;
+    this.articulo.volumen = this.articuloObjeto.volumen;
+    this.articulo.evidencia = this.articuloObjeto.evidencia;
   }
 
 }

@@ -244,7 +244,8 @@
     </div>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Colaboradores Externos</mat-label>
-      <mat-select [formControl]= "colaboradoresExternosControl" multiple>
+      <mat-select 
+      [formControl]= "colaboradoresExternosControl" multiple>
         <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
           topping
         }}</mat-option>
@@ -256,7 +257,7 @@
     <section class="example-section">
       <mat-checkbox
         [checked]="capitulo.consideradoPCA"
-        (change)="onChange($event)"
+        (change)="onChange()"
         class="example-margin"
         color="primary"
         formControlName = "btnConsideradoControl"

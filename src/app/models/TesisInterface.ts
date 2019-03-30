@@ -8,6 +8,8 @@ export interface Tesis {
     fechaTermino?: firebase.firestore.Timestamp;
     grado?: string;
     numAlumnos?: number;
+    lineaGeneracion?: string;
+    colaboradores: string[];
     registrado?: firebase.firestore.Timestamp;
     evidencia?: string;
 }

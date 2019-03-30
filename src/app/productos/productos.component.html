@@ -135,36 +135,36 @@
           [eliminarProducto] = "eliminaProducto"
           *ngIf="producto.tipo === 'capitulo'"
         ></app-capitulo>
-        <app-tesis 
+        <!--><app-tesis 
           [tesisObjeto]="producto"
           [habilitaCampos]="camposHabilitados"
           [eliminaProducto]="eliminaProducto"
           *ngIf="producto.tipo === 'tesis'">
-        </app-tesis>
+        </app-tesis>-->
         <app-libro
           [libroObjeto]="producto"
           [habilitaCampos]="camposHabilitados"
-          [eliminaProducto]="eliminaProducto"
+          [eliminarProducto]="eliminaProducto"
           *ngIf="producto.tipo === 'libro'">
         </app-libro>
-        <app-memoria
+        <!--><app-memoria
           [memoriaObjeto]="producto"
           [habilitaCampos]="camposHabilitados"
           [eliminaProducto]="eliminaProducto"
           *ngIf="producto.tipo === 'memoria'">
-        </app-memoria>
+        </app-memoria> -->
         <app-articulo
           [articuloObjeto]="producto"
           [habilitaCampos]="camposHabilitados"
-          [eliminaProducto]="eliminaProducto"
+          [eliminarProducto]="eliminaProducto"
           *ngIf="producto.tipo === 'articulo'">
         </app-articulo>
-        <app-produccion
+       <!--><app-produccion
           [produccionObjeto]="producto"
           [habilitaCampos]="camposHabilitados"
           [eliminaProducto]="eliminaProducto"
           *ngIf="producto.tipo === 'produccion'">
-        </app-produccion>
+        </app-produccion>-->
       </mat-expansion-panel>
     </mat-accordion>
   </div>

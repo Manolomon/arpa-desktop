@@ -15,22 +15,7 @@ import { isNullOrUndefined, isUndefined } from 'util';
 
 export class LibroComponent implements OnInit, OnChanges {
 
-  @Input() private libroObjeto: any;
-  @Input() private habilitaCampos: boolean;
-  @Input() private eliminarProducto: boolean;
-  @Input() private nuevoLibro: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
-
-  private idLibro: string;
-  private cargaDeArchivo: number;
-  private archivo: FileList;
-  private libroForm: FormGroup;
-  private btnEvidenciaControl: FormControl = new FormControl();
-  private colaboradoresControl: FormControl = new FormControl();
-  private colaboradoresExternosControl: FormControl = new FormControl();
-  private colaboradores: string[] = [];
-
-  libro: Libro = {
+  public libro: Libro = {
     titulo: '',
     estado: '',
     tipo: 'libro',
@@ -70,34 +55,15 @@ export class LibroComponent implements OnInit, OnChanges {
     this.cargaDeArchivo = 0;
   }
 
-  private llenarCampos() {
-    this.libro.titulo = this.libroObjeto.titulo;
-    this.libro.estado = this.libroObjeto.estado;
-    this.libro.tipo = this.libroObjeto.tipo;
-    this.libro.consideradoPCA = this.libroObjeto.consideradoPCA;
-    this.libro.year = this.libroObjeto.year;
-    this.libro.editorial = this.libroObjeto.year;
-    this.libro.numEdicion = this.libroObjeto.numEdicion;
-    this.libro.isbn = this.libroObjeto.isbn;
-    this.libro.paginas = this.libroObjeto.paginas;
-    this.libro.pais = this.libroObjeto.pais;
-    this.libro.proposito = this.libroObjeto.proposito;
-    this.libro.lineaGeneracion = this.libroObjeto.proposito;
-    this.libro.id = this.libroObjeto.id;
-    this.idLibro = this.libroObjeto.id;
-    this.libro.registrado = this.libroObjeto.registrado;
-    this.libro.ejemplares = this.libroObjeto.ejemplares;
-  }
-
-  ngOnInit() {
+  public ngOnInit() {
     if (!isNullOrUndefined(this.libroObjeto)) {
       this.llenarCampos();
     }
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
-      for (let i = 0; i < datos.length; i++) {
-        let temporal: any = (datos[i].payload.doc.data());
+      for (let dato of datos) {
+        const temporal: any = (dato.payload.doc.data());
         this.colaboradores.push(temporal.nombre);
       }
     });
@@ -173,5 +139,40 @@ export class LibroComponent implements OnInit, OnChanges {
       alert("Datos incompletos o inválidos");
     }
   }
+
+  @Input() private libroObjeto: any;
+  @Input() private habilitaCampos: boolean;
+  @Input() private eliminarProducto: boolean;
+  @Input() private nuevoLibro: boolean;
+  @Output() private creacionCancelada = new EventEmitter<boolean>();
+
+  private idLibro: string;
+  private cargaDeArchivo: number;
+  private archivo: FileList;
+  private libroForm: FormGroup;
+  private btnEvidenciaControl: FormControl = new FormControl();
+  private colaboradoresControl: FormControl = new FormControl();
+  private colaboradoresExternosControl: FormControl = new FormControl();
+  private colaboradores: string[] = [];
+
+  private llenarCampos() {
+    this.libro.titulo = this.libroObjeto.titulo;
+    this.libro.estado = this.libroObjeto.estado;
+    this.libro.tipo = this.libroObjeto.tipo;
+    this.libro.consideradoPCA = this.libroObjeto.consideradoPCA;
+    this.libro.year = this.libroObjeto.year;
+    this.libro.editorial = this.libroObjeto.year;
+    this.libro.numEdicion = this.libroObjeto.numEdicion;
+    this.libro.isbn = this.libroObjeto.isbn;
+    this.libro.paginas = this.libroObjeto.paginas;
+    this.libro.pais = this.libroObjeto.pais;
+    this.libro.proposito = this.libroObjeto.proposito;
+    this.libro.lineaGeneracion = this.libroObjeto.proposito;
+    this.libro.id = this.libroObjeto.id;
+    this.idLibro = this.libroObjeto.id;
+    this.libro.registrado = this.libroObjeto.registrado;
+    this.libro.ejemplares = this.libroObjeto.ejemplares;
+  }
+
 
 }

@@ -15,26 +15,7 @@ import { isNullOrUndefined, isUndefined } from 'util';
 })
 
 export class CapituloComponent implements OnInit, OnChanges {
-
-  @Input() private capituloObjeto: any;
-  @Input() private habilitaCampos: boolean;
-  @Input() private eliminarProducto: boolean;
-  @Input() private nuevoCapitulo: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
-
-  private idCapitulo: string;
-  private cargaDeArchivo: number;
-  private archivo: FileList;
-  private capituloForm: FormGroup;
-  private evidencia = "Evidencia";
-  private btnEvidenciaControl: FormControl = new FormControl();
-  private colaboradoresControl: FormControl = new FormControl();
-  private colaboradoresExternosControl: FormControl = new FormControl();
-
-  private colaboradores: string[] = [];
-
-
-  capitulo: Capitulo = {
+  public capitulo: Capitulo = {
     titulo: '',
     estado: '',
     tipo: 'capitulo',
@@ -53,20 +34,21 @@ export class CapituloComponent implements OnInit, OnChanges {
   };
 
   constructor(private productoService: ProductoService, private miembroService: MiembroService) {
-
+    this.minYear = 1900;
+    this.minLengthChar = 2;
     this.capituloForm = new FormGroup({
-      tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      tituloLibroControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      isbnControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      yearControl: new FormControl('', [Validators.required, Validators.min(1900)]),
+      tituloControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
+      tituloLibroControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
+      isbnControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
+      yearControl: new FormControl('', [Validators.required, Validators.min(this.minYear)]),
       edicionControl: new FormControl('', [Validators.required, Validators.min(1)]),
-      propositoControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      editorialControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      paisControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      propositoControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
+      editorialControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
+      paisControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
       pagInicioControl: new FormControl('', [Validators.required, Validators.min(1)]),
       pagFinalControl: new FormControl('', [Validators.required, Validators.min(2)]),
-      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.min(2)]),
-      estadoControl: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.min(this.minLengthChar)]),
+      estadoControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
       btnConsideradoControl: new FormControl(''),
     });
     this.capituloForm.addControl("colaboradoresControl", this.colaboradoresControl);
@@ -75,7 +57,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.cargaDeArchivo = 0;
   }
 
-  private llenarCampos() {
+  public llenarCampos() {
     this.capitulo.titulo = this.capituloObjeto.titulo;
     this.capitulo.estado = this.capituloObjeto.estado;
     this.capitulo.tipo = this.capituloObjeto.tipo;
@@ -102,8 +84,8 @@ export class CapituloComponent implements OnInit, OnChanges {
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
-      for (let i = 0; i < datos.length; i++) {
-        let temporal: any = (datos[i].payload.doc.data());
+      for (let dato of datos) {
+        const temporal: any = (dato.payload.doc.data());
         this.colaboradores.push(temporal.nombre);
       }
     });
@@ -133,7 +115,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.capitulo.evidencia = this.evidencia;
   }
 
-  public onChange(event) {
+  public onChange() {
     this.capitulo.consideradoPCA = !this.capitulo.consideradoPCA;
     console.log("Consideracion cambiada");
   }
@@ -183,5 +165,24 @@ export class CapituloComponent implements OnInit, OnChanges {
       this.creacionCancelada.emit(false);
     }
   }
+
+  private minYear: number;
+  private minLengthChar: number;
+  private idCapitulo: string;
+  private cargaDeArchivo: number;
+  private archivo: FileList;
+  private capituloForm: FormGroup;
+  private evidencia = "Evidencia";
+  private btnEvidenciaControl: FormControl = new FormControl();
+  private colaboradoresControl: FormControl = new FormControl();
+  private colaboradoresExternosControl: FormControl = new FormControl();
+
+  private colaboradores: string[] = [];
+
+  @Input() private capituloObjeto: any;
+  @Input() private habilitaCampos: boolean;
+  @Input() private eliminarProducto: boolean;
+  @Input() private nuevoCapitulo: boolean;
+  @Output() private creacionCancelada = new EventEmitter<boolean>();
 
 }

@@ -1,7 +1,7 @@
 export interface MemoriaInterface {
   id?: string;
   titulo?: string;
-  fechaRegistro?: any;
+  fechaRegistro?: firebase.firestore.Timestamp;
   estado?: string;
   consideradoParaCA?: boolean;
   evidencia?: string;
