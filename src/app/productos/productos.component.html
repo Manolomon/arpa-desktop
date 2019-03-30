@@ -135,12 +135,12 @@
           [eliminarProducto] = "eliminaProducto"
           *ngIf="producto.tipo === 'capitulo'"
         ></app-capitulo>
-        <!--><app-tesis 
+        <app-tesis 
           [tesisObjeto]="producto"
           [habilitaCampos]="camposHabilitados"
           [eliminaProducto]="eliminaProducto"
           *ngIf="producto.tipo === 'tesis'">
-        </app-tesis>-->
+        </app-tesis>
         <app-libro
           [libroObjeto]="producto"
           [habilitaCampos]="camposHabilitados"

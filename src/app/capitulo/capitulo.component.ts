@@ -15,6 +15,26 @@ import { isNullOrUndefined, isUndefined } from 'util';
 })
 
 export class CapituloComponent implements OnInit, OnChanges {
+
+  private minYear: number;
+  private minLengthChar: number;
+  private idCapitulo: string;
+  private cargaDeArchivo: number;
+  private archivo: FileList;
+  private capituloForm: FormGroup;
+  private evidencia = "Evidencia";
+  private btnEvidenciaControl: FormControl = new FormControl();
+  private colaboradoresControl: FormControl = new FormControl();
+  private colaboradoresExternosControl: FormControl = new FormControl();
+
+  private colaboradores: string[] = [];
+
+  @Input() private capituloObjeto: any;
+  @Input() private habilitaCampos: boolean;
+  @Input() private eliminarProducto: boolean;
+  @Input() private nuevoCapitulo: boolean;
+  @Output() private creacionCancelada = new EventEmitter<boolean>();
+
   public capitulo: Capitulo = {
     titulo: '',
     estado: '',
@@ -165,24 +185,5 @@ export class CapituloComponent implements OnInit, OnChanges {
       this.creacionCancelada.emit(false);
     }
   }
-
-  private minYear: number;
-  private minLengthChar: number;
-  private idCapitulo: string;
-  private cargaDeArchivo: number;
-  private archivo: FileList;
-  private capituloForm: FormGroup;
-  private evidencia = "Evidencia";
-  private btnEvidenciaControl: FormControl = new FormControl();
-  private colaboradoresControl: FormControl = new FormControl();
-  private colaboradoresExternosControl: FormControl = new FormControl();
-
-  private colaboradores: string[] = [];
-
-  @Input() private capituloObjeto: any;
-  @Input() private habilitaCampos: boolean;
-  @Input() private eliminarProducto: boolean;
-  @Input() private nuevoCapitulo: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
 
 }
