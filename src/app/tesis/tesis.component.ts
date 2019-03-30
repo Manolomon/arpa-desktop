@@ -27,7 +27,8 @@ export class TesisComponent implements OnInit, OnChanges {
   private estadoControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
   private gradoControl: FormControl = new FormControl('', [Validators.required]);
-  private fechaInicio: string;
+  private fechaInicioControl: FormControl = new FormControl('', [Validators.required]);
+  private fechaTerminoControl: FormControl = new FormControl('', [Validators.required]);
   private colaboradores: string[] = [];
 
   @Input() private tesisObjeto: any;
@@ -52,8 +53,6 @@ export class TesisComponent implements OnInit, OnChanges {
       lineaGeneracionControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       numAlumnosControl: new FormControl('', [Validators.required]),
       btnConsideradoControl: new FormControl(''),
-      fechaInicioControl: new FormControl('', [Validators.required]),
-      fechaTerminoControl: new FormControl('', [Validators.required]),
     });
     this.tesisForm.addControl("estadoControl", this.estadoControl);
     this.tesisForm.addControl("gradoCOntrol", this.gradoControl);
@@ -68,8 +67,6 @@ export class TesisComponent implements OnInit, OnChanges {
     this.tesis.tipo = this.tesisObjeto.tipo;
     this.tesis.consideradoPCA = this.tesisObjeto.consideradoPCA;
     this.tesis.fechaInicio = this.tesisObjeto.fechaInicio;
-    this.fechaInicio = this.tesis.fechaInicio.toDate().getDate() + '/' + this.tesis.fechaInicio.toDate().getMonth() + '/' + this.tesis.fechaInicio.toDate().getFullYear();
-
     this.tesis.fechaTermino = this.tesisObjeto.fechaTermino;
     this.tesis.grado = this.tesisObjeto.grado;
     this.tesis.numAlumnos = this.tesisObjeto.numAlumnos;
@@ -83,7 +80,11 @@ export class TesisComponent implements OnInit, OnChanges {
   public ngOnInit() {
     if (!isNullOrUndefined(this.tesisObjeto)) {
       this.llenarCampos();
+      this.fechaTerminoControl = new FormControl(this.tesis.fechaTermino.toDate());
+      this.fechaInicioControl = new FormControl(this.tesis.fechaInicio.toDate());
     }
+    this.tesisForm.addControl("fechaTerminoControl",this.fechaTerminoControl);
+    this.tesisForm.addControl("fechaInicioControl",this.fechaInicioControl);
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
@@ -174,8 +175,6 @@ export class TesisComponent implements OnInit, OnChanges {
 
   public setFechaInicio(event: MatDatepickerInputEvent<Date>) {
     this.tesis.fechaInicio = firebase.firestore.Timestamp.fromDate(event.value);
-    this.fechaInicio = event.value.getDay() + '/' + event.value.getMonth() + '/' + event.value.getFullYear();
-    console.log(this.fechaInicio);
   }
   public setFechaFin(event: MatDatepickerInputEvent<Date>) {
     this.tesis.fechaTermino = firebase.firestore.Timestamp.fromDate(event.value);
