@@ -112,17 +112,17 @@
                 matTooltip="Editar"
                 matTooltipPosition="above"
               >
-                <mat-icon aria-label="Example icon-button with a heart icon"
+                <mat-icon aria-label="Edit Button"
                   >edit</mat-icon
                 >
               </button>
-              <button (click)="eliminarProducto()"
+              <button (click)="eliminarProducto(i)"
                 mat-icon-button
                 *ngIf="indexExpanded == i"
                 matTooltip="Eliminar"
                 matTooltipPosition="above"
               >
-                <mat-icon aria-label="Example icon-button with a heart icon"
+                <mat-icon aria-label="Delete Button"
                   >delete</mat-icon
                 >
               </button>

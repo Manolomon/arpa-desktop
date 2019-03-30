@@ -40,10 +40,10 @@ export class ProductosComponent implements OnInit {
   }
 
   public showNotification(event): void {
-    this.notifier.notify("info", "Mensaje de información complementaria");
+    /*this.notifier.notify("info", "Mensaje de información complementaria");
     this.notifier.notify("success", "Mensaje de éxito, sí se pudo");
     this.notifier.notify("warning", "Mensaje de advertencia algo raro pasó");
-    this.notifier.notify("error", "Mensaje de error, algo salió mal");
+    this.notifier.notify("error", "Mensaje de error, algo salió mal");*/
   }
 
   public habilitarCampos() {
@@ -51,9 +51,9 @@ export class ProductosComponent implements OnInit {
     this.camposHabilitados = !this.camposHabilitados;
   }
 
-  public eliminarProducto() {
-    console.log("ELiminando producto...");
-    this.eliminaProducto = !this.eliminaProducto;
+  public eliminarProducto(i: number) {
+    console.log("Eliminando producto..." + this.productos[i].id);
+    this.productoService.eliminarProducto(this.productos[i].id);
   }
 
   togglePanels(index: number) {
