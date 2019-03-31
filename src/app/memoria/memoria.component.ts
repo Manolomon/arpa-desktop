@@ -29,6 +29,7 @@ export class MemoriaComponent implements OnInit, OnChanges {
 
   private fechaPublicacion: FormControl = new FormControl('', [Validators.required]);
   private colaboradores: string[] = [];
+  private lgac: string[] = [];
 
   @Input() private memoriaObjeto: any;
   @Input() private habilitaCampos: boolean;
@@ -106,6 +107,13 @@ export class MemoriaComponent implements OnInit, OnChanges {
         this.colaboradores.push(temporal.nombre);
       }
     });
+    this.productoService.obtenerLGAC().subscribe(datos => {
+      this.lgac = [];
+      for (let dato of datos) {
+        const temporal: any = (dato.payload.doc.data());
+        this.lgac.push(temporal.nombre);
+      }
+    });
     console.log(this.idMemoria);
     console.log(this.memoria.titulo);
   }
@@ -117,7 +125,12 @@ export class MemoriaComponent implements OnInit, OnChanges {
       this.memoriaForm.disable();
     }
     if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idMemoria);
+      this.productoService.eliminarProducto(this.idMemoria)
+      .catch(function(error) {
+        this.notifier.notify("error", "Error con la conexión a la base de datos");
+      });
+      console.log("Eliminando producto con id: "+ this.idMemoria);
+      this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
 

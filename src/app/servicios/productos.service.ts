@@ -25,6 +25,10 @@ export class ProductoService {
     obtenerProducto(idProducto) {
         return this.db.collection('productos').doc(idProducto).snapshotChanges();
     }
+    
+    obtenerLGAC() { 
+        return this.db.collection('lgac').snapshotChanges(); 
+    } 
 
     agregarProducto(producto) {
         return this.db.collection('productos').add(producto);

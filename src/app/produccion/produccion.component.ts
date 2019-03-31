@@ -27,6 +27,7 @@ export class ProduccionComponent implements OnInit {
   private fechaPublicacionControl: FormControl = new FormControl();
   private btnConsideradoControl: FormControl = new FormControl();
   private colaboradores: string[] = [];
+  private lgac: string[] = [];
 
   @Input() private produccionObjeto: any;
   @Input() private habilitaCampos: boolean;
@@ -108,6 +109,13 @@ export class ProduccionComponent implements OnInit {
         this.colaboradores.push(temporal.nombre);
       }
     });
+    this.productoService.obtenerLGAC().subscribe(datos => {
+      this.lgac = [];
+      for (let dato of datos) {
+        const temporal: any = (dato.payload.doc.data());
+        this.lgac.push(temporal.nombre);
+      }
+    });
   }
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -117,7 +125,12 @@ export class ProduccionComponent implements OnInit {
       this.produccionForm.disable();
     }
     if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idProduccion);
+      this.productoService.eliminarProducto(this.idProduccion)
+      .catch(function(error) {
+        this.notifier.notify("error", "Error con la conexión a la base de datos");
+      });
+      console.log("Eliminando producto con id: "+ this.idProduccion);
+      this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
 

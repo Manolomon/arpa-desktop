@@ -31,6 +31,7 @@ export class TesisComponent implements OnInit, OnChanges {
   private fechaInicioControl: FormControl = new FormControl('', [Validators.required]);
   private fechaTerminoControl: FormControl = new FormControl('', [Validators.required]);
   private colaboradores: string[] = [];
+  private lgac: string[] = [];
 
   @Input() private tesisObjeto: any;
   @Input() private habilitaCampos: boolean;
@@ -98,6 +99,13 @@ export class TesisComponent implements OnInit, OnChanges {
         this.colaboradores.push(temporal.nombre);
       }
     });
+    this.productoService.obtenerLGAC().subscribe(datos => {
+      this.lgac = [];
+      for (let dato of datos) {
+        const temporal: any = (dato.payload.doc.data());
+        this.lgac.push(temporal.nombre);
+      }
+    });
     console.log(this.idTesis);
     console.log(this.tesis.titulo);
   }
@@ -109,7 +117,12 @@ export class TesisComponent implements OnInit, OnChanges {
       this.tesisForm.disable();
     }
     if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idTesis);
+      this.productoService.eliminarProducto(this.idTesis)
+      .catch(function(error) {
+        this.notifier.notify("error", "Error con la conexión a la base de datos");
+      });
+      console.log("Eliminando producto con id: "+ this.idTesis);
+      this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
 

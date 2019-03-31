@@ -40,10 +40,11 @@
         [(ngModel)]="tesis.lineaGeneracion"
         name="lineaGeneracion"
         required>
-        <mat-option value="volvo">Volvo</mat-option>
-        <mat-option value="saab">Saab</mat-option>
-        <mat-option value="mercedes">Mercedes</mat-option>
-        <mat-option value="audi">Audi</mat-option>
+        <mat-option
+          *ngFor="let linea of lgac"
+          [value]="linea"
+        >{{ linea }}</mat-option
+      >
       </mat-select>
     </mat-form-field>
     <section class="example-section">

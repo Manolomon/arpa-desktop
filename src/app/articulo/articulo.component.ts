@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { MiembroService } from '../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined, isUndefined } from 'util';
+import { NotifierService } from "angular-notifier";
 
 @Component({
   selector: 'app-articulo',
@@ -33,6 +34,7 @@ export class ArticuloComponent implements OnInit {
   private estadoControl: FormControl = new FormControl('', [Validators.required]);
   private tipoArticuloControl: FormControl = new FormControl('', Validators.required);
   private colaboradores: string[] = [];
+  private lgac: string[] = [];
 
   private llenarCampos() {
     this.articulo.titulo = this.articuloObjeto.titulo;
@@ -76,7 +78,11 @@ export class ArticuloComponent implements OnInit {
     volumen: 0,
   };
 
-  constructor(private productoService: ProductoService, private miembroService: MiembroService) {
+  constructor(
+    private productoService: ProductoService,
+    private miembroService: MiembroService,
+    private notifier: NotifierService,
+  ) {
     this.articuloForm = new FormGroup({
       tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       descripcionControl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(2500)]),
@@ -113,6 +119,13 @@ export class ArticuloComponent implements OnInit {
         this.colaboradores.push(temporal.nombre);
       }
     });
+    this.productoService.obtenerLGAC().subscribe(datos => {
+      this.lgac = [];
+      for (let dato of datos) {
+        const temporal: any = (dato.payload.doc.data());
+        this.lgac.push(temporal.nombre);
+      }
+    });
   }
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -122,7 +135,12 @@ export class ArticuloComponent implements OnInit {
       this.articuloForm.disable();
     }
     if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idArticulo);
+      this.productoService.eliminarProducto(this.idArticulo)
+      .catch(function(error) {
+        this.notifier.notify("error", "Error con la conexión a la base de datos");
+      });
+      console.log("Eliminando producto con id: "+ this.idArticulo);
+      this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
 

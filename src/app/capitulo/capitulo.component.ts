@@ -28,6 +28,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
   private colaboradores: string[] = [];
+  private lgac: string[] = [];
 
   @Input() private capituloObjeto: any;
   @Input() private habilitaCampos: boolean;
@@ -114,6 +115,13 @@ export class CapituloComponent implements OnInit, OnChanges {
         this.colaboradores.push(temporal.nombre);
       }
     });
+    this.productoService.obtenerLGAC().subscribe(datos => {
+      this.lgac = [];
+      for (let dato of datos) {
+        const temporal: any = (dato.payload.doc.data());
+        this.lgac.push(temporal.nombre);
+      }
+    });
     console.log(this.idCapitulo);
     console.log(this.capitulo.titulo);
   }
@@ -125,7 +133,12 @@ export class CapituloComponent implements OnInit, OnChanges {
       this.capituloForm.disable();
     }
     if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idCapitulo);
+      this.productoService.eliminarProducto(this.idCapitulo)
+        .catch(function(error) {
+          this.notifier.notify("error", "Error con la conexión a la base de datos");
+        });
+      console.log("Eliminando producto con id: "+ this.idCapitulo);
+      this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
 
