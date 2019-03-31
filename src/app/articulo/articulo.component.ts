@@ -98,7 +98,7 @@ export class ArticuloComponent implements OnInit {
       nombreRevistaControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       editorialControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       indiceControl: new FormControl('', [Validators.minLength(2)]),
-      direccionElectronicaControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      direccionElectronicaControl: new FormControl('', [Validators.minLength(2)]),
     });
     this.articuloForm.addControl("colaboradoresControl", this.colaboradoresControl);
     this.articuloForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
@@ -175,8 +175,10 @@ export class ArticuloComponent implements OnInit {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
+            this.notifier.notify("success", "Artículo almacenado exitosamente");
           })
           .catch(function (error) {
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         console.log(this.articulo.colaboradores);
@@ -185,15 +187,17 @@ export class ArticuloComponent implements OnInit {
         this.articulo.id = this.idArticulo;
         this.productoService.modificarProducto(this.articulo)
           .catch(function (error) {
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idArticulo, this.cargaDeArchivo);
         }
+        this.notifier.notify("success", "Artículo modificado exitosamente");
         console.log(this.articulo.colaboradores);
       }
     } else {
-      alert("Datos incompletos o inválidos");
+      this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
   }
 

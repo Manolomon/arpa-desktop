@@ -172,8 +172,10 @@ export class LibroComponent implements OnInit, OnChanges {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
+            this.notifier.notify("success", "Libro almacenado exitosamente");
           })
           .catch(function (error) {
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         console.log(this.libro.colaboradores);
@@ -182,15 +184,17 @@ export class LibroComponent implements OnInit, OnChanges {
         this.libro.id = this.idLibro;
         this.productoService.modificarProducto(this.libro)
           .catch(function (error) {
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idLibro, this.cargaDeArchivo);
         }
+        this.notifier.notify("success", "Libro almacenado exitosamente");
         console.log(this.libro.colaboradores);
       }
     } else {
-      alert("Datos incompletos o inválidos");
+      this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
   }
 

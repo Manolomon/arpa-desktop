@@ -228,9 +228,11 @@
         [(ngModel)]="articulo.colaboradores"
         name="colaboradores"  
       >
-        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-          topping
-        }}</mat-option>
+      <mat-option
+      *ngFor="let colaborador of colaboradores"
+      [value]="colaborador"
+      >{{ colaborador }}</mat-option
+    >
       </mat-select>
       <mat-icon matSuffix class="material-icon"
         >supervised_user_circle</mat-icon
