@@ -248,7 +248,7 @@
     </mat-form-field>
     <section class="example-section">
       <mat-checkbox
-      [checked]="tesis.consideradoPCA"
+      [checked]="produccion.consideradoPCA"
       (change)="onChange($event)" 
         class="example-margin" 
         color="primary"
@@ -261,7 +261,7 @@
   <div fxLayout="row" fxLayoutAlign="end center">
     <div class="example-button-row">
       <button type="button" mat-stroked-button color="primary" (click) = "cancelarEdicion()">Cancelar</button>
-      <button type="submit" mat-raised-button color="primary" [disabled]="tesisForm.disabled">Guardar</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="produccionForm.disabled">Guardar</button>
     </div>
   </div>
 </form>

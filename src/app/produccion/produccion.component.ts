@@ -25,6 +25,7 @@ export class ProduccionComponent implements OnInit {
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
   private fechaPublicacionControl: FormControl = new FormControl();
+  private btnConsideradoControl: FormControl = new FormControl();
   private colaboradores: string[] = [];
 
   @Input() private produccionObjeto: any;
@@ -67,7 +68,7 @@ export class ProduccionComponent implements OnInit {
       estadoControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       paisControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
     });
-
+    this.produccionForm.addControl("btnConsideradoControl", this.btnConsideradoControl);
     this.produccionForm.addControl("colaboradoresControl", this.colaboradoresControl);
     this.produccionForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
     this.produccionForm.addControl("fechaPublicacionControl", this.fechaPublicacionControl);
