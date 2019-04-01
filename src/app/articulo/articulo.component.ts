@@ -57,11 +57,14 @@ export class ArticuloComponent implements OnInit {
     this.articulo.evidencia = this.articuloObjeto.evidencia;
     this.articulo.colaboradores = this.articuloObjeto.colaboradores;
     this.articulo.lineaGeneracion = this.articuloObjeto.lineaGeneracion;
+    this.articulo.autor = this.articuloObjeto.autor;
+    this.idArticulo = this.articuloObjeto.id;
   }
 
   public articulo: Articulo = {
     titulo: '',
     estado: '',
+    autor: '',
     tipo: 'articulo',
     consideradoPCA: false,
     year: 0,
