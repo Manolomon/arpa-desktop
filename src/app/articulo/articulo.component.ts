@@ -56,6 +56,7 @@ export class ArticuloComponent implements OnInit {
     this.articulo.volumen = this.articuloObjeto.volumen;
     this.articulo.evidencia = this.articuloObjeto.evidencia;
     this.articulo.colaboradores = this.articuloObjeto.colaboradores;
+    this.articulo.lineaGeneracion = this.articuloObjeto.lineaGeneracion;
   }
 
   public articulo: Articulo = {
@@ -76,6 +77,7 @@ export class ArticuloComponent implements OnInit {
     pais: '',
     proposito: '',
     volumen: 0,
+    lineaGeneracion: '',
   };
 
   constructor(
@@ -99,6 +101,7 @@ export class ArticuloComponent implements OnInit {
       editorialControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       indiceControl: new FormControl('', [Validators.minLength(2)]),
       direccionElectronicaControl: new FormControl('', [Validators.minLength(2)]),
+      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
     });
     this.articuloForm.addControl("colaboradoresControl", this.colaboradoresControl);
     this.articuloForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
@@ -136,10 +139,10 @@ export class ArticuloComponent implements OnInit {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idArticulo)
-      .catch(function(error) {
-        this.notifier.notify("error", "Error con la conexión a la base de datos");
-      });
-      console.log("Eliminando producto con id: "+ this.idArticulo);
+        .catch(function (error) {
+          this.notifier.notify("error", "Error con la conexión a la base de datos");
+        });
+      console.log("Eliminando producto con id: " + this.idArticulo);
       this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }

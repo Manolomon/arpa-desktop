@@ -11,6 +11,7 @@ export interface Articulo {
     indice?: string;
     tipoArticulo?: string;
     nombreRevista?: string;
+    lineaGeneracion?: string;
     ISSN?: string;
     paginaInicio?: number;
     paginaFin?: number;

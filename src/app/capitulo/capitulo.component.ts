@@ -72,7 +72,7 @@ export class CapituloComponent implements OnInit, OnChanges {
       paisControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
       pagInicioControl: new FormControl('', [Validators.required, Validators.min(1)]),
       pagFinalControl: new FormControl('', [Validators.required, Validators.min(2)]),
-      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.min(this.minLengthChar)]),
+      lineaGeneracionControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
       estadoControl: new FormControl('', [Validators.required, Validators.minLength(this.minLengthChar)]),
       btnConsideradoControl: new FormControl(''),
     });
@@ -134,10 +134,10 @@ export class CapituloComponent implements OnInit, OnChanges {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idCapitulo)
-        .catch(function(error) {
+        .catch(function (error) {
           this.notifier.notify("error", "Error con la conexión a la base de datos");
         });
-      console.log("Eliminando producto con id: "+ this.idCapitulo);
+      console.log("Eliminando producto con id: " + this.idCapitulo);
       this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }

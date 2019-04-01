@@ -144,7 +144,11 @@
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Línea de Generación</mat-label>
-      <mat-select required>
+      <mat-select 
+        formControlName="lineaGeneracionControl"
+        [(ngModel)]="articulo.lineaGeneracion"
+        name="lineaGeneracion"
+        required>
         <mat-option
           *ngFor="let linea of lgac"
           [value]="linea"
