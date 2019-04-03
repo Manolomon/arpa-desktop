@@ -25,7 +25,7 @@ export class ProduccionComponent implements OnInit {
   private considerar: boolean;
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
-  private fechaPublicacionControl: FormControl = new FormControl();
+  private fechaPublicacionControl: FormControl = new FormControl('', [Validators.required]);
   private btnConsideradoControl: FormControl = new FormControl();
   private colaboradores: string[] = [];
   private lgac: string[] = [];
@@ -85,7 +85,7 @@ export class ProduccionComponent implements OnInit {
     this.produccion.descripcion = this.produccionObjeto.descripcion;
     this.produccion.estado = this.produccionObjeto.estado;
     this.produccion.evidencia = this.produccion.evidencia;
-    this.produccion.fechaPublicacion = this.produccion.fechaPublicacion;
+    this.produccion.fechaPublicacion = this.produccionObjeto.fechaPublicacion;
     this.produccion.id = this.produccionObjeto.id;
     this.idProduccion = this.produccionObjeto.id;
     this.produccion.lineaGeneracion = this.produccionObjeto.lineaGeneracion;
@@ -102,13 +102,13 @@ export class ProduccionComponent implements OnInit {
       this.llenarCampos();
       this.fechaPublicacionControl = new FormControl(this.produccion.fechaPublicacion.toDate());
     }
+    this.produccionForm.addControl("fechaPublicacionControl", this.fechaPublicacionControl);
+
     if (this.habilitaCampos) {
       this.produccionForm.enable();
     } else {
       this.produccionForm.disable();
     }
-    this.produccionForm.addControl("fechaPublicacion", this.fechaPublicacionControl);
-
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
       for (let dato of datos) {
