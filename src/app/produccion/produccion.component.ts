@@ -22,6 +22,7 @@ export class ProduccionComponent implements OnInit {
   private archivo: FileList;
   private produccionForm: FormGroup;
   private evidencia = "Evidencia";
+  private considerar: boolean;
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
   private fechaPublicacionControl: FormControl = new FormControl();
@@ -72,14 +73,15 @@ export class ProduccionComponent implements OnInit {
     this.produccionForm.addControl("btnConsideradoControl", this.btnConsideradoControl);
     this.produccionForm.addControl("colaboradoresControl", this.colaboradoresControl);
     this.produccionForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
-    this.produccionForm.addControl("fechaPublicacionControl", this.fechaPublicacionControl);
     this.cargaDeArchivo = 0;
+    this.considerar = false;
   }
 
   public llenarCampos() {
     this.produccion.clasificacion = this.produccionObjeto.clasificacion;
     this.produccion.colaboradores = this.produccionObjeto.colaboradores;
     this.produccion.consideradoPCA = this.produccionObjeto.consideradoPCA;
+    this.considerar = this.produccionObjeto.consideradoPCA;
     this.produccion.descripcion = this.produccionObjeto.descripcion;
     this.produccion.estado = this.produccionObjeto.estado;
     this.produccion.evidencia = this.produccion.evidencia;
@@ -102,8 +104,10 @@ export class ProduccionComponent implements OnInit {
     }
     if (this.habilitaCampos) {
       this.produccionForm.enable();
+    } else {
+      this.produccionForm.disable();
     }
-    this.produccionForm.addControl("fechaTerminoControl", this.fechaPublicacionControl);
+    this.produccionForm.addControl("fechaPublicacion", this.fechaPublicacionControl);
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
@@ -148,8 +152,9 @@ export class ProduccionComponent implements OnInit {
     this.produccion.evidencia = this.evidencia;
   }
 
-  public onChange() {
-    this.produccion.consideradoPCA = !this.produccion.consideradoPCA;
+  public onChange(event) {
+    this.produccion.consideradoPCA = !this.considerar;
+    this.considerar = !this.considerar;
     console.log("Consideracion cambiada");
   }
 

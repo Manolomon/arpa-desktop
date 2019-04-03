@@ -28,6 +28,7 @@ export class ArticuloComponent implements OnInit {
   private archivo: FileList;
   private articuloForm: FormGroup;
   private evidencia = "Evidencia";
+  private considerar: boolean;
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
@@ -41,6 +42,7 @@ export class ArticuloComponent implements OnInit {
     this.articulo.estado = this.articuloObjeto.estado;
     this.articulo.tipo = this.articuloObjeto.tipo;
     this.articulo.consideradoPCA = this.articuloObjeto.consideradoPCA;
+    this.considerar = this.articuloObjeto.consideradoPCA;
     this.articulo.year = this.articuloObjeto.year;
     this.articulo.descripcion = this.articuloObjeto.descripcion;
     this.articulo.direccionElectronica = this.articuloObjeto.direccionELectronica;
@@ -102,12 +104,14 @@ export class ArticuloComponent implements OnInit {
       indiceControl: new FormControl('', [Validators.minLength(2)]),
       direccionElectronicaControl: new FormControl('', [Validators.minLength(2)]),
       lineaGeneracionControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      btnConsideradoControl: new FormControl(''),
     });
     this.articuloForm.addControl("colaboradoresControl", this.colaboradoresControl);
     this.articuloForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
     this.articuloForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
     this.articuloForm.addControl("estadoControl", this.estadoControl);
     this.articuloForm.addControl("tipoArticuloControl", this.tipoArticuloControl);
+    this.considerar = false;
 
   }
 
@@ -115,6 +119,13 @@ export class ArticuloComponent implements OnInit {
     if (!isNullOrUndefined(this.articuloObjeto)) {
       this.llenarCampos();
     }
+
+    if (this.habilitaCampos) {
+      this.articuloForm.enable();
+    } else {
+      this.articuloForm.disable();
+    }
+
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
       for (let dato of datos) {
@@ -159,7 +170,8 @@ export class ArticuloComponent implements OnInit {
   }
 
   public onChange(event) {
-    this.articulo.consideradoPCA = !this.articulo.consideradoPCA;
+    this.articulo.consideradoPCA = !this.considerar;
+    this.considerar = !this.considerar;
     console.log("Consideracion cambiada");
   }
 

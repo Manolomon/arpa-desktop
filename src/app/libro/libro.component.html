@@ -247,7 +247,7 @@
     </mat-form-field>
     <section class="example-section">
       <mat-checkbox 
-        [checked]="libro.consideradoPCA"
+        [(ngModel)]="libro.consideradoPCA"
         (change)="onchange($event)"
         class="example-margin" 
         color="primary"

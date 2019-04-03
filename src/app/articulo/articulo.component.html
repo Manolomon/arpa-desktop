@@ -320,7 +320,8 @@
     </mat-form-field>
     <section class="example-section">
       <mat-checkbox 
-        [checked]="articulo.consideradoPCA"
+        formControlName="btnConsideradoControl"
+        [(ngModel)]="articulo.consideradoPCA"
         (change)="onChange($event)"
         class="example-margin" 
         color="primary">

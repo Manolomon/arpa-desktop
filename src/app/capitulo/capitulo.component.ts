@@ -24,6 +24,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   private archivo: FileList;
   private capituloForm: FormGroup;
   private evidencia = "Evidencia";
+  private considerar: boolean;
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
@@ -80,6 +81,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.capituloForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
     this.capituloForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
     this.cargaDeArchivo = 0;
+    this.considerar = false;
   }
 
   public llenarCampos() {
@@ -87,6 +89,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.capitulo.estado = this.capituloObjeto.estado;
     this.capitulo.tipo = this.capituloObjeto.tipo;
     this.capitulo.consideradoPCA = this.capituloObjeto.consideradoPCA;
+    this.considerar = this.capituloObjeto.consideradoPCA;
     this.capitulo.year = this.capituloObjeto.year;
     this.capitulo.editorial = this.capituloObjeto.editorial;
     this.capitulo.numEdicion = this.capituloObjeto.numEdicion;
@@ -109,6 +112,8 @@ export class CapituloComponent implements OnInit, OnChanges {
     }
     if (this.habilitaCampos) {
       this.capituloForm.enable();
+    } else {
+      this.capituloForm.disable();
     }
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
@@ -157,7 +162,8 @@ export class CapituloComponent implements OnInit, OnChanges {
   }
 
   public onChange() {
-    this.capitulo.consideradoPCA = !this.capitulo.consideradoPCA;
+    this.capitulo.consideradoPCA = !this.considerar;
+    this.considerar = !this.considerar;
     console.log("Consideracion cambiada");
   }
 

@@ -188,11 +188,11 @@
     </mat-form-field>
     <section class="example-section">
       <mat-checkbox
-      [checked]="tesis.consideradoPCA"
+      formControlName="btnConsideradoControl"
+      [(ngModel)]="tesis.consideradoPCA"
       (change)="onChange($event)" 
         class="example-margin" 
         color="primary"
-        formControlName="btnConsideradoControl"
       >
         Considerar para Cuerpo Académico
       </mat-checkbox>

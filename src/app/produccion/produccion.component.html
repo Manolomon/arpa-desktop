@@ -3,7 +3,7 @@
 <form 
   novalidate
   [formGroup]="produccionForm"
-  (ngSubmit)="onGuardarProduccion(formNew)"
+  (ngSubmit)="onGuardaProduccion(formNew)"
   #formNew="ngForm"
   fxLayout="column"
 >
@@ -249,7 +249,7 @@
     </mat-form-field>
     <section class="example-section">
       <mat-checkbox
-      [checked]="produccion.consideradoPCA"
+      [(ngModel)]="produccion.consideradoPCA"
       (change)="onChange($event)" 
         class="example-margin" 
         color="primary"

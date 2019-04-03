@@ -219,7 +219,6 @@
           <input
              matInput [matDatepicker]="myPicker"
              formControlName="fechaPublicacion"
-             disabled="memoriaForm.disabled"
              (dateChange)="setFechaPublicacion($event)"
              placeholder="Fecha" 
              required
@@ -242,7 +241,8 @@
     </mat-form-field>
     <section class="example-section">
       <mat-checkbox 
-        [checked]="memoria.consideradoPCA"
+      formControlName="btnConsideradoControl"
+        [(ngModel)]="memoria.consideradoPCA"
         (change)="onChange($event)"
         class="example-margin" 
         color="primary">

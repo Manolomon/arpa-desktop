@@ -23,6 +23,7 @@ export class TesisComponent implements OnInit, OnChanges {
   private archivo: FileList;
   private tesisForm: FormGroup;
   private evidencia = "Evidencia";
+  private considerar: boolean;
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
   private estadoControl: FormControl = new FormControl();
@@ -64,7 +65,7 @@ export class TesisComponent implements OnInit, OnChanges {
     this.tesisForm.addControl("gradoControl", this.gradoControl);
     this.tesisForm.addControl("colaboradoresControl", this.colaboradoresControl);
     this.tesisForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
-
+    this.considerar = false;
   }
 
   public llenarCampos() {
@@ -72,6 +73,7 @@ export class TesisComponent implements OnInit, OnChanges {
     this.tesis.estado = this.tesisObjeto.estado;
     this.tesis.tipo = this.tesisObjeto.tipo;
     this.tesis.consideradoPCA = this.tesisObjeto.consideradoPCA;
+    this.considerar = this.tesisObjeto.consideradoPCA;
     this.tesis.fechaInicio = this.tesisObjeto.fechaInicio;
     this.tesis.fechaTermino = this.tesisObjeto.fechaTermino;
     this.tesis.grado = this.tesisObjeto.grado;
@@ -91,8 +93,10 @@ export class TesisComponent implements OnInit, OnChanges {
     }
     this.tesisForm.addControl("fechaTerminoControl", this.fechaTerminoControl);
     this.tesisForm.addControl("fechaInicioControl", this.fechaInicioControl);
-    if(this.habilitaCampos){
+    if (this.habilitaCampos) {
       this.tesisForm.enable();
+    } else {
+      this.tesisForm.disable();
     }
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
@@ -120,10 +124,10 @@ export class TesisComponent implements OnInit, OnChanges {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idTesis)
-      .catch(function(error) {
-        this.notifier.notify("error", "Error con la conexión a la base de datos");
-      });
-      console.log("Eliminando producto con id: "+ this.idTesis);
+        .catch(function (error) {
+          this.notifier.notify("error", "Error con la conexión a la base de datos");
+        });
+      console.log("Eliminando producto con id: " + this.idTesis);
       this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
@@ -139,8 +143,9 @@ export class TesisComponent implements OnInit, OnChanges {
     this.tesis.evidencia = this.evidencia;
   }
 
-  public onChange() {
-    this.tesis.consideradoPCA = !this.tesis.consideradoPCA;
+  public onChange(event) {
+    this.tesis.consideradoPCA = !this.considerar;
+    this.considerar = !this.considerar;
     console.log("Consideracion cambiada");
   }
 

@@ -27,6 +27,7 @@ export class LibroComponent implements OnInit, OnChanges {
   private cargaDeArchivo: number;
   private archivo: FileList;
   private libroForm: FormGroup;
+  private considerar: boolean;
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
@@ -38,6 +39,7 @@ export class LibroComponent implements OnInit, OnChanges {
     this.libro.estado = this.libroObjeto.estado;
     this.libro.tipo = this.libroObjeto.tipo;
     this.libro.consideradoPCA = this.libroObjeto.consideradoPCA;
+    this.considerar = this.libroObjeto.consideradoPCA;
     this.libro.year = this.libroObjeto.year;
     this.libro.editorial = this.libroObjeto.year;
     this.libro.numEdicion = this.libroObjeto.numEdicion;
@@ -95,6 +97,7 @@ export class LibroComponent implements OnInit, OnChanges {
     this.libroForm.addControl("colaboradoresExternosControl", this.colaboradoresExternosControl);
     this.libroForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
     this.cargaDeArchivo = 0;
+    this.considerar = false;
   }
 
   public ngOnInit() {
@@ -104,6 +107,8 @@ export class LibroComponent implements OnInit, OnChanges {
 
     if (this.habilitaCampos) {
       this.libroForm.enable();
+    } else {
+      this.libroForm.disable();
     }
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
@@ -148,7 +153,8 @@ export class LibroComponent implements OnInit, OnChanges {
   }
 
   public onChange(event) {
-    this.libro.consideradoPCA = !this.libro.consideradoPCA;
+    this.libro.consideradoPCA = !this.considerar;
+    this.considerar = !this.considerar;
     console.log("Consideracion cambiada");
   }
 

@@ -23,10 +23,11 @@ export class MemoriaComponent implements OnInit, OnChanges {
   private archivo: FileList;
   private memoriaForm: FormGroup;
   private evidencia = "Evidencia";
+  private considerar: boolean;
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
-
+  private ciudadControl: FormControl = new FormControl();
   private fechaPublicacion: FormControl = new FormControl('', [Validators.required]);
   private colaboradores: string[] = [];
   private lgac: string[] = [];
@@ -67,17 +68,20 @@ export class MemoriaComponent implements OnInit, OnChanges {
       lineaGeneracionControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       estadoControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       paisControl: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      btnConsideradoControl: new FormControl(''),
     });
     this.memoriaForm.addControl("btnEvidenciaControl", this.btnEvidenciaControl);
     this.memoriaForm.addControl("colaboradoresControl", this.colaboradoresControl);
     this.memoriaForm.addControl("colaboradoresExternosConttrol", this.colaboradoresExternosControl);
-    this.memoriaForm.addControl("fechaPublicacion", this.fechaPublicacion);
+    this.memoriaForm.addControl("ciudadControl", this.ciudadControl);
+    this.considerar = false;
   }
 
   public llenarCampos() {
     this.memoria.autor = this.memoriaObjeto.autor;
     this.memoria.ciudad = this.memoriaObjeto.ciudad;
-    this.memoria.consideradoPCA = this.memoria.consideradoPCA;
+    this.memoria.consideradoPCA = this.memoriaObjeto.consideradoPCA;
+    this.considerar = this.memoriaObjeto.consideradoPCA;
     this.memoria.estado = this.memoriaObjeto.estado;
     this.memoria.fechaPublicacion = this.memoriaObjeto.fechaPublicacion;
     this.memoria.nombreCongreso = this.memoriaObjeto.nombreCongreso;
@@ -90,6 +94,7 @@ export class MemoriaComponent implements OnInit, OnChanges {
     this.idMemoria = this.memoriaObjeto.id;
     this.memoria.id = this.memoriaObjeto.id;
     this.memoria.lineaGeneracion = this.memoriaObjeto.lineaGeneracion;
+    this.memoria.titulo = this.memoriaObjeto.titulo;
   }
 
   public ngOnInit() {
@@ -97,9 +102,11 @@ export class MemoriaComponent implements OnInit, OnChanges {
       this.llenarCampos();
       this.fechaPublicacion = new FormControl(this.memoria.fechaPublicacion.toDate());
     }
-    this.memoriaForm.addControl("fechaTerminoControl", this.fechaPublicacion);
-    if(this.habilitaCampos){
+    this.memoriaForm.addControl("fechaPublicacion", this.fechaPublicacion);
+    if (this.habilitaCampos) {
       this.memoriaForm.enable();
+    } else {
+      this.memoriaForm.disable();
     }
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
@@ -127,10 +134,10 @@ export class MemoriaComponent implements OnInit, OnChanges {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idMemoria)
-      .catch(function(error) {
-        this.notifier.notify("error", "Error con la conexión a la base de datos");
-      });
-      console.log("Eliminando producto con id: "+ this.idMemoria);
+        .catch(function (error) {
+          this.notifier.notify("error", "Error con la conexión a la base de datos");
+        });
+      console.log("Eliminando producto con id: " + this.idMemoria);
       this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
@@ -146,9 +153,11 @@ export class MemoriaComponent implements OnInit, OnChanges {
     this.memoria.evidencia = this.evidencia;
   }
 
-  public onChange() {
-    this.memoria.consideradoPCA = !this.memoria.consideradoPCA;
+  public onChange(event) {
+    this.memoria.consideradoPCA = !this.considerar;
+    this.considerar = !this.considerar;
     console.log("Consideracion cambiada");
+    console.log(this.memoria.consideradoPCA);
   }
 
   public onGuardarMemoria(myForm: NgForm) {
