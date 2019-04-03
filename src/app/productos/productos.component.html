@@ -59,27 +59,33 @@
     <mat-divider class="br_div"></mat-divider>
   </div>
   <div fxFlexAlign="center" fxLayoutAlign="center center">
-    <app-capitulo 
+    <app-capitulo
+    [habilitaCampos]="true"
       (creacionCancelada)="creacionCancelada($event)"
       *ngIf="agregaProducto && tipoProducto === 'capitulo'">
     </app-capitulo>
-    <app-articulo 
+    <app-articulo
+    [habilitaCampos]="true"
       (creacionCancelada)="creacionCancelada($event)"
       *ngIf="agregaProducto && tipoProducto === 'articulo'">
     </app-articulo>
-    <app-tesis 
+    <app-tesis
+    [habilitaCampos]="true"
       (creacionCancelada)="creacionCancelada($event)"
       *ngIf="agregaProducto && tipoProducto === 'tesis'">
     </app-tesis>
-    <app-produccion 
+    <app-produccion
+      [habilitaCampos]="true"
       (creacionCancelada)="creacionCancelada($event)"
       *ngIf="agregaProducto && tipoProducto === 'produccion'">
     </app-produccion>
-    <app-libro 
+    <app-libro
+    [habilitaCampos]="true"
       (creacionCancelada)="creacionCancelada($event)"
       *ngIf="agregaProducto && tipoProducto === 'libro'">
     </app-libro>
-    <app-memoria 
+    <app-memoria
+    [habilitaCampos]="true"
       (creacionCancelada)="creacionCancelada($event)"
       *ngIf="agregaProducto && tipoProducto === 'memoria'">
     </app-memoria>
@@ -135,7 +141,7 @@
           [eliminarProducto] = "eliminaProducto"
           *ngIf="producto.tipo === 'capitulo'"
         ></app-capitulo>
-        <app-tesis 
+        <app-tesis
           [tesisObjeto]="producto"
           [habilitaCampos]="camposHabilitados"
           [eliminarProducto]="eliminaProducto"

@@ -102,6 +102,10 @@ export class LibroComponent implements OnInit, OnChanges {
       this.llenarCampos();
     }
 
+    if (this.habilitaCampos) {
+      this.libroForm.enable();
+    }
+
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
       for (let dato of datos) {
@@ -126,10 +130,10 @@ export class LibroComponent implements OnInit, OnChanges {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idLibro)
-        .catch(function(error) {
+        .catch(function (error) {
           this.notifier.notify("error", "Error con la conexión a la base de datos");
         });
-      console.log("Eliminando producto con id: "+ this.idLibro);
+      console.log("Eliminando producto con id: " + this.idLibro);
       this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }

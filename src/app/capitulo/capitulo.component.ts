@@ -107,6 +107,9 @@ export class CapituloComponent implements OnInit, OnChanges {
     if (!isNullOrUndefined(this.capituloObjeto)) {
       this.llenarCampos();
     }
+    if (this.habilitaCampos) {
+      this.capituloForm.enable();
+    }
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];

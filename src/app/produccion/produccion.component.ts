@@ -100,6 +100,9 @@ export class ProduccionComponent implements OnInit {
       this.llenarCampos();
       this.fechaPublicacionControl = new FormControl(this.produccion.fechaPublicacion.toDate());
     }
+    if (this.habilitaCampos) {
+      this.produccionForm.enable();
+    }
     this.produccionForm.addControl("fechaTerminoControl", this.fechaPublicacionControl);
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
@@ -126,10 +129,10 @@ export class ProduccionComponent implements OnInit {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idProduccion)
-      .catch(function(error) {
-        this.notifier.notify("error", "Error con la conexión a la base de datos");
-      });
-      console.log("Eliminando producto con id: "+ this.idProduccion);
+        .catch(function (error) {
+          this.notifier.notify("error", "Error con la conexión a la base de datos");
+        });
+      console.log("Eliminando producto con id: " + this.idProduccion);
       this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
@@ -150,7 +153,7 @@ export class ProduccionComponent implements OnInit {
     console.log("Consideracion cambiada");
   }
 
-  public onGuardarproduccion(myForm: NgForm) {
+  public onGuardarProduccion(myForm: NgForm) {
     this.cargaDeArchivo = 0;
     if (this.produccionForm.valid) {
       let idGenerado: string;

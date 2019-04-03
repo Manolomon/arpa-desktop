@@ -57,14 +57,11 @@ export class ArticuloComponent implements OnInit {
     this.articulo.evidencia = this.articuloObjeto.evidencia;
     this.articulo.colaboradores = this.articuloObjeto.colaboradores;
     this.articulo.lineaGeneracion = this.articuloObjeto.lineaGeneracion;
-    this.articulo.autor = this.articuloObjeto.autor;
-    this.idArticulo = this.articuloObjeto.id;
   }
 
   public articulo: Articulo = {
     titulo: '',
     estado: '',
-    autor: '',
     tipo: 'articulo',
     consideradoPCA: false,
     year: 0,
@@ -171,7 +168,7 @@ export class ArticuloComponent implements OnInit {
     if (this.articuloForm.valid) {
       let idGenerado: string;
       console.log(this.idArticulo);
-      if (isUndefined(this.idArticulo)) {
+      if (isNullOrUndefined(this.idArticulo)) {
         console.log("Agregando producto");
         this.articulo.registrado = firebase.firestore.Timestamp.fromDate(new Date());
         this.productoService.agregarProducto(this.articulo)

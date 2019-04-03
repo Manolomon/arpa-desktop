@@ -25,10 +25,10 @@ export class ProductoService {
     obtenerProducto(idProducto) {
         return this.db.collection('productos').doc(idProducto).snapshotChanges();
     }
-    
-    obtenerLGAC() { 
-        return this.db.collection('lgac').snapshotChanges(); 
-    } 
+
+    obtenerLGAC() {
+        return this.db.collection('lgac').snapshotChanges();
+    }
 
     agregarProducto(producto) {
         return this.db.collection('productos').add(producto);
@@ -55,6 +55,7 @@ export class ProductoService {
             },
             () => {
                 let path = 'productos/' + idProducto;
+                console.log(path);
                 //return this.db.collection(path).add(upload); 
             }
         );

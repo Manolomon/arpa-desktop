@@ -91,7 +91,9 @@ export class TesisComponent implements OnInit, OnChanges {
     }
     this.tesisForm.addControl("fechaTerminoControl", this.fechaTerminoControl);
     this.tesisForm.addControl("fechaInicioControl", this.fechaInicioControl);
-
+    if(this.habilitaCampos){
+      this.tesisForm.enable();
+    }
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.colaboradores = [];
       for (let dato of datos) {
@@ -203,4 +205,3 @@ export class TesisComponent implements OnInit, OnChanges {
   }
 
 }
-
