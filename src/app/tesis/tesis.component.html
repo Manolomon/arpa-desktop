@@ -102,7 +102,6 @@
           matInput [matDatepicker]="myPicker" 
           formControlName = "fechaInicioControl"
           placeholder="Fecha" 
-          disabled="tesisForm.disabled"
           (dateChange)="setFechaInicio($event)"
           required/>
         <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
@@ -114,8 +113,7 @@
           matInput 
           [matDatepicker]="myPicker2" 
           formControlName="fechaTerminoControl"
-          placeholder="Fecha"
-          disabled="tesisForm.disabled" 
+          placeholder="Fecha" 
           (dateChange)="setFechaFin($event)"
           required/>
         <mat-datepicker-toggle matSuffix [for]="myPicker2"></mat-datepicker-toggle>
