@@ -2,6 +2,10 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a7464d5a202f421086deb3fd25f6860e)](https://app.codacy.com/app/Manolomon/arpa-desktop?utm_source=github.com&utm_medium=referral&utm_content=Manolomon/arpa-desktop&utm_campaign=Badge_Grade_Dashboard) [![Travis (.org)](https://img.shields.io/travis/Manolomon/arpa-desktop.svg?logo=travis-ci&logoColor=white)](https://travis-ci.org/Manolomon/arpa-desktop)
 
+## Hall of Fame
+
+[![](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/images/0)](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/links/0)[![](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/images/1)](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/links/1)[![](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/images/2)](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/links/2)[![](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/images/3)](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/links/3)[![](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/images/4)](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/links/4)[![](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/images/5)](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/links/5)[![](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/images/6)](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/links/6)[![](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/images/7)](https://sourcerer.io/fame/Manolomon/Manolomon/arpa-desktop/links/7)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.4.
 
 ## Development server
