@@ -13,7 +13,7 @@ export interface Memoria {
   paginaFin?: number;
   pais?: string;
   proposito?: string;
-  colaboradores?: string[];
+  colaboradores?: firebase.firestore.DocumentReference[];
   registrado?: firebase.firestore.Timestamp;
   evidencia?: string;
 }

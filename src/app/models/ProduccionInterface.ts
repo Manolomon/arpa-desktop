@@ -14,6 +14,6 @@ export interface Produccion {
     uso?: string;
     usuario?: string;
     registrado?: firebase.firestore.Timestamp;
-    colaboradores?: string[];
+    colaboradores?: firebase.firestore.DocumentReference[];
     evidencia?: string;
 }

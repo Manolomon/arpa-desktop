@@ -27,8 +27,10 @@ export class ProduccionComponent implements OnInit {
   private colaboradoresExternosControl: FormControl = new FormControl();
   private fechaPublicacionControl: FormControl = new FormControl('', [Validators.required]);
   private btnConsideradoControl: FormControl = new FormControl();
-  private colaboradores: string[] = [];
+  private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
+  private refColaboladores = new Map();
+  private colaboradoresSeleccionados: string[] = [];
 
   @Input() private produccionObjeto: any;
   @Input() private habilitaCampos: boolean;
@@ -110,10 +112,16 @@ export class ProduccionComponent implements OnInit {
       this.produccionForm.disable();
     }
     this.miembroService.obtenerMiembros().subscribe(datos => {
-      this.colaboradores = [];
+      this.colaboradoresLista = [];
       for (let dato of datos) {
         const temporal: any = (dato.payload.doc.data());
-        this.colaboradores.push(temporal.nombre);
+        this.colaboradoresLista.push(temporal.nombre);
+        this.refColaboladores.set(temporal.nombre, dato.payload.doc.ref);
+        for (let docRef of this.produccion.colaboradores) {
+          if (docRef.id == dato.payload.doc.ref.id) {
+            this.colaboradoresSeleccionados.push(temporal.nombre);
+          }
+        }
       }
     });
     this.productoService.obtenerLGAC().subscribe(datos => {
@@ -138,6 +146,14 @@ export class ProduccionComponent implements OnInit {
         });
       console.log("Eliminando producto con id: " + this.idProduccion);
       this.notifier.notify("success", "Producto eliminado correctamente");
+    }
+  }
+
+  public pasarReferencias() {
+    for (let nombre of this.colaboradoresSeleccionados) {
+      if (this.refColaboladores.has(nombre)) {
+        this.produccion.colaboradores.push(this.refColaboladores.get(nombre));
+      }
     }
   }
 

@@ -21,5 +21,5 @@ export interface Articulo {
     registrado?: firebase.firestore.Timestamp;
     evidencia?: string;
     autor?: string;
-    colaboradores?: string[];
+    colaboradores?: firebase.firestore.DocumentReference[];
 }

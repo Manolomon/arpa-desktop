@@ -124,10 +124,10 @@
       <mat-label>Colaboradores</mat-label>
       <mat-select 
           [formControl]="colaboradoresControl" 
-          [(ngModel)]="tesis.colaboradores"
+          [(ngModel)]="colaboradoresSeleccionados"
           name="colaboradores"
           multiple>
-        <mat-option *ngFor="let colaborador of colaboradores" [value]="colaborador">{{
+        <mat-option *ngFor="let colaborador of colaboradoresLista" [value]="colaborador">{{
           colaborador
         }}</mat-option>
       </mat-select>

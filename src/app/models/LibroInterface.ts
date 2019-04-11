@@ -13,7 +13,7 @@ export interface Libro {
     proposito?: string;
     ejemplares?: number;
     lineaGeneracion?: string;
-    colaboradores: string[];
+    colaboradores: firebase.firestore.DocumentReference[];
     registrado?: firebase.firestore.Timestamp;
     evidencia?: string;
   }

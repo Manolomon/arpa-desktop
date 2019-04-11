@@ -168,11 +168,11 @@
       <mat-select
         [formControl] = "colaboradoresControl"
         multiple
-        [(ngModel)]="produccion.colaboradores"
+        [(ngModel)]="colaboradoresSeleccionados"
         name="colaboradores"
       >
         <mat-option
-          *ngFor="let colaborador of colaboradores"
+          *ngFor="let colaborador of colaboradoresLista"
           [value]="colaborador"
           >{{ colaborador }}
           </mat-option>

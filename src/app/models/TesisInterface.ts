@@ -9,7 +9,7 @@ export interface Tesis {
     grado?: string;
     numAlumnos?: number;
     lineaGeneracion?: string;
-    colaboradores: string[];
+    colaboradores: firebase.firestore.DocumentReference[];
     registrado?: firebase.firestore.Timestamp;
     evidencia?: string;
 }

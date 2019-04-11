@@ -29,8 +29,10 @@ export class MemoriaComponent implements OnInit, OnChanges {
   private colaboradoresExternosControl: FormControl = new FormControl();
   private ciudadControl: FormControl = new FormControl();
   private fechaPublicacion: FormControl = new FormControl('', [Validators.required]);
-  private colaboradores: string[] = [];
+  private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
+  private refColaboladores = new Map();
+  private colaboradoresSeleccionados: string[] = [];
 
   @Input() private memoriaObjeto: any;
   @Input() private habilitaCampos: boolean;
@@ -51,6 +53,7 @@ export class MemoriaComponent implements OnInit, OnChanges {
     pais: '',
     proposito: '',
     lineaGeneracion: '',
+    colaboradores: [],
   }
 
   constructor(
@@ -109,10 +112,16 @@ export class MemoriaComponent implements OnInit, OnChanges {
       this.memoriaForm.disable();
     }
     this.miembroService.obtenerMiembros().subscribe(datos => {
-      this.colaboradores = [];
+      this.colaboradoresLista = [];
       for (let dato of datos) {
         const temporal: any = (dato.payload.doc.data());
-        this.colaboradores.push(temporal.nombre);
+        this.colaboradoresLista.push(temporal.nombre);
+        this.refColaboladores.set(temporal.nombre, dato.payload.doc.ref);
+        for (let docRef of this.memoria.colaboradores) {
+          if (docRef.id == dato.payload.doc.ref.id) {
+            this.colaboradoresSeleccionados.push(temporal.nombre);
+          }
+        }
       }
     });
     this.productoService.obtenerLGAC().subscribe(datos => {
@@ -139,6 +148,14 @@ export class MemoriaComponent implements OnInit, OnChanges {
         });
       console.log("Eliminando producto con id: " + this.idMemoria);
       this.notifier.notify("success", "Producto eliminado correctamente");
+    }
+  }
+
+  public pasarReferencias() {
+    for (let nombre of this.colaboradoresSeleccionados) {
+      if (this.refColaboladores.has(nombre)) {
+        this.memoria.colaboradores.push(this.refColaboladores.get(nombre));
+      }
     }
   }
 
