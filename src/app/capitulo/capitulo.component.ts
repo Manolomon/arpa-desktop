@@ -28,8 +28,10 @@ export class CapituloComponent implements OnInit, OnChanges {
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
-  private colaboradores: string[] = [];
+  private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
+  private refColaboladores = new Map();
+  private colaboradoresSeleccionados: string[] = [];
 
   @Input() private capituloObjeto: any;
   @Input() private habilitaCampos: boolean;
@@ -117,10 +119,16 @@ export class CapituloComponent implements OnInit, OnChanges {
     }
 
     this.miembroService.obtenerMiembros().subscribe(datos => {
-      this.colaboradores = [];
+      this.colaboradoresLista = [];
       for (let dato of datos) {
         const temporal: any = (dato.payload.doc.data());
-        this.colaboradores.push(temporal.nombre);
+        this.colaboradoresLista.push(temporal.nombre);
+        this.refColaboladores.set(temporal.nombre, dato.payload.doc.ref);
+        for (let docRef of this.capitulo.colaboradores) {
+          if (docRef.id == dato.payload.doc.ref.id) {
+            this.colaboradoresSeleccionados.push(temporal.nombre);
+          }
+        }
       }
     });
     this.productoService.obtenerLGAC().subscribe(datos => {
@@ -150,6 +158,14 @@ export class CapituloComponent implements OnInit, OnChanges {
     }
   }
 
+  public pasarReferencias() {
+    for (let nombre of this.colaboradoresSeleccionados) {
+      if (this.refColaboladores.has(nombre)) {
+        this.capitulo.colaboradores.push(this.refColaboladores.get(nombre));
+      }
+    }
+  }
+
   public hasError = (controlName: string, errorName: string) => {
     return this.capituloForm.controls[controlName].hasError(errorName);
   }
@@ -171,6 +187,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.cargaDeArchivo = 0;
     if (this.capituloForm.valid) {
       let idGenerado: string;
+      this.pasarReferencias();
       console.log(this.idCapitulo);
       if (isUndefined(this.idCapitulo)) {
         console.log("Agregando producto");

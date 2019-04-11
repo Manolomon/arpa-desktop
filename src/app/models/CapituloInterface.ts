@@ -14,7 +14,7 @@ export interface Capitulo {
   proposito?: string;
   tituloLibro?: string;
   lineaGeneracion?: string;
-  colaboradores: string[];
+  colaboradores: firebase.firestore.DocumentReference[];
   registrado?: firebase.firestore.Timestamp;
   evidencia?: string;
 }
