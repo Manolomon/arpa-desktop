@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Memoria } from '../models/MemoriaInterface'
-import { ProductoService } from '../servicios/productos.service';
+import { Memoria } from '../../models/MemoriaInterface'
+import { ProductoService } from '../../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
-import { MiembroService } from '../servicios/miembro.service';
+import { MiembroService } from '../../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined, isUndefined } from 'util';
 import { MatDatepickerInputEvent } from '@angular/material';

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
 import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
-import { Articulo } from '../models/ArticuloInterface';
-import { ProductoService } from '../servicios/productos.service';
+import { Articulo } from '../../models/ArticuloInterface';
+import { ProductoService } from '../../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
-import { MiembroService } from '../servicios/miembro.service';
+import { MiembroService } from '../../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined, isUndefined } from 'util';
 import { NotifierService } from "angular-notifier";

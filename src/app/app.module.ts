@@ -16,14 +16,15 @@ import { NotifierModule, NotifierOptions } from "angular-notifier";
 
 import { environment } from "../environments/environment";
 import { ProductosComponent } from "./productos/productos.component";
-import { ArticuloComponent } from "./articulo/articulo.component";
-import { CapituloComponent } from "./capitulo/capitulo.component";
-import { LibroComponent } from "./libro/libro.component";
-import { MemoriaComponent } from "./memoria/memoria.component";
-import { TesisComponent } from "./tesis/tesis.component";
+import { ArticuloComponent } from "./productos/articulo/articulo.component";
+import { CapituloComponent } from "./productos/capitulo/capitulo.component";
+import { LibroComponent } from "./productos/libro/libro.component";
+import { MemoriaComponent } from "./productos/memoria/memoria.component";
+import { TesisComponent } from "./productos/tesis/tesis.component";
+import { ProduccionComponent } from "./productos/produccion/produccion.component";
 
 import { ProductoService } from "./servicios/productos.service";
-import { ProduccionComponent } from "./produccion/produccion.component";
+import { LoginComponent } from './login/login.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -75,7 +76,8 @@ const customNotifierOptions: NotifierOptions = {
     ArticuloComponent,
     MemoriaComponent,
     TesisComponent,
-    ProduccionComponent
+    ProduccionComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
