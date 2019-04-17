@@ -25,6 +25,8 @@ import { ProduccionComponent } from "./productos/produccion/produccion.component
 
 import { ProductoService } from "./servicios/productos.service";
 import { LoginComponent } from './login/login.component';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { RouterModule, Routes } from '@angular/router';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -90,9 +92,14 @@ const customNotifierOptions: NotifierOptions = {
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    NotifierModule.withConfig(customNotifierOptions)
+    NotifierModule.withConfig(customNotifierOptions),
+    RouterModule.forRoot([
+      { path: 'productos', component: ProductosComponent },
+    ])
   ],
-  providers: [ProductoService],
+  providers: [ProductoService,
+    AngularFireAuth,
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

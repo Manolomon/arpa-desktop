@@ -11,31 +11,33 @@
   </mat-toolbar>
 
   <content>
-    <div fxFlexFill fxFlexAlign="center center" fxLayoutAlign="center center">
-      <mat-card class="example-card">
-        <mat-card-header>
-          <br>
-          <img style="padding-top: 1em; padding-right: 1em" src="../assets/title.png" alt="Product-Icon" />
-        </mat-card-header>
-        <mat-card-content>
-          <br>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>Correo Electrónico</mat-label>
-              <input name="titulo" matInput required />
-            </mat-form-field>
-          </div>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>Contraseña</mat-label>
-              <input name="titulo" matInput required />
-            </mat-form-field>
-          </div>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
-            <button style="width: 100%" type="submit" mat-raised-button color="primary" layout-fill>Acceder</button>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
+      <div fxFlexFill fxFlexAlign="center center" fxLayoutAlign="center center">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <br>
+            <img style="padding-top: 1em; padding-right: 1em" src="../assets/title.png" alt="Product-Icon" />
+          </mat-card-header>
+          <mat-card-content>
+            <br>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Correo Electrónico</mat-label>
+                <input [(ngModel)]="email" type="email" name="titulo" matInput required />
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input [(ngModel)]="password" type="password" name="titulo" matInput required />
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+              <button (click)="onIniciarSesion()" style="width: 100%" type="submit" mat-raised-button color="primary" layout-fill>Acceder</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
   </content>
 </div>
+
+<router-outlet><router-outlet>
