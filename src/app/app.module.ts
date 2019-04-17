@@ -22,6 +22,7 @@ import { LibroComponent } from "./productos/libro/libro.component";
 import { MemoriaComponent } from "./productos/memoria/memoria.component";
 import { TesisComponent } from "./productos/tesis/tesis.component";
 import { ProduccionComponent } from "./productos/produccion/produccion.component";
+import { ProyectosComponent } from "./proyectos/proyectos.component";
 
 import { ProductoService } from "./servicios/productos.service";
 import { LoginComponent } from './login/login.component';
@@ -79,7 +80,8 @@ const customNotifierOptions: NotifierOptions = {
     MemoriaComponent,
     TesisComponent,
     ProduccionComponent,
-    LoginComponent
+    LoginComponent,
+    ProyectosComponent
   ],
   imports: [
     BrowserModule,

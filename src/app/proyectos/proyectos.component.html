@@ -1,0 +1,92 @@
+<mat-toolbar>
+
+  <img src="../assets/logo.svg" alt="Logo ARPA" style="padding-right: 1em" />
+
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button routerLink="/productos">Productos</button>
+    <button mat-button routerLink="/proyectos">Proyectos</button>
+    <button mat-button routerLink="/cuenta">Cuenta</button>
+  </div>
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <mat-list>
+      <mat-list-item>
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <div fxLayout="column" fxLayoutGap="-16px" fxFlex="80">
+          <p>Manolo Pérez</p>
+          <small style="color: #a9adcc">Miembro</small>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <button mat-button routerLink="/productos"><u>Cerrar Sesión</u></button>
+  </div>
+  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
+
+</mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-button routerLink="/productos">Productos</button>
+  <button mat-button routerLink="/proyectos">Proyectos</button>
+  <!--<button mat-menu-item>Help</button>-->
+</mat-menu>
+
+<content>
+  <div class="example-margin" layout="row">
+    <img style="padding-right: 15px;" src="../assets/project_icon.svg" alt="Product-Icon" />
+    <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
+      <h2>Proyectos</h2>
+      <p class="subtitle">Administración y Registro de Producción Académica</p>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <mat-form-field appearance="outline">
+        <mat-label>Buscar Proyecto</mat-label>
+        <input matInput />
+        <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <div layout="row" style="padding-bottom: 25px;">
+    <div fxLayout="column" fxFlex="10"></div>
+    <div fxLayout="column" fxFlex="70">
+      <p class="additional_info">Vista de la producción colaborativa del miembro</p>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <button mat-raised-button color="primary">Nuevo Proyecto</button>
+    </div>
+    <mat-divider class="br_div"></mat-divider>
+  </div>
+  <div fxFlexAlign="center" fxLayoutAlign="center center">
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i"
+          (afterExpand)="indexExpanded = i" (closed)="togglePanels(-1)"
+          class="hideOption">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p>Nombre del Proyecto</p>
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-chip-list>
+                <mat-chip color="primary" selected>
+                  5 Productos
+                </mat-chip>
+              </mat-chip-list>
+              <div class="example-icon showOption">
+                <button *ngIf="indexExpanded == i" (click)="habilitarCampos(); togglePanels(i)" mat-icon-button
+                  matTooltip="Editar" matTooltipPosition="above">
+                  <mat-icon aria-label="Edit Button">edit</mat-icon>
+                </button>
+                <button (click)="eliminarProducto(i)" mat-icon-button *ngIf="indexExpanded == i" matTooltip="Eliminar"
+                  matTooltipPosition="above">
+                  <mat-icon aria-label="Delete Button">delete</mat-icon>
+                </button>
+              </div>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>Ya merito</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+</content>
+<notifier-container></notifier-container>

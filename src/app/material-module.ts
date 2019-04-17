@@ -10,12 +10,14 @@ import {
   MatToolbarModule,
   MatCheckboxModule,
   MatDatepickerModule,
-  MatNativeDateModule, 
+  MatNativeDateModule,
   MatTooltipModule,
   MatFormFieldModule,
   MatCardModule,
   MatExpansionModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatMenuModule,
+  MatListModule
 } from '@angular/material';
 
 @NgModule({
@@ -30,12 +32,14 @@ import {
     MatToolbarModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule, 
+    MatNativeDateModule,
     MatTooltipModule,
     MatFormFieldModule,
     MatCardModule,
     MatExpansionModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatListModule
   ]
 })
 export class MaterialModule {}
