@@ -73,3 +73,16 @@ mat-divider {
   Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
+
+.dropdown-icon {
+  color: #696B7A;
+}
+
+.chip-icon {
+  color: #ffffff;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+}

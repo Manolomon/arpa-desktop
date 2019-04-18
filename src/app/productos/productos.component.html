@@ -59,13 +59,24 @@
           Agregar Producto
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button class="dropdown-item" type="button" (click)="agregarProducto('articulo')">Artículo</button>
-          <button class="dropdown-item" type="button" (click)="agregarProducto('capitulo')">Capítulo de Libro</button>
-          <button class="dropdown-item" type="button" (click)="agregarProducto('libro')">Libro</button>
-          <button class="dropdown-item" type="button" (click)="agregarProducto('memoria')">Memoria</button>
-          <button class="dropdown-item" type="button" (click)="agregarProducto('produccion')">Producción
-            Innovadora</button>
-          <button class="dropdown-item" type="button" (click)="agregarProducto('tesis')">Tesis</button>
+          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('articulo')">
+            <mat-icon class="dropdown-icon">import_contacts</mat-icon>&nbsp;&nbsp;Artículo
+          </button>
+          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('capitulo')">
+            <mat-icon class="dropdown-icon">chrome_reader_mode</mat-icon>&nbsp;&nbsp;Capítulo de Libro
+          </button>
+          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('libro')">
+            <mat-icon class="dropdown-icon">book</mat-icon>&nbsp;&nbsp;Libro
+          </button>
+          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('memoria')">
+            <mat-icon class="dropdown-icon">recent_actors</mat-icon>&nbsp;&nbsp;Memoria
+          </button>
+          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('produccion')">
+            <mat-icon class="dropdown-icon">description</mat-icon>&nbsp;&nbsp;Producción Innovadora
+          </button>
+          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('tesis')">
+            <mat-icon class="dropdown-icon">school</mat-icon>&nbsp;&nbsp;Tesis
+          </button>
         </div>
       </div>
     </div>
@@ -103,6 +114,13 @@
           <mat-panel-description>
             <mat-chip-list>
               <mat-chip color="primary" selected>
+                <mat-icon *ngIf="producto.tipo === 'articulo'" class="chip-icon">import_contacts</mat-icon>
+                <mat-icon *ngIf="producto.tipo === 'capitulo'" class="chip-icon">chrome_reader_mode</mat-icon>
+                <mat-icon *ngIf="producto.tipo === 'libro'" class="chip-icon">book</mat-icon>
+                <mat-icon *ngIf="producto.tipo === 'tesis'" class="chip-icon">school</mat-icon>
+                <mat-icon *ngIf="producto.tipo === 'memoria'" class="chip-icon">recent_actors</mat-icon>
+                <mat-icon *ngIf="producto.tipo === 'produccion'" class="chip-icon">description</mat-icon>
+                &nbsp;&nbsp;
                 {{
                   producto.tipo.charAt(0).toUpperCase() + producto.tipo.slice(1)
                 }}
