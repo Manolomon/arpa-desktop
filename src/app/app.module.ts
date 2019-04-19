@@ -28,6 +28,7 @@ import { ProductoService } from "./servicios/productos.service";
 import { LoginComponent } from './login/login.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RouterModule, Routes } from '@angular/router';
+import { GestionCaComponent } from './gestion-ca/gestion-ca.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -81,7 +82,8 @@ const customNotifierOptions: NotifierOptions = {
     TesisComponent,
     ProduccionComponent,
     LoginComponent,
-    ProyectosComponent
+    ProyectosComponent,
+    GestionCaComponent
   ],
   imports: [
     BrowserModule,

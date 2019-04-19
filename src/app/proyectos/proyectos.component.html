@@ -6,6 +6,7 @@
     <button mat-button routerLink="/productos">Productos</button>
     <button mat-button routerLink="/proyectos">Proyectos</button>
     <button mat-button routerLink="/cuenta">Cuenta</button>
+    <button mat-button routerLink="/gestion">Gestión de CA</button><!-- Sólo se muestra si el tipo de cuenta es de Coordinador -->
   </div>
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
@@ -14,8 +15,8 @@
       <mat-list-item>
         <mat-icon mat-list-icon>account_circle</mat-icon>
         <div fxLayout="column" fxLayoutGap="-16px" fxFlex="80">
-          <p>Manolo Pérez</p>
-          <small style="color: #a9adcc">Miembro</small>
+          <p>Manolo Pérez</p><!-- Nombre del Usuario -->
+          <small style="color: #a9adcc">Miembro</small> <!-- Tipo del Usuario -->
         </div>
       </mat-list-item>
     </mat-list>
@@ -27,8 +28,10 @@
 
 </mat-toolbar>
 <mat-menu x-position="before" #menu="matMenu">
-  <button mat-button routerLink="/productos">Productos</button>
-  <button mat-button routerLink="/proyectos">Proyectos</button>
+    <button mat-button routerLink="/productos">Productos</button>
+    <button mat-button routerLink="/proyectos">Proyectos</button>
+    <button mat-button routerLink="/cuenta">Cuenta</button>
+    <button mat-button routerLink="/gestion">Gestión de CA</button>
   <!--<button mat-menu-item>Help</button>-->
 </mat-menu>
 

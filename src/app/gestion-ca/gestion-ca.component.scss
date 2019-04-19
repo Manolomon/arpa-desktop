@@ -1,0 +1,80 @@
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+mat-toolbar {
+    background-color: white;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12),
+        0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+docs-primary-header {
+    display: flex;
+    align-items: center;
+}
+
+h1 {
+    outline: none;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align {
+    padding-top: 13px;
+    flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+mat-form-field {
+    margin-right: 12px;
+}
+
+.example-margin {
+    padding-top: 20px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    display: flex;
+    align-items: center;
+}
+
+h2 {
+    color: #47485d;
+}
+
+.subtitle {
+    font-weight: lighter;
+    color: #a9adcc;
+}
+
+.additional_info {
+    font-weight: bold;
+    color: #696B7A;
+}
+
+.btn-primary {
+    background-color: #5a88fb;
+    font-family: "Open Sans";
+}
+
+mat-divider {
+    background-color: #696B7A;
+}
+.fill-remaining-space {
+    /*This fills the remaining space, by using flexbox.  
+    Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+mat-action-list.make-scrollable {
+    height: 350px; //Or any other height you wish
+    overflow-y: scroll;
+}
