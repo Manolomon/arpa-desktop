@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { ProductoService } from "../servicios/productos.service";
 
 import { NotifierService } from "angular-notifier";
+import { LoginService } from '../servicios/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-productos",
@@ -18,7 +20,9 @@ export class ProductosComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private loginServicio: LoginService,
+    private router: Router,
   ) {
     this.camposHabilitados = false;
     this.eliminaProducto = false;
@@ -70,6 +74,14 @@ export class ProductosComponent implements OnInit {
 
   public creacionCancelada(cancelado: boolean) {
     this.agregaProducto = !this.agregaProducto;
+  }
+
+  public onCerrarSesion() {
+    if (confirm("Desea cerrar la sesion?")) {
+      console.log(this.loginServicio.getUsuario());
+      this.loginServicio.cerrarSesion();
+      this.router.navigate(['login']);
+    }
   }
 
 }

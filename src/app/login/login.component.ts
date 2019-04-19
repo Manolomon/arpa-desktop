@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
 import { LoginService } from '../servicios/login.service'
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-login',
@@ -13,25 +14,44 @@ export class LoginComponent implements OnInit {
 
   private email: string;
   private password: string;
-  constructor(public atAuth: AngularFireAuth, private router: Router, private loginServicio: LoginService) {
+  constructor(
+    private atAuth: AngularFireAuth,
+    private notifier: NotifierService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private loginServicio: LoginService,
+  ) {
     this.email = '';
     this.password = '';
   }
 
   ngOnInit() {
-  }
-
-  public cerrarSesion(): void {
     this.loginServicio.cerrarSesion();
   }
 
-  public onIniciarSesion(): void {
+  public cerrarSesion(): void {
+    if (confirm("Desea cerrar la sesion?")) {
+      this.loginServicio.cerrarSesion();
+    }
+  }
+
+  public onIniciarSesion(event): void {
+    var estado: Number;
+    this.notifier.notify("info", "hola mundo");
     this.loginServicio.iniciarSesion(this.email, this.password)
       .then((res) => {
-        console.log(this.email);
-        console.log(this.password)
-        this.router.navigate(['productos/app-productos']);
-      }).catch(err => console.log('err', err.message));
+        estado = 200;
+        console.log(estado);
+        //console.log(this.loginServicio.getUsuario());
+        this.router.navigate(['gestion']);
+      })
+      .catch((err) => {
+        console.log('err', err.message);
+        estado = 405;
+        this.notifier.notify("error", "Datos erróneos");
+        console.log(estado);
+      });
+
   }
 
 }

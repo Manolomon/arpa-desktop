@@ -23,6 +23,10 @@ export class LoginService {
     });
   }
 
+  getUsuario() {
+    return this.afsAuth.auth.currentUser;
+  }
+
   cerrarSesion() {
     this.afsAuth.auth.signOut();
   }

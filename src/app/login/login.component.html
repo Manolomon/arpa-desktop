@@ -32,7 +32,7 @@
               </mat-form-field>
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
-              <button (click)="onIniciarSesion()" style="width: 100%" type="submit" mat-raised-button color="primary" layout-fill>Acceder</button>
+              <button (click)="onIniciarSesion($event)" style="width: 100%" type="button" mat-raised-button color="primary" layout-fill class="btn btn-primary" >Acceder</button>
             </div>
           </mat-card-content>
         </mat-card>
@@ -40,4 +40,3 @@
   </content>
 </div>
 
-<router-outlet><router-outlet>

@@ -98,7 +98,9 @@ const customNotifierOptions: NotifierOptions = {
     MaterialModule,
     NotifierModule.withConfig(customNotifierOptions),
     RouterModule.forRoot([
+      { path: 'login', component: LoginComponent },
       { path: 'productos', component: ProductosComponent },
+      { path: 'proyectos', component: ProyectosComponent }
     ])
   ],
   providers: [ProductoService,

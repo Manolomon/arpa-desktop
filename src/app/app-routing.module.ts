@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductosComponent } from '../app/productos/productos.component';
 import { LoginComponent } from '../app/login/login.component';
+import { ProyectosComponent } from './proyectos/proyectos.component';
+import { GestionCaComponent } from './gestion-ca/gestion-ca.component';
 
 const routes: Routes = [
-  { path: 'productos/app-productos', component: ProductosComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'productos', component: ProductosComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'proyectos', component: ProyectosComponent },
+  { path: 'gestion', component: GestionCaComponent },
+  { path: '**', pathMatch: 'full', redirectTo: 'login' },
 ];
 
 @NgModule({
