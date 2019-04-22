@@ -6,6 +6,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class ProyectoService {
 
-  constructor(public db: AngularFirestore) {}
+  constructor(public db: AngularFirestore) { }
+
+  public eliminarProyecto(idProyecto) {
+    return this.db.doc('proyectos/' + idProyecto).delete();
+  }
 
 }
