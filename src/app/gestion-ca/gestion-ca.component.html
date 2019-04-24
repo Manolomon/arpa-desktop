@@ -1,167 +1,128 @@
-<mat-toolbar>
-
-  <img src="../assets/logo.svg" alt="Logo ARPA" style="padding-right: 1em" />
-
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button routerLink="/productos">Productos</button>
-    <button mat-button routerLink="/proyectos">Proyectos</button>
-    <button mat-button routerLink="/cuenta">Cuenta</button>
-    <button mat-button routerLink="/gestion">Gestión de CA</button>
-    <!-- Sólo se muestra si el tipo de cuenta es de Coordinador -->
+<mat-divider></mat-divider>
+<div class="example-margin" layout="row">
+  <img style="padding-right: 15px;" src="../assets/academic-icon.svg" alt="Product-Icon" />
+  <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
+    <h2>Gestión de Cuerpo Académico</h2>
+    <p class="subtitle">Administración y Registro de Producción Académica</p>
   </div>
-  <!-- This fills the remaining space of the current row -->
-  <span class="fill-remaining-space"></span>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <mat-list>
-      <mat-list-item>
-        <mat-icon mat-list-icon>account_circle</mat-icon>
-        <div fxLayout="column" fxLayoutGap="-16px" fxFlex="80">
-          <p>Manolo Pérez</p><!-- Nombre del Usuario -->
-          <small style="color: #a9adcc">Miembro</small> <!-- Tipo del Usuario -->
-        </div>
-      </mat-list-item>
-    </mat-list>
-    <button (click)="onCerrarSesion()" mat-button routerLink="/productos"><u>Cerrar Sesión</u></button>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar Miembro</mat-label>
+      <input matInput />
+      <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
+    </mat-form-field>
   </div>
-  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
-    <mat-icon>menu</mat-icon>
-  </button>
-
-</mat-toolbar>
-<mat-menu x-position="before" #menu="matMenu">
-  <button mat-button routerLink="/productos">Productos</button>
-  <button mat-button routerLink="/proyectos">Proyectos</button>
-  <button mat-button routerLink="/cuenta">Cuenta</button>
-  <button mat-button routerLink="/gestion">Gestión de CA</button>
-  <!--<button mat-menu-item>Help</button>-->
-</mat-menu>
-
-<content>
-  <div class="example-margin" layout="row">
-    <img style="padding-right: 15px;" src="../assets/academic-icon.svg" alt="Product-Icon" />
-    <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
-      <h2>Gestión de Cuerpo Académico</h2>
-      <p class="subtitle">Administración y Registro de Producción Académica</p>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="end center">
-      <mat-form-field appearance="outline">
-        <mat-label>Buscar Miembro</mat-label>
-        <input matInput />
-        <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
-      </mat-form-field>
-    </div>
+</div>
+<div layout="row" style="padding-bottom: 25px;">
+  <div fxLayout="column" fxFlex="10"></div>
+  <div fxLayout="column" fxFlex="65">
+    <p class="additional_info">Vista de los integrantes del Cuerpo Académico</p>
   </div>
-  <div layout="row" style="padding-bottom: 25px;">
-    <div fxLayout="column" fxFlex="10"></div>
-    <div fxLayout="column" fxFlex="65">
-      <p class="additional_info">Vista de los integrantes del Cuerpo Académico</p>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="end center">
-      <button fxLayout="column" fxFlex="42" mat-raised-button color="primary">
-        <mat-icon>create_new_folder</mat-icon>
-        Curriculum
-      </button>
-      <div fxLayout="column" fxFlex="3"></div>
-      <button fxLayout="column" fxFlex="60" mat-raised-button color="primary">
-        <mat-icon>create_new_folder</mat-icon>
-        Agregar Miembro
-      </button>
-    </div>
-    <mat-divider></mat-divider>
-    <br />
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <button fxLayout="column" fxFlex="42" mat-raised-button color="primary">
+      <mat-icon>create_new_folder</mat-icon>
+      Curriculum
+    </button>
+    <div fxLayout="column" fxFlex="3"></div>
+    <button fxLayout="column" fxFlex="60" mat-raised-button color="primary">
+      <mat-icon>create_new_folder</mat-icon>
+      Agregar Miembro
+    </button>
   </div>
-  <div layout="row" style="padding-left: 25px; padding-right: 25px;">
-    <div fxLayout="column" fxFlex="48">
-      <mat-card class="example-card">
-        <mat-action-list class="make-scrollable" flex>
-          <h3 mat-subheader>Participantes en en Cuerpo Académico</h3>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <h4 mat-line>Hey</h4>
-            <p mat-line> Mini Hey </p>
-          </mat-list-item>
-        </mat-action-list>
-      </mat-card>
-    </div>
-    <div fxLayout="column" fxFlex="4"></div>
-    <div fxLayout="column" fxFlex="48">
-      <mat-card class="example-card">
-      </mat-card>
-    </div>
+  <mat-divider></mat-divider>
+  <br />
+</div>
+<div layout="row" style="padding-left: 25px; padding-right: 25px;">
+  <div fxLayout="column" fxFlex="48">
+    <mat-card class="example-card">
+      <mat-action-list class="make-scrollable" flex>
+        <h3 mat-subheader>Participantes en en Cuerpo Académico</h3>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h4 mat-line>Hey</h4>
+          <p mat-line> Mini Hey </p>
+        </mat-list-item>
+      </mat-action-list>
+    </mat-card>
   </div>
-</content>
+  <div fxLayout="column" fxFlex="4"></div>
+  <div fxLayout="column" fxFlex="48">
+    <mat-card class="example-card">
+    </mat-card>
+  </div>
+</div>

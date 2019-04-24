@@ -29,6 +29,9 @@ import { LoginComponent } from './login/login.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RouterModule, Routes } from '@angular/router';
 import { GestionCaComponent } from './gestion-ca/gestion-ca.component';
+import { MenuComponent } from './menu/menu.component';
+
+
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -83,7 +86,8 @@ const customNotifierOptions: NotifierOptions = {
     ProduccionComponent,
     LoginComponent,
     ProyectosComponent,
-    GestionCaComponent
+    GestionCaComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,7 +104,8 @@ const customNotifierOptions: NotifierOptions = {
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
       { path: 'productos', component: ProductosComponent },
-      { path: 'proyectos', component: ProyectosComponent }
+      { path: 'proyectos', component: ProyectosComponent },
+      { path: 'menu', component: MenuComponent },
     ])
   ],
   providers: [ProductoService,

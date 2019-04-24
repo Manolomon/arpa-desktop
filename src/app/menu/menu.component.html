@@ -1,0 +1,48 @@
+<div>
+  <mat-toolbar>
+
+  <img src="../assets/logo.svg" alt="Logo ARPA" style="padding-right: 1em" />
+
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button (click)="irAVentana('productos')">Productos</button>
+    <button mat-button (click)="irAVentana('proyectos')">Proyectos</button>
+    <button mat-button (click)="irAVentana('cuenta')">Cuenta</button>
+    <button mat-button (click)="irAVentana('gestion')">Gestión de CA</button>
+    <!-- Sólo se muestra si el tipo de cuenta es de Coordinador -->
+  </div>
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <mat-list>
+      <mat-list-item>
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <div fxLayout="column" fxLayoutGap="-30px" fxFlex="80" position="absolute" top="0" right="0">
+          <div fxLayout="column" fxLayoutGap="-16px" fxFlex="80">
+            <p>{{miembro.nombre}}</p><!-- Nombre del Usuario -->
+          </div>
+          <div fxLayout="column" fxLayoutGap="-16px" fxFlex="80">
+            <p>{{miembro.correo}}</p>
+            <small style="color: #a9adcc">Miembro</small> <!-- Tipo del Usuario -->
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <button (click)="onCerrarSesion()" mat-button routerLink="/productos"><u>Cerrar Sesión</u></button>
+  </div>
+  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  </mat-toolbar>
+  <mat-menu x-position="before" #menu="matMenu">
+  <button mat-button (click)="irAVentana('productos')">Productos</button>
+  <button mat-button (click)="irAVentana('proyectos')">Proyectos</button>
+  <button mat-button (click)="irAVentana('cuenta')">Cuenta</button>
+  <button mat-button (click)="irAVentana('gestion')">Gestión de CA</button>
+  <!--<button mat-menu-item>Help</button>-->
+  </mat-menu>
+
+  <app-productos *ngIf="ventana === 'productos'"></app-productos>
+  <app-gestion-ca *ngIf="ventana === 'gestion'"></app-gestion-ca>
+  <app-proyectos *ngIf="ventana === 'proyectos'"></app-proyectos>
+</div>

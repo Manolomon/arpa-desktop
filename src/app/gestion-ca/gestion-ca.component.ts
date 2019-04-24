@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../servicios/login.service';
+import { MiembroService } from '../servicios/miembro.service';
+import { Miembro } from '../models/MiembroInterface'
 
 @Component({
   selector: 'app-gestion-ca',
@@ -9,9 +11,16 @@ import { LoginService } from '../servicios/login.service';
 })
 export class GestionCaComponent implements OnInit {
 
+  private correo: string;
+  private miembro: Miembro = {
+    id: '',
+    nombre: '',
+    correo: '',
+  }
   constructor(
     private router: Router,
     private loginServicio: LoginService,
+    private miembroService: MiembroService,
   ) { }
 
   ngOnInit() {
@@ -24,4 +33,5 @@ export class GestionCaComponent implements OnInit {
       this.router.navigate(['login']);
     }
   }
+
 }

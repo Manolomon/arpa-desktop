@@ -1,165 +1,128 @@
-<mat-toolbar>
-
-  <img src="../assets/logo.svg" alt="Logo ARPA" style="padding-right: 1em" />
-
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button routerLink="/productos">Productos</button>
-    <button mat-button routerLink="/proyectos">Proyectos</button>
-    <button mat-button routerLink="/cuenta">Cuenta</button>
-    <button mat-button routerLink="/gestion">Gestión de CA</button><!-- Sólo se muestra si el tipo de cuenta es de Coordinador -->
+<mat-divider></mat-divider>
+<br />
+<div class="example-margin" layout="row">
+  <img style="padding-right: 15px;" src="../assets/product-icon.svg" alt="Product-Icon" />
+  <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
+    <h2>Productos</h2>
+    <p class="subtitle">Administración y Registro de Producción Académica</p>
   </div>
-  <!-- This fills the remaining space of the current row -->
-  <span class="fill-remaining-space"></span>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <mat-list>
-      <mat-list-item>
-        <mat-icon mat-list-icon>account_circle</mat-icon>
-        <div fxLayout="column" fxLayoutGap="-16px" fxFlex="80">
-          <p>Manolo Pérez</p><!-- Nombre del Usuario -->
-          <small style="color: #a9adcc">Miembro</small> <!-- Tipo del Usuario -->
-        </div>
-      </mat-list-item>
-    </mat-list>
-    <button mat-button (click)="onCerrarSesion()"><u>Cerrar Sesión</u></button>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar Producto</mat-label>
+      <input matInput />
+      <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
+    </mat-form-field>
   </div>
-  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
-    <mat-icon>menu</mat-icon>
-  </button>
-
-</mat-toolbar>
-<mat-menu x-position="before" #menu="matMenu">
-    <button mat-button routerLink="/productos">Productos</button>
-    <button mat-button routerLink="/proyectos">Proyectos</button>
-    <button mat-button routerLink="/cuenta">Cuenta</button>
-    <button mat-button routerLink="/gestion">Gestión de CA</button>
-  <!--<button mat-menu-item>Help</button>-->
-</mat-menu>
-
-<content>
-  <div class="example-margin" layout="row">
-    <img style="padding-right: 15px;" src="../assets/product-icon.svg" alt="Product-Icon" />
-    <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
-      <h2>Productos</h2>
-      <p class="subtitle">Administración y Registro de Producción Académica</p>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="end center">
-      <mat-form-field appearance="outline">
-        <mat-label>Buscar Producto</mat-label>
-        <input matInput />
-        <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
-      </mat-form-field>
-    </div>
+</div>
+<div layout="row" style="padding-bottom: 25px;">
+  <div fxLayout="column" fxFlex="10"></div>
+  <div fxLayout="column" fxFlex="70">
+    <p class="additional_info">Vista de la producción individual del miembro</p>
   </div>
-  <div layout="row" style="padding-bottom: 25px;">
-    <div fxLayout="column" fxFlex="10"></div>
-    <div fxLayout="column" fxFlex="70">
-      <p class="additional_info">Vista de la producción individual del miembro</p>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="end center">
-      <div class="dropdown">
-        <button (click)="showNotification($event)" class="btn btn-primary dropdown-toggle" type="button"
-          id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Agregar Producto
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <div class="dropdown">
+      <button (click)="showNotification($event)" class="btn btn-primary dropdown-toggle" type="button"
+        id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Agregar Producto
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('articulo')">
+          <mat-icon class="dropdown-icon">import_contacts</mat-icon>&nbsp;&nbsp;Artículo
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('articulo')">
-            <mat-icon class="dropdown-icon">import_contacts</mat-icon>&nbsp;&nbsp;Artículo
-          </button>
-          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('capitulo')">
-            <mat-icon class="dropdown-icon">chrome_reader_mode</mat-icon>&nbsp;&nbsp;Capítulo de Libro
-          </button>
-          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('libro')">
-            <mat-icon class="dropdown-icon">book</mat-icon>&nbsp;&nbsp;Libro
-          </button>
-          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('memoria')">
-            <mat-icon class="dropdown-icon">recent_actors</mat-icon>&nbsp;&nbsp;Memoria
-          </button>
-          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('produccion')">
-            <mat-icon class="dropdown-icon">description</mat-icon>&nbsp;&nbsp;Producción Innovadora
-          </button>
-          <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('tesis')">
-            <mat-icon class="dropdown-icon">school</mat-icon>&nbsp;&nbsp;Tesis
-          </button>
-        </div>
+        <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('capitulo')">
+          <mat-icon class="dropdown-icon">chrome_reader_mode</mat-icon>&nbsp;&nbsp;Capítulo de Libro
+        </button>
+        <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('libro')">
+          <mat-icon class="dropdown-icon">book</mat-icon>&nbsp;&nbsp;Libro
+        </button>
+        <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('memoria')">
+          <mat-icon class="dropdown-icon">recent_actors</mat-icon>&nbsp;&nbsp;Memoria
+        </button>
+        <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('produccion')">
+          <mat-icon class="dropdown-icon">description</mat-icon>&nbsp;&nbsp;Producción Innovadora
+        </button>
+        <button class="dropdown-item icon-button" type="button" (click)="agregarProducto('tesis')">
+          <mat-icon class="dropdown-icon">school</mat-icon>&nbsp;&nbsp;Tesis
+        </button>
       </div>
     </div>
-    <mat-divider class="br_div"></mat-divider>
   </div>
-  <div fxFlexAlign="center" fxLayoutAlign="center center">
-    <app-capitulo [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
-      *ngIf="agregaProducto && tipoProducto === 'capitulo'">
-    </app-capitulo>
-    <app-articulo [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
-      *ngIf="agregaProducto && tipoProducto === 'articulo'">
-    </app-articulo>
-    <app-tesis [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
-      *ngIf="agregaProducto && tipoProducto === 'tesis'">
-    </app-tesis>
-    <app-produccion [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
-      *ngIf="agregaProducto && tipoProducto === 'produccion'">
-    </app-produccion>
-    <app-libro [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
-      *ngIf="agregaProducto && tipoProducto === 'libro'">
-    </app-libro>
-    <app-memoria [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
-      *ngIf="agregaProducto && tipoProducto === 'memoria'">
-    </app-memoria>
-  </div>
-  <div fxFlexAlign="center" fxLayoutAlign="center center">
-    <mat-accordion class="example-headers-align">
-      <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i"
-        (afterExpand)="indexExpanded = i" (closed)="togglePanels(-1)" *ngFor="let producto of productos; let i = index"
-        class="hideOption">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <p>{{ producto.titulo }}</p>
-          </mat-panel-title>
-          <mat-panel-description>
-            <mat-chip-list>
-              <mat-chip color="primary" selected>
-                <mat-icon *ngIf="producto.tipo === 'articulo'" class="chip-icon">import_contacts</mat-icon>
-                <mat-icon *ngIf="producto.tipo === 'capitulo'" class="chip-icon">chrome_reader_mode</mat-icon>
-                <mat-icon *ngIf="producto.tipo === 'libro'" class="chip-icon">book</mat-icon>
-                <mat-icon *ngIf="producto.tipo === 'tesis'" class="chip-icon">school</mat-icon>
-                <mat-icon *ngIf="producto.tipo === 'memoria'" class="chip-icon">recent_actors</mat-icon>
-                <mat-icon *ngIf="producto.tipo === 'produccion'" class="chip-icon">description</mat-icon>
-                &nbsp;&nbsp;
-                {{
-                  producto.tipo.charAt(0).toUpperCase() + producto.tipo.slice(1)
-                }}
-              </mat-chip>
-            </mat-chip-list>
-            <div class="example-icon showOption">
-              <button *ngIf="indexExpanded == i" (click)="habilitarCampos(); togglePanels(i)" mat-icon-button
-                matTooltip="Editar" matTooltipPosition="above">
-                <mat-icon aria-label="Edit Button">edit</mat-icon>
-              </button>
-              <button (click)="eliminarProducto(i)" mat-icon-button *ngIf="indexExpanded == i" matTooltip="Eliminar"
-                matTooltipPosition="above">
-                <mat-icon aria-label="Delete Button">delete</mat-icon>
-              </button>
-            </div>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <app-capitulo [capituloObjeto]="producto" [habilitaCampos]="camposHabilitados"
-          [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'capitulo'"></app-capitulo>
-        <app-tesis [tesisObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
-          *ngIf="producto.tipo === 'tesis'">
-        </app-tesis>
-        <app-libro [libroObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
-          *ngIf="producto.tipo === 'libro'">
-        </app-libro>
-        <app-memoria [memoriaObjeto]="producto" [habilitaCampos]="camposHabilitados"
-          [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'memoria'">
-        </app-memoria>
-        <app-articulo [articuloObjeto]="producto" [habilitaCampos]="camposHabilitados"
-          [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'articulo'">
-        </app-articulo>
-        <app-produccion [produccionObjeto]="producto" [habilitaCampos]="camposHabilitados"
-          [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'produccion'">
-        </app-produccion>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
-</content>
+  <mat-divider class="br_div"></mat-divider>
+</div>
+<div fxFlexAlign="center" fxLayoutAlign="center center">
+  <app-capitulo [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
+    *ngIf="agregaProducto && tipoProducto === 'capitulo'">
+  </app-capitulo>
+  <app-articulo [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
+    *ngIf="agregaProducto && tipoProducto === 'articulo'">
+  </app-articulo>
+  <app-tesis [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
+    *ngIf="agregaProducto && tipoProducto === 'tesis'">
+  </app-tesis>
+  <app-produccion [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
+    *ngIf="agregaProducto && tipoProducto === 'produccion'">
+  </app-produccion>
+  <app-libro [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
+    *ngIf="agregaProducto && tipoProducto === 'libro'">
+  </app-libro>
+  <app-memoria [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
+    *ngIf="agregaProducto && tipoProducto === 'memoria'">
+  </app-memoria>
+</div>
+<div fxFlexAlign="center" fxLayoutAlign="center center">
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i"
+      (afterExpand)="indexExpanded = i" (closed)="togglePanels(-1)" *ngFor="let producto of productos; let i = index"
+      class="hideOption">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <p>{{ producto.titulo }}</p>
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-chip-list>
+            <mat-chip color="primary" selected>
+              <mat-icon *ngIf="producto.tipo === 'articulo'" class="chip-icon">import_contacts</mat-icon>
+              <mat-icon *ngIf="producto.tipo === 'capitulo'" class="chip-icon">chrome_reader_mode</mat-icon>
+              <mat-icon *ngIf="producto.tipo === 'libro'" class="chip-icon">book</mat-icon>
+              <mat-icon *ngIf="producto.tipo === 'tesis'" class="chip-icon">school</mat-icon>
+              <mat-icon *ngIf="producto.tipo === 'memoria'" class="chip-icon">recent_actors</mat-icon>
+              <mat-icon *ngIf="producto.tipo === 'produccion'" class="chip-icon">description</mat-icon>
+              &nbsp;&nbsp;
+              {{
+                producto.tipo.charAt(0).toUpperCase() + producto.tipo.slice(1)
+              }}
+            </mat-chip>
+          </mat-chip-list>
+          <div class="example-icon showOption">
+            <button *ngIf="indexExpanded == i" (click)="habilitarCampos(); togglePanels(i)" mat-icon-button
+              matTooltip="Editar" matTooltipPosition="above">
+              <mat-icon aria-label="Edit Button">edit</mat-icon>
+            </button>
+            <button (click)="eliminarProducto(i)" mat-icon-button *ngIf="indexExpanded == i" matTooltip="Eliminar"
+              matTooltipPosition="above">
+              <mat-icon aria-label="Delete Button">delete</mat-icon>
+            </button>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-capitulo [capituloObjeto]="producto" [habilitaCampos]="camposHabilitados"
+        [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'capitulo'"></app-capitulo>
+      <app-tesis [tesisObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
+        *ngIf="producto.tipo === 'tesis'">
+      </app-tesis>
+      <app-libro [libroObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
+        *ngIf="producto.tipo === 'libro'">
+      </app-libro>
+      <app-memoria [memoriaObjeto]="producto" [habilitaCampos]="camposHabilitados"
+        [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'memoria'">
+      </app-memoria>
+      <app-articulo [articuloObjeto]="producto" [habilitaCampos]="camposHabilitados"
+        [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'articulo'">
+      </app-articulo>
+      <app-produccion [produccionObjeto]="producto" [habilitaCampos]="camposHabilitados"
+        [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'produccion'">
+      </app-produccion>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
 <notifier-container></notifier-container>

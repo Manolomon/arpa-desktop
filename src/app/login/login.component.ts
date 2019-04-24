@@ -4,6 +4,7 @@ import { LoginService } from '../servicios/login.service'
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { MiembroService } from '../servicios/miembro.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private loginServicio: LoginService,
+    private miembroService: MiembroService,
   ) {
     this.email = '';
     this.password = '';
@@ -48,9 +50,7 @@ export class LoginComponent implements OnInit {
         .then((res) => {
           estado = 200;
           console.log(estado);
-          console.log(this.loginServicio.getUsuario());
-          //console.log(this.loginServicio.getUsuario());
-          this.router.navigate(['gestion']);
+          this.router.navigate(['menu']);
         })
         .catch((err) => {
           console.log('err', err.message);
