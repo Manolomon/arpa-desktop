@@ -17,7 +17,7 @@ export class ArticuloComponent implements OnInit {
 
 
 
-  @Input() private articuloObjeto: any;
+  @Input() private articuloObjeto: Articulo;
   @Input() private habilitaCampos: boolean;
   @Input() private eliminarProducto: boolean;
   @Input() private nuevoArticulo: boolean;
@@ -47,7 +47,7 @@ export class ArticuloComponent implements OnInit {
     this.considerar = this.articuloObjeto.consideradoPCA;
     this.articulo.year = this.articuloObjeto.year;
     this.articulo.descripcion = this.articuloObjeto.descripcion;
-    this.articulo.direccionElectronica = this.articuloObjeto.direccionELectronica;
+    this.articulo.direccionElectronica = this.articuloObjeto.direccionElectronica;
     this.articulo.editorial = this.articuloObjeto.editorial;
     this.articulo.indice = this.articuloObjeto.indice;
     this.articulo.tipoArticulo = this.articuloObjeto.tipoArticulo;
