@@ -31,16 +31,17 @@ export class ProductosComponent implements OnInit {
 
   public ngOnInit() {
     console.log("Inicio de gestionar productos");
-    this.productoService.obtenerProductos().subscribe(datos => {
-      this.productos = [];
-      console.log(datos);
-      for (let i = 0; i < datos.length; i++) {
-        let temporal = datos[i].payload.doc.data();
-        this.productos.push(temporal);
-        this.productos[i].id = datos[i].payload.doc.id;
-      }
-      console.log(this.productos);
-    });
+    this.productos = [];
+    var docRefs: Array<any> = [];
+    this.productoService.obtenerProductos().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc){
+          var documento = doc.data();
+          documento.id = doc.id;
+          console.log(documento);
+          docRefs.push(documento);
+        });
+    });;
+    this.productos = docRefs;
   }
 
   public showNotification(event): void {

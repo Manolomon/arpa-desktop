@@ -19,7 +19,9 @@ export class ProductoService {
     }
 
     obtenerProductos() {
-        return this.db.collection('productos').snapshotChanges();
+        var docsRef: any[];
+        docsRef = [];
+        return this.db.collection('productos').ref.orderBy("titulo").get();
     }
 
     obtenerProducto(idProducto) {

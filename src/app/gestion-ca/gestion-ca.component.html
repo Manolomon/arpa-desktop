@@ -37,85 +37,12 @@
     <mat-card class="example-card">
       <mat-action-list class="make-scrollable" flex>
         <h3 mat-subheader>Participantes en en Cuerpo Académico</h3>
-        <mat-list-item>
+        <mat-list-item
+        *ngFor="let integrante of integrantes"
+        >
           <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h4 mat-line>Hey</h4>
-          <p mat-line> Mini Hey </p>
+          <h4 mat-line>{{ integrante.nombre }}</h4>
+          <p mat-line>{{ integrante.correo }}</p>
         </mat-list-item>
       </mat-action-list>
     </mat-card>

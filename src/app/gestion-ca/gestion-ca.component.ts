@@ -12,11 +12,8 @@ import { Miembro } from '../models/MiembroInterface'
 export class GestionCaComponent implements OnInit {
 
   private correo: string;
-  private miembro: Miembro = {
-    id: '',
-    nombre: '',
-    correo: '',
-  }
+  private integrantes: Miembro[] = [];
+  
   constructor(
     private router: Router,
     private loginServicio: LoginService,
@@ -24,6 +21,23 @@ export class GestionCaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.miembroService.obtenerMiembros().subscribe(datos => {
+      this.integrantes = [];
+      for (let dato of datos) {
+        var integrante: Miembro = {
+          id: '',
+          nombre: '',
+          correo: '',
+        };
+        let temporal: any = (dato.payload.doc.data());
+        console.log(temporal);
+        integrante.nombre = temporal.nombre;
+        integrante.correo = temporal.correo;
+        integrante.id = dato.payload.doc.ref.id;
+        console.log(integrante);
+        this.integrantes.push(integrante);
+      }
+    });
   }
 
   public onCerrarSesion() {
