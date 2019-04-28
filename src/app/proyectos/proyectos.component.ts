@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { ProyectoService } from '../servicios/proyecto.service';
 import { Proyecto } from '../models/ProyectoInterface';
 import { NotifierService } from 'angular-notifier';
 import { NgForm, NgModel, FormGroup, FormControl } from '@angular/forms'
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-proyectos',
@@ -56,7 +57,7 @@ export class ProyectosComponent implements OnInit {
   public habilitarCampos(): void {
   }
 
-  public onGUardarProyecto(myForm: NgForm): void {
+  public onGuardarProyecto(myForm: NgForm): void {
     let idGenerado: string;
     if (isNullOrUndefined(this.proyecto.id)) {
       this.proyectoService.agregarProyecto(this.proyecto)
@@ -69,10 +70,14 @@ export class ProyectosComponent implements OnInit {
           console.error("Error al añadir el documento: ", err);
         });
     } else {
-      this.proyectoService.modificarProyecto(this.proyecto)
-        .then((docRef) => {
+      this.proyectoService.agregarProyecto(this.proyecto)
+        .then(function (docRef) {
           idGenerado = docRef.id;
-          this.notifier.notify("success", "Proyecto guardado con éxito");
+          console.log(idGenerado);
+          if (this.archivo != null) {
+            this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+          }
+          this.notifier.notify("success", "Proyecto guardado exitosamente")
         })
         .catch((err) => {
           this.notifier.notify("error", "Error con la conexión a la base de datos");
