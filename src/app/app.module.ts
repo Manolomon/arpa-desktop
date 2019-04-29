@@ -30,6 +30,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { RouterModule, Routes } from '@angular/router';
 import { GestionCaComponent } from './gestion-ca/gestion-ca.component';
 import { MenuComponent } from './menu/menu.component';
+import { MiembroComponent } from './gestion-ca/miembro/miembro.component';
 
 
 
@@ -88,6 +89,7 @@ const customNotifierOptions: NotifierOptions = {
     ProyectosComponent,
     GestionCaComponent,
     MenuComponent,
+    MiembroComponent,
   ],
   imports: [
     BrowserModule,
