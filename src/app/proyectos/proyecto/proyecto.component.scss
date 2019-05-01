@@ -1,0 +1,29 @@
+mat-form-field {
+    width: 100%;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #a9adcc;
+}
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.example-margin {
+    margin: 0 10px;
+}
+
+.example-button-row button,
+.example-button-row a {
+    margin-right: 8px;
+}
+
+mat-list.make-scrollable {
+    height: 350px; //Or any other height you wish
+    width: 380px;
+    overflow-y: scroll;
+}

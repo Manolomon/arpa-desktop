@@ -1,33 +1,14 @@
 <mat-divider></mat-divider>
 <br />
-<form 
-  novalidate
-  [formGroup]="tesisForm"
-  (ngSubmit)="onGuardarTesis(formNew)"
-  #formNew="ngForm"
-  fxLayout="column">
-  <div
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="7px"
-    fxLayoutGap.sm="0px"
-  >
+<form novalidate [formGroup]="tesisForm" (ngSubmit)="onGuardarTesis(formNew)" #formNew="ngForm" fxLayout="column">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Título de Tesis</mat-label>
-      <input 
-        formControlName = "tituloControl"
-        [(ngModel)]="tesis.titulo"
-        name="titulo"
-        matInput 
-        required />
+      <input formControlName="tituloControl" [(ngModel)]="tesis.titulo" name="titulo" matInput required />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Grado académico</mat-label>
-      <mat-select
-        [formControl]="gradoControl"
-        [(ngModel)]="tesis.grado"
-        name="grado"
-        [(value)]="selected" required>
+      <mat-select [formControl]="gradoControl" [(ngModel)]="tesis.grado" name="grado" [(value)]="selected" required>
         <mat-option value="licenciatura">Licenciatura</mat-option>
         <mat-option value="maestria">Maestría</mat-option>
         <mat-option value="doctorado">Doctorado</mat-option>
@@ -35,174 +16,89 @@
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Línea de Generación</mat-label>
-      <mat-select
-        formControlName="lineaGeneracionControl"
-        [(ngModel)]="tesis.lineaGeneracion"
-        name="lineaGeneracion"
+      <mat-select formControlName="lineaGeneracionControl" [(ngModel)]="tesis.lineaGeneracion" name="lineaGeneracion"
         required>
-        <mat-option
-          *ngFor="let linea of lgac"
-          [value]="linea"
-        >{{ linea }}</mat-option
-      >
+        <mat-option *ngFor="let linea of lgac" [value]="linea">{{ linea }}</mat-option>
       </mat-select>
     </mat-form-field>
     <section class="example-section">
-      <div
-        fxLayout="row"
-        fxLayout.xs="column"
-        fxLayoutGap="7px"
-        fxLayoutGap.sm="0px"
-      >
-        <button
-          type="button"
-          mat-raised-button
-          color="primary"
-          (click)="fileInput.click()"
-          [disabled]="tesisForm.disabled"
-        >
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+        <button type="button" mat-raised-button color="primary" (click)="fileInput.click()"
+          [disabled]="tesisForm.disabled">
           Evidencia
           <mat-icon>create_new_folder</mat-icon>
         </button>
-        <input
-          hidden
-          type="file"
-          #fileInput
-          (change)="detectarArchivos($event)"
-          accept="application/pdf"
-        />
-        <mat-progress-spinner
-          *ngIf="cargaDeArchivo > 0"
-          fxFlex
-          [color]="color"
-          [mode]="determinate"
-          [value]="cargaDeArchivo"
-          [diameter]="40"
-          style="padding-right: 10px"
-        >
+        <input hidden type="file" #fileInput (change)="detectarArchivos($event)" accept="application/pdf" />
+        <mat-progress-spinner *ngIf="cargaDeArchivo > 0" fxFlex [color]="color" [mode]="determinate"
+          [value]="cargaDeArchivo" [diameter]="40" style="padding-right: 10px">
         </mat-progress-spinner>
       </div>
     </section>
   </div>
-  <div
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="7px"
-    fxLayoutGap.sm="0px"
-  >
-    <div
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="7px"
-      fxLayoutGap.sm="0px"
-    >
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Fecha de Inicio</mat-label>
-        <input 
-          matInput [matDatepicker]="myPicker" 
-          formControlName = "fechaInicioControl"
-          placeholder="Fecha" 
-          (dateChange)="setFechaInicio($event)"
-          required/>
+        <input matInput [matDatepicker]="myPicker" formControlName="fechaInicioControl" placeholder="Fecha"
+          (dateChange)="setFechaInicio($event)" required />
         <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
         <mat-datepicker #myPicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Fecha de Finalización</mat-label>
-        <input 
-          matInput 
-          [matDatepicker]="myPicker2" 
-          formControlName="fechaTerminoControl"
-          placeholder="Fecha" 
-          (dateChange)="setFechaFin($event)"
-          required/>
+        <input matInput [matDatepicker]="myPicker2" formControlName="fechaTerminoControl" placeholder="Fecha"
+          (dateChange)="setFechaFin($event)" required />
         <mat-datepicker-toggle matSuffix [for]="myPicker2"></mat-datepicker-toggle>
         <mat-datepicker #myPicker2></mat-datepicker>
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Colaboradores</mat-label>
-      <mat-select 
-          [formControl]="colaboradoresControl" 
-          [(ngModel)]="colaboradoresSeleccionados"
-          name="colaboradores"
-          multiple>
+      <mat-select [formControl]="colaboradoresControl" [(ngModel)]="colaboradoresSeleccionados" name="colaboradores"
+        multiple>
         <mat-option *ngFor="let colaborador of colaboradoresLista" [value]="colaborador">{{
           colaborador
         }}</mat-option>
       </mat-select>
-      <mat-icon matSuffix class="material-icon"
-        >supervised_user_circle</mat-icon
-      >
+      <mat-icon matSuffix class="material-icon">supervised_user_circle</mat-icon>
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Estado</mat-label>
-      <mat-select 
-          [formControl]="estadoControl"
-          [(ngModel)]="tesis.estado"
-          name="estado"
-          required>
+      <mat-select [formControl]="estadoControl" [(ngModel)]="tesis.estado" name="estado" required>
         <mat-option value="publicado">Publicado</mat-option>
         <mat-option value="terminado">Terminado</mat-option>
         <mat-option value="en_proceso">En Proceso</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-  <div
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="7px"
-    fxLayoutGap.sm="0px"
-  >
-    <div
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="7px"
-      fxLayoutGap.sm="0px"
-    >
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Alumnos Participantes</mat-label>
-        <input 
-          type="number" 
-          min="0" 
-          step="1" 
-          formControlName="numAlumnosControl"
-          [(ngModel)]="tesis.numAlumnos"
-          name="numAlumnos"
-          matInput 
-          required />
+        <input type="number" min="0" step="1" formControlName="numAlumnosControl" [(ngModel)]="tesis.numAlumnos"
+          name="numAlumnos" matInput required />
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Colaboradores Externos</mat-label>
-      <mat-select 
-          [formControl]="colaboradoresExternosControl"
-           multiple>
+      <mat-select [formControl]="colaboradoresExternosControl" multiple>
         <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
           topping
         }}</mat-option>
       </mat-select>
-      <mat-icon matSuffix class="material-icon"
-        >supervised_user_circle</mat-icon
-      >
+      <mat-icon matSuffix class="material-icon">supervised_user_circle</mat-icon>
     </mat-form-field>
     <section class="example-section">
-      <mat-checkbox
-      formControlName="btnConsideradoControl"
-      [(ngModel)]="tesis.consideradoPCA"
-      (change)="onChange($event)" 
-        class="example-margin" 
-        color="primary"
-      >
+      <mat-checkbox formControlName="btnConsideradoControl" [(ngModel)]="tesis.consideradoPCA"
+        (change)="onChange($event)" class="example-margin" color="primary">
         Considerar para Cuerpo Académico
       </mat-checkbox>
     </section>
   </div>
   <div fxLayout="row" fxLayoutAlign="end center">
     <div class="example-button-row">
-      <button type="button" mat-stroked-button color="primary" (click) = "cancelarEdicion()">Cancelar</button>
+      <button type="button" mat-stroked-button color="primary" (click)="cancelarEdicion()">Cancelar</button>
       <button type="submit" mat-raised-button color="primary" [disabled]="tesisForm.disabled">Guardar</button>
     </div>
   </div>
 </form>
-

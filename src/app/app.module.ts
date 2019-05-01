@@ -31,7 +31,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GestionCaComponent } from './gestion-ca/gestion-ca.component';
 import { MenuComponent } from './menu/menu.component';
 import { MiembroComponent } from './gestion-ca/miembro/miembro.component';
-
+import { ProyectoComponent } from './proyectos/proyecto/proyecto.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -90,6 +90,7 @@ const customNotifierOptions: NotifierOptions = {
     GestionCaComponent,
     MenuComponent,
     MiembroComponent,
+    ProyectoComponent,
   ],
   imports: [
     BrowserModule,

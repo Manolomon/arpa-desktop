@@ -1,0 +1,64 @@
+<mat-divider></mat-divider>
+<br />
+<form fxLayout="column">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+    <div fxLayout="column" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Nombre del Proyecto</mat-label>
+          <input name="nombre" matInput required />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <input name="descripcion" matInput required />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Fecha de Inicio</mat-label>
+          <input matInput [matDatepicker]="myPicker" placeholder="Fecha" required />
+          <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+          <mat-datepicker #myPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Fecha de Finalización</mat-label>
+          <input matInput [matDatepicker]="myPicker2" placeholder="Fecha" required />
+          <mat-datepicker-toggle matSuffix [for]="myPicker2"></mat-datepicker-toggle>
+          <mat-datepicker #myPicker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Actividades Realizadas</mat-label>
+          <input name="actividades" matInput required />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+        <section class="example-section">
+          <mat-checkbox class="example-margin" color="primary">
+            Considerar para Cuerpo Académico
+          </mat-checkbox>
+        </section>
+      </div>
+    </div>
+    <div style="padding-left: 10px" fxLayout="column" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+      <mat-list class="make-scrollable" flex>
+        <h2 mat-subheader>Produtos Asociados</h2>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <mat-icon mat-list-icon>description</mat-icon>
+          <h4 mat-line>Sobre la Teoría de la Relatividad</h4>
+          <p mat-line> Albert Einstein </p>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <div class="example-button-row">
+      <button type="button" mat-stroked-button color="primary">Cancelar</button>
+      <button type="submit" mat-raised-button color="primary">Guardar</button>
+    </div>
+  </div>
+</form>
