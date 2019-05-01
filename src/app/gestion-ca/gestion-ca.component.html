@@ -38,11 +38,11 @@
       <mat-action-list class="make-scrollable" flex>
         <h3 mat-subheader>Participantes en en Cuerpo Académico</h3>
         <mat-list-item
-        *ngFor="let integrante of integrantes"
+        *ngFor="let integrante of integrantes" (click)="clickMiembro(integrante)"
         >
           <mat-icon mat-list-icon>account_circle</mat-icon>
           <h4 mat-line>{{ integrante.nombre }}</h4>
-          <p mat-line>{{ integrante.correo }}</p>
+          <p mat-line>{{ integrante.rol }}</p>
         </mat-list-item>
       </mat-action-list>
     </mat-card>
@@ -50,7 +50,8 @@
   <div fxLayout="column" fxFlex="4"></div>
   <div fxLayout="column" fxFlex="48">
     <mat-card class="example-card">
-      <app-miembro></app-miembro>
+      <app-miembro *ngIf="mostrarCard" [integrante]="integranteSeleccionado">
+      </app-miembro>
     </mat-card>
   </div>
 </div>

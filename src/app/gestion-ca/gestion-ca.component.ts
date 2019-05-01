@@ -13,6 +13,8 @@ export class GestionCaComponent implements OnInit {
 
   private correo: string;
   private integrantes: Miembro[] = [];
+  private mostrarCard : boolean = false;
+  private integranteSeleccionado : Miembro;
   
   constructor(
     private router: Router,
@@ -28,16 +30,23 @@ export class GestionCaComponent implements OnInit {
           id: '',
           nombre: '',
           correo: '',
+          rol: '',
         };
         let temporal: any = (dato.payload.doc.data());
         console.log(temporal);
         integrante.nombre = temporal.nombre;
         integrante.correo = temporal.correo;
+        integrante.rol = temporal.rol;
         integrante.id = dato.payload.doc.ref.id;
         console.log(integrante);
         this.integrantes.push(integrante);
       }
     });
+  }
+
+  public clickMiembro(integrante: Miembro) {
+    this.mostrarCard = true;
+    this.integranteSeleccionado = integrante;
   }
 
   public onCerrarSesion() {
