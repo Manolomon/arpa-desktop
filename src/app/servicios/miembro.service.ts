@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Miembro } from '../models/MiembroInterface'
 import { Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class MiembroService {
 
+  public miembroDocRef : DocumentReference;
   public miembro: Miembro = {
     id: '',
     correo: '',
@@ -20,12 +21,13 @@ export class MiembroService {
   obtenerMiembros() {
     return this.db.collection("miembros").snapshotChanges();
   }
-  setMiembroActivo(correo: string) {
 
+  setMiembroActivo(idMiembro : string) {
+    this.miembroDocRef = this.db.collection("miembros").doc(idMiembro).ref;
   }
 
   getMiembroActivo() {
-    return this.miembro;
+    return this.miembroDocRef;
   }
 
 }

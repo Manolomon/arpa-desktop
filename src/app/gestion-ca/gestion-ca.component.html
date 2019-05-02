@@ -24,7 +24,7 @@
       &nbsp;Curriculum
     </button>
     <div fxLayout="column" fxFlex="3"></div>
-    <button fxLayout="column" fxFlex="60" mat-raised-button color="primary">
+    <button fxLayout="column" fxFlex="60" mat-raised-button color="primary" (click)="clickAgregar()">
       <mat-icon>person_add</mat-icon>
       &nbsp;Agregar Miembro
     </button>
@@ -50,7 +50,7 @@
   <div fxLayout="column" fxFlex="4"></div>
   <div fxLayout="column" fxFlex="48">
     <mat-card class="example-card">
-      <app-miembro *ngIf="mostrarCard" [integrante]="integranteSeleccionado">
+      <app-miembro *ngIf="mostrarCard" [integrante]="integranteSeleccionado" [esMiembro]="esMiembro" [agregando]="agregando">
       </app-miembro>
     </mat-card>
   </div>
