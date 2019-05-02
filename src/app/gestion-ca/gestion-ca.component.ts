@@ -13,7 +13,9 @@ export class GestionCaComponent implements OnInit {
 
   private correo: string;
   private integrantes: Miembro[] = [];
-  private mostrarCard : boolean = false;
+  private mostrarCard : boolean;
+  private esMiembro : boolean;
+  private agregando : boolean;
   private integranteSeleccionado : Miembro;
   
   constructor(
@@ -23,6 +25,7 @@ export class GestionCaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.mostrarCard = false;
     this.miembroService.obtenerMiembros().subscribe(datos => {
       this.integrantes = [];
       for (let dato of datos) {
@@ -33,12 +36,10 @@ export class GestionCaComponent implements OnInit {
           rol: '',
         };
         let temporal: any = (dato.payload.doc.data());
-        console.log(temporal);
         integrante.nombre = temporal.nombre;
         integrante.correo = temporal.correo;
         integrante.rol = temporal.rol;
         integrante.id = dato.payload.doc.ref.id;
-        console.log(integrante);
         this.integrantes.push(integrante);
       }
     });
@@ -47,6 +48,18 @@ export class GestionCaComponent implements OnInit {
   public clickMiembro(integrante: Miembro) {
     this.mostrarCard = true;
     this.integranteSeleccionado = integrante;
+    if (this.integranteSeleccionado.rol == "Miembro") {
+      this.esMiembro = true;
+    } else {
+      this.esMiembro = false;
+    }
+    this.agregando = false;
+  }
+
+  public clickAgregar() {
+    this.mostrarCard = true;
+    this.agregando = true;
+    console.log("Click agregar miembro");
   }
 
   public onCerrarSesion() {
