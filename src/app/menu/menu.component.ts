@@ -42,6 +42,7 @@ export class MenuComponent implements OnInit {
           break;
         }
       }
+      this.ventana = 'productos';
       console.log(this.miembro);
     });
   }
