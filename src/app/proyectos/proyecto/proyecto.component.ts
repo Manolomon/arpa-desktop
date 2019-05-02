@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { ProyectoService } from '../../servicios/proyecto.service';
+import { Proyecto } from '../../models/ProyectoInterface';
+import { NotifierService } from 'angular-notifier';
+import { NgForm, NgModel, FormGroup, FormControl } from '@angular/forms'
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-proyecto',
@@ -7,9 +12,81 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProyectoComponent implements OnInit {
 
-  constructor() { }
+  @Input() private proyectoObjeto: Proyecto;
+  @Input() private idMiembro: string;
+  @Input() private habilitaCampos: boolean;
+  @Input() private nuevoProyecto: boolean;
+  @Output() private creacionCancelada = new EventEmitter<boolean>();
+
+  private proyecto: Proyecto = {
+    nombre: '',
+    consideradoPCA: false,
+    actividadesRealizadas: '',
+    descripcion: '',
+    idCreador: '',
+  }
+
+  constructor(
+    private proyectoService: ProyectoService,
+    private notifier: NotifierService,
+  ) { }
 
   ngOnInit() {
+    if (!isNullOrUndefined(this.proyectoObjeto)) {
+      this.llenarCampos();
+    }
+  }
+
+  private llenarCampos(): void {
+    this.proyecto.id = this.proyectoObjeto.id;
+    this.proyecto.nombre = this.proyectoObjeto.nombre;
+    this.proyecto.actividadesRealizadas = this.proyectoObjeto.actividadesRealizadas;
+    this.proyecto.consideradoPCA = this.proyectoObjeto.consideradoPCA;
+    this.proyecto.fechaInicio = this.proyectoObjeto.fechaInicio;
+    this.proyecto.fechaTentativaFin = this.proyectoObjeto.fechaTentativaFin;
+    this.proyecto.descripcion = this.proyectoObjeto.descripcion;
+    this.proyecto.idCreador = this.proyectoObjeto.idCreador;
+  }
+
+  public habilitarCampos(): void {
+  }
+
+  public onGuardarProyecto(myForm: NgForm): void {
+    let idGenerado: string;
+    if (isNullOrUndefined(this.proyecto.id)) {
+      this.proyectoService.agregarProyecto(this.proyecto)
+        .then((docRef) => {
+          idGenerado = docRef.id;
+          this.notifier.notify("success", "Proyecto guardado con éxito");
+        })
+        .catch((err) => {
+          this.notifier.notify("error", "Error con la conexión a la base de datos");
+          console.error("Error al añadir el documento: ", err);
+        });
+    } else {
+      this.proyectoService.agregarProyecto(this.proyecto)
+        .then(function (docRef) {
+          idGenerado = docRef.id;
+          console.log(idGenerado);
+          if (this.archivo != null) {
+            this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+          }
+          this.notifier.notify("success", "Proyecto guardado exitosamente")
+        })
+        .catch((err) => {
+          this.notifier.notify("error", "Error con la conexión a la base de datos");
+          console.error("Error al añadir el documento: ", err);
+        });
+    }
+  }
+
+  public cancelarEdicion(): void {
+    if (!isNullOrUndefined(this.proyecto.id)) {
+      this.llenarCampos();
+    } else {
+      this.nuevoProyecto = !this.nuevoProyecto;
+      this.creacionCancelada.emit(false);
+    }
   }
 
 }

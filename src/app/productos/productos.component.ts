@@ -33,14 +33,14 @@ export class ProductosComponent implements OnInit {
     console.log("Inicio de gestionar productos");
     this.productos = [];
     var docRefs: Array<any> = [];
-    this.productoService.obtenerProductos().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc){
-          var documento = doc.data();
-          documento.id = doc.id;
-          console.log(documento);
-          docRefs.push(documento);
-        });
-    });;
+    this.productoService.obtenerProductos().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        var documento = doc.data();
+        documento.id = doc.id;
+        console.log(documento);
+        docRefs.push(documento);
+      });
+    });
     this.productos = docRefs;
   }
 
@@ -75,14 +75,6 @@ export class ProductosComponent implements OnInit {
 
   public creacionCancelada(cancelado: boolean) {
     this.agregaProducto = !this.agregaProducto;
-  }
-
-  public onCerrarSesion() {
-    if (confirm("Desea cerrar la sesion?")) {
-      console.log(this.loginServicio.getUsuario());
-      this.loginServicio.cerrarSesion();
-      this.router.navigate(['login']);
-    }
   }
 
 }

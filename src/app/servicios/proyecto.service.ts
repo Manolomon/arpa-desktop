@@ -21,7 +21,9 @@ export class ProyectoService {
   }
 
   obtenerProyectos() {
-    return this.db.collection('proyectos').snapshotChanges();
+    var docRefs: any[];
+    docRefs = [];
+    return this.db.collection('proyectos').ref.orderBy("titulo").get();
   }
 
   obtenerProyecto(idProyecto) {
@@ -37,7 +39,7 @@ export class ProyectoService {
     return this.db.doc('proyectos/' + proyecto.id).set(proyecto);
   }
 
-  eliminarProducto(idProyecto) {
+  eliminarProyecto(idProyecto) {
     return this.db.doc('proyectos/' + idProyecto).delete();
   }
 

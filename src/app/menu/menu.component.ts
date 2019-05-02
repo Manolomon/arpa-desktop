@@ -49,4 +49,13 @@ export class MenuComponent implements OnInit {
   public irAVentana(ventana: string): void {
     this.ventana = ventana;
   }
+
+  public onCerrarSesion(): void {
+    if (confirm("Desea cerrar la sesion?")) {
+      console.log(this.loginServicio.getUsuario());
+      this.loginServicio.cerrarSesion();
+      this.router.navigate(['login']);
+    }
+  }
+
 }

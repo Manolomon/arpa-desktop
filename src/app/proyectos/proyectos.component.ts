@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProyectoService } from '../servicios/proyecto.service';
-import { Proyecto } from '../models/ProyectoInterface';
+import { Proyecto } from '../models/ProyectoInterface'
 import { NotifierService } from 'angular-notifier';
-import { NgForm, NgModel, FormGroup, FormControl } from '@angular/forms'
-import { isNullOrUndefined } from 'util';
+
 
 @Component({
   selector: 'app-proyectos',
@@ -12,91 +11,52 @@ import { isNullOrUndefined } from 'util';
 })
 export class ProyectosComponent implements OnInit {
 
-  @Input() private proyectoObjeto: Proyecto;
-  @Input() private idMiembro: string;
-  @Input() private habilitaCampos: boolean;
-  @Input() private nuevoProyecto: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
-
-  private proyecto: Proyecto = {
-    nombre: '',
-    consideradoPCA: false,
-    actividadesRealizadas: '',
-    descripcion: '',
-    idCreador: '',
-  }
-
+  private camposHabilitados: boolean;
+  private proyectos: Array<Proyecto> = [];
+  private agregaProyecto: boolean;
   private indexExpanded: number = -1;
 
   constructor(
     private proyectoService: ProyectoService,
     private notifier: NotifierService,
-  ) { }
+  ) {
+    this.camposHabilitados = false;
+    this.agregaProyecto = false;
+  }
 
   public ngOnInit(): void {
-    if (!isNullOrUndefined(this.proyectoObjeto)) {
-      this.llenarCampos();
-    }
+    this.proyectos = [];
+    var docRefs: Array<any> = [];
+    this.proyectoService.obtenerProyectos().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        var documento = doc.data();
+        documento.id = doc.id;
+        console.log(documento);
+        docRefs.push(documento);
+      });
+    });
+    this.proyectos = docRefs;
+  }
+
+  public habilitarCampos(): void {
+    this.camposHabilitados = !this.camposHabilitados;
   }
 
   private togglePanels(index: number): void {
     this.indexExpanded = index == this.indexExpanded ? -1 : index;
   }
 
-  private llenarCampos(): void {
-    this.proyecto.id = this.proyectoObjeto.id;
-    this.proyecto.nombre = this.proyectoObjeto.nombre;
-    this.proyecto.actividadesRealizadas = this.proyectoObjeto.actividadesRealizadas;
-    this.proyecto.consideradoPCA = this.proyectoObjeto.consideradoPCA;
-    this.proyecto.fechaInicio = this.proyectoObjeto.fechaInicio;
-    this.proyecto.fechaTentativaFin = this.proyectoObjeto.fechaTentativaFin;
-    this.proyecto.descripcion = this.proyectoObjeto.descripcion;
-    this.proyecto.idCreador = this.proyectoObjeto.idCreador;
-  }
-
-  public habilitarCampos(): void {
-  }
-
-  public onGuardarProyecto(myForm: NgForm): void {
-    let idGenerado: string;
-    if (isNullOrUndefined(this.proyecto.id)) {
-      this.proyectoService.agregarProyecto(this.proyecto)
-        .then((docRef) => {
-          idGenerado = docRef.id;
-          this.notifier.notify("success", "Proyecto guardado con éxito");
-        })
-        .catch((err) => {
-          this.notifier.notify("error", "Error con la conexión a la base de datos");
-          console.error("Error al añadir el documento: ", err);
-        });
-    } else {
-      this.proyectoService.agregarProyecto(this.proyecto)
-        .then(function (docRef) {
-          idGenerado = docRef.id;
-          console.log(idGenerado);
-          if (this.archivo != null) {
-            this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
-          }
-          this.notifier.notify("success", "Proyecto guardado exitosamente")
-        })
-        .catch((err) => {
-          this.notifier.notify("error", "Error con la conexión a la base de datos");
-          console.error("Error al añadir el documento: ", err);
-        });
-    }
-  }
-
-  public cancelarEdicion(): void {
-    if (!isNullOrUndefined(this.proyecto.id)) {
-      this.llenarCampos();
-    } else {
-      this.nuevoProyecto = !this.nuevoProyecto;
-      this.creacionCancelada.emit(false);
-    }
-  }
-  eliminarProducto(producto): void {
+  public eliminarProyecto(posicion: number): void {
     if (confirm("Desea eliminar este proyecto?")) {
-      console.log("Proyecto eliminado")
+      this.proyectoService.eliminarProyecto(this.proyectos[posicion].id);
     }
+  }
+
+  public agregarProyecto(): void {
+    this.agregaProyecto = true;
+  }
+
+  public creacionCancelada(cancelado: boolean) {
+    this.agregaProyecto = !this.agregaProyecto;
   }
 }
