@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
           estado = 200;
           console.log(estado);
           this.router.navigate(['menu']);
+          this.miembroService.setMiembroActivo(this.atAuth.auth.currentUser.uid);
         })
         .catch((err) => {
           console.log('err', err.message);

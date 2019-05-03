@@ -14,10 +14,13 @@ export class MiembroComponent implements OnInit {
   @Input() private esMiembro : boolean;
   @Input() private agregando : boolean;
   private nombreNuevo : string;
-  private nombreCorreo : string;
+  private correoNuevo : string;
   private minLengthChar : number;
+  private passGenerada : string;
   
-  constructor() {
+  constructor(
+    private miembroService: MiembroService
+  ) {
     this.minLengthChar = 2;
   }
 
@@ -27,6 +30,17 @@ export class MiembroComponent implements OnInit {
 
   public confirmarCambio() {
     console.log("Switch a punto de cambiar");
+  }
+
+  public registrarIntegrante() {
+    var rol: string;
+    if (this.esMiembro) {
+      rol = "Miembro";
+    } else {
+      rol = "Colaborador";
+    }
+    this.passGenerada = this.miembroService.registrarMiembro(this.nombreNuevo,this.correoNuevo,rol);
+    console.log("La pass generada es: " + this.passGenerada);
   }
 
 }

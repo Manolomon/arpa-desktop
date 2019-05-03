@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { ProductoService } from "../servicios/productos.service";
-
+import { MiembroService } from '../servicios/miembro.service';
 import { NotifierService } from "angular-notifier";
 import { LoginService } from '../servicios/login.service';
 import { Router } from '@angular/router';
@@ -20,6 +20,7 @@ export class ProductosComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
+    private miembroService: MiembroService,
     private notifier: NotifierService,
     private loginServicio: LoginService,
     private router: Router,
@@ -33,8 +34,10 @@ export class ProductosComponent implements OnInit {
     console.log("Inicio de gestionar productos");
     this.productos = [];
     var docRefs: Array<any> = [];
-    this.productoService.obtenerProductos().then(function (querySnapshot) {
+    console.log(this.miembroService.getMiembroActivo());
+    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo()).then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
+        console.log(doc);
         var documento = doc.data();
         documento.id = doc.id;
         console.log(documento);
