@@ -19,7 +19,7 @@
     <p class="additional_info">Vista de los integrantes del Cuerpo Académico</p>
   </div>
   <div fxLayout="row" fxLayoutAlign="end center">
-    <button fxLayout="column" fxFlex="42" mat-raised-button color="primary">
+    <button fxLayout="column" (click)="generarPDF()" fxFlex="42" mat-raised-button color="primary">
       <mat-icon>ballot</mat-icon>
       &nbsp;Curriculum
     </button>
@@ -54,4 +54,8 @@
       </app-miembro>
     </mat-card>
   </div>
+</div>
+
+<div hidden >
+  <ng-template #curriculumContainer></ng-template>
 </div>

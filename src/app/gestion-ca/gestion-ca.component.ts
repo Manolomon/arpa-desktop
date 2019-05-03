@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../servicios/login.service';
 import { MiembroService } from '../servicios/miembro.service';
 import { Miembro } from '../models/MiembroInterface'
+import { CurriculumComponent } from './curriculum/curriculum.component';
 
 @Component({
   selector: 'app-gestion-ca',
@@ -17,11 +18,14 @@ export class GestionCaComponent implements OnInit {
   private esMiembro : boolean;
   private agregando : boolean;
   private integranteSeleccionado : Miembro;
+  @ViewChild('curriculumContainer', { read: ViewContainerRef }) container: ViewContainerRef;
+  componentRef: any;
   
   constructor(
     private router: Router,
     private loginServicio: LoginService,
     private miembroService: MiembroService,
+    private resolver: ComponentFactoryResolver
   ) { }
 
   ngOnInit() {
@@ -68,6 +72,19 @@ export class GestionCaComponent implements OnInit {
       this.loginServicio.cerrarSesion();
       this.router.navigate(['login']);
     }
+  }
+
+  public generarPDF() {
+    this.container.clear();
+    const factory = this.resolver.resolveComponentFactory(CurriculumComponent);
+
+    this.componentRef = this.container.createComponent(factory);
+    let data = ['perros', 'gatos', 'camellos', 'iguanas'];
+    this.componentRef.instance.data = data;
+  }
+
+  destroyComponent() {
+    this.componentRef.destroy();
   }
 
 }
