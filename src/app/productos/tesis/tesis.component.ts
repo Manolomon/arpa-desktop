@@ -165,13 +165,13 @@ export class TesisComponent implements OnInit, OnChanges {
     console.log("Consideracion cambiada");
   }
 
-  public onGuardarTesis(myForm: NgForm) {
+  public onGuardarTesis(myForm: NgForm): void {
     this.cargaDeArchivo = 0;
     if (this.tesisForm.valid) {
       let idGenerado: string;
       if (isNullOrUndefined(this.tesis.fechaInicio) || isNullOrUndefined(this.tesis.fechaTermino)) {
         this.notifier.notify("warning", "Datos incompletos o inválidos");
-        return 0;
+        return;
       }
       if (isUndefined(this.idTesis)) {
         console.log("Agregando producto");
