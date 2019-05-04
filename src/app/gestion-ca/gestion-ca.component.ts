@@ -30,8 +30,8 @@ export class GestionCaComponent implements OnInit {
 
   ngOnInit() {
     this.mostrarCard = false;
+    var integrantes = this.integrantes = [];
     this.miembroService.obtenerMiembros().then(function(querySnapshot) {
-      this.integrantes = [];
       querySnapshot.forEach(function (doc) {
         var integrante: Miembro = {
           id: '',
@@ -44,9 +44,10 @@ export class GestionCaComponent implements OnInit {
         integrante.correo = temporal.correo;
         integrante.rol = temporal.rol;
         integrante.id = doc.ref.id;
-        this.integrantes.push(integrante);
+        integrantes.push(integrante);
       });
     });
+    this.integrantes = integrantes;
   }
 
   public clickMiembro(integrante: Miembro) {

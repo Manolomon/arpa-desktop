@@ -3,8 +3,6 @@
   <p>{{data.mensaje}}</p>
 </div>
 <div mat-dialog-actions>
-  <div *ngIf="data.dobleBoton">
-    <button mat-button (click)="clickCancelar()">Cancelar</button>
-  </div>
+  <button *ngIf="data.dobleBoton" mat-button (click)="clickCancelar()">Cancelar</button>
   <button mat-button (click)="clickAceptar()" cdkFocusInitial>Aceptar</button>
 </div>

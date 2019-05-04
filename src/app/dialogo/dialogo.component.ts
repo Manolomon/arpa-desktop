@@ -23,12 +23,12 @@ export class DialogoComponent implements OnInit {
 
   clickCancelar(): void {
     this.data.resultado = false;
-    this.dialogRef.close();
+    this.dialogRef.close(this.data.resultado);
   }
 
   clickAceptar(): void {
     this.data.resultado = true;
-    this.dialogRef.close();
+    this.dialogRef.close(this.data.resultado);
   }
 
 }

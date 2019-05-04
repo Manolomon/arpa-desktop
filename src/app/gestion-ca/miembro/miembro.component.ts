@@ -4,6 +4,7 @@ import { Miembro } from 'src/app/models/MiembroInterface'
 import { FormGroup, FormControl, Validators, Form } from '@angular/forms';
 import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 import { MatDialog } from '@angular/material';
+import { DocumentSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-miembro',
@@ -32,8 +33,81 @@ export class MiembroComponent implements OnInit {
     console.log("Es miembro: " + this.esMiembro);
   }
 
+  private degradarMiembro() {
+    console.log("Degradar miembro inicio");
+    const dialogRef = this.dialog.open(DialogoComponent, {
+      width: '400px',
+      disableClose: true,
+      data: { 
+        mensaje: "Cambiar a este miembro le bloqueara el acceso al sistema, pero no perdera sus productos académicos. ¿Está seguro de hacer este cambio?",
+        resultado: this.resultadoDialog,
+        dobleBoton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log("Click cancelar y switch: "+ this.esMiembro);
+        if (this.esMiembro) {
+          this.esMiembro = false;
+        } else {
+          this.esMiembro = true;
+        }
+      } else {
+        this.miembroService.degradarMiembro(this.integrante.id);
+      }
+    });
+  }
+
+  private ascenderColaborador() {
+    console.log("Ascender colaborador iniciado");
+    const dialogRef = this.dialog.open(DialogoComponent, {
+      width: '400px',
+      disableClose: true,
+      data: { 
+        mensaje: "Cambiar a este colaborador le dará acceso al sistema y se generará una contraseña que no se mostrará denuevo ¿Está seguro de hacer este cambio?",
+        resultado: this.resultadoDialog,
+        dobleBoton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        console.log("Click cancelar y switch: "+ this.esMiembro);
+        if (this.esMiembro) {
+          this.esMiembro = false;
+        } else {
+          this.esMiembro = true;
+        }
+      } else {
+        this.ascender();
+      }
+    });
+  }
+
+  private ascender() {
+    var dialTemp = this.dialog;
+    var res = this.resultadoDialog;
+    this.miembroService.ascenderColaborador(this.integrante.id).then(function(doc) {
+      var pass = doc.data().passGenerada;
+      console.log(pass);
+      console.log("Dialog por abrir con: " + pass);
+      const dialogRef2 = dialTemp.open(DialogoComponent, {
+        width: '400px',
+        disableClose: true,
+        data: { mensaje: "La contraseña generada para el miembro es la siguiente: " + pass, resultado: res, dobleBoton: false}
+    });
+    });
+  }
+
   public confirmarCambio() {
-    console.log("Switch a punto de cambiar");
+    if (!this.agregando) {
+      console.log("Switch a punto de cambiar");
+      console.log("Ël switch esta en: " + this.esMiembro);
+      if (this.esMiembro) {
+        this.degradarMiembro();
+      } else {
+        this.ascenderColaborador();
+      }
+    }
   }
 
   public registrarIntegrante() {
@@ -47,6 +121,8 @@ export class MiembroComponent implements OnInit {
     if (rol == "Miembro") {
       console.log("Deberia abrir un dialogo");
       const dialogRef = this.dialog.open(DialogoComponent, {
+        width: '400px',
+        disableClose: true,
         data: { mensaje: "La contraseña generada para el miembro es la siguiente: " + this.passGenerada, resultado: this.resultadoDialog, dobleBoton: false}
       });
     }

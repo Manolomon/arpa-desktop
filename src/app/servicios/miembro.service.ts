@@ -53,13 +53,40 @@ export class MiembroService {
       dbTemp.collection("miembros").doc(firebaseUser.user.uid).set({
         nombre: nombre,
         correo: correo,
-        rol: rol
+        rol: rol,
+        passGenerada: passGenerada.toString()
       });
       segundaConexion.auth().signOut();
     }).catch(function(error) {
       console.log(error);
     });
     return passGenerada;
+  }
+
+  degradarMiembro(idMiembro: string) {
+    var docRef = this.db.collection("miembros").doc(idMiembro).ref;
+    docRef.get().then(function(doc) {
+      docRef.set({ 
+        nombre: doc.data().nombre,
+        correo: doc.data().correo,  
+        rol: "Colaborador",
+        passGenerada: doc.data().passGenerada
+      });
+    });
+  }
+
+  ascenderColaborador(idMiembro: string) {
+    var passBD: string;
+    var docRef = this.db.doc("miembros/" + idMiembro).ref.get();
+    docRef.then(function(doc) {
+      doc.ref.set({ 
+        nombre: doc.data().nombre,
+        correo: doc.data().correo,  
+        rol: "Miembro",
+        passGenerada: doc.data().passGenerada
+      });
+    });
+    return docRef;
   }
 
   setMiembroActivo(idMiembro : string) {

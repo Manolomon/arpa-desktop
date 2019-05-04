@@ -34,20 +34,6 @@ export class MenuComponent implements OnInit {
       correo: ',',
     };
     this.miembroService.obtenerMiembro(this.correo).then(function(doc) {
-      /*let miembros: Array<any> = [];
-      for (let i = 0; i < datos.length; i++) {
-        let temporal = datos[i].payload.doc.data();
-        miembros.push(temporal);
-        miembros[i].id = datos[i].payload.doc.id;
-      }
-      for (let i = 0; i < datos.length; i++) {
-        if (miembros[i].correo == this.correo) {
-          this.miembro.id = miembros[i].id;
-          this.miembro.correo = miembros[i].correo;
-          this.miembro.nombre = miembros[i].nombre;
-          break;
-        }
-      }*/
       console.log(doc.docs[0].data());
       let temporal = doc.docs[0].data();
       miembroTemp.id = doc.docs[0].ref.id;
