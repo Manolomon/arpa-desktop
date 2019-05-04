@@ -32,7 +32,6 @@ import { GestionCaComponent } from './gestion-ca/gestion-ca.component';
 import { MenuComponent } from './menu/menu.component';
 import { MiembroComponent } from './gestion-ca/miembro/miembro.component';
 import { ProyectoComponent } from './proyectos/proyecto/proyecto.component';
-import { CurriculumComponent } from './gestion-ca/curriculum/curriculum.component';
 import { DialogoComponent } from './dialogo/dialogo.component';
 
 
@@ -93,7 +92,6 @@ const customNotifierOptions: NotifierOptions = {
     MenuComponent,
     MiembroComponent,
     ProyectoComponent,
-    CurriculumComponent,
     DialogoComponent
   ],
   imports: [
@@ -119,6 +117,6 @@ const customNotifierOptions: NotifierOptions = {
     AngularFireAuth,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [CurriculumComponent, DialogoComponent]
+  entryComponents: [DialogoComponent]
 })
 export class AppModule { }

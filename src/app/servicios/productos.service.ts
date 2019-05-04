@@ -61,4 +61,10 @@ export class ProductoService {
         );
     }
 
+    obtenerProductosCurriculum(inicio: Date, fin: Date){
+        return this.db.collection('productos').ref.where('registrado', '>=',
+            firebase.firestore.Timestamp.fromDate(inicio)).where('registrado', '<=',
+            firebase.firestore.Timestamp.fromDate(fin)).get();
+    }
+
 }

@@ -5,7 +5,7 @@ import { LoginComponent } from '../app/login/login.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { GestionCaComponent } from './gestion-ca/gestion-ca.component';
 import { MenuComponent } from './menu/menu.component';
-import { AuthGuardService as AuthGuard } from '../app/servicios/auth-guard.service'
+import { AuthGuardService as AuthGuard } from '../app/servicios/auth-guard.service';
 
 const routes: Routes = [
   {

@@ -37,9 +37,7 @@
     <mat-card class="example-card">
       <mat-action-list class="make-scrollable" flex>
         <h3 mat-subheader>Participantes en en Cuerpo Académico</h3>
-        <mat-list-item
-        *ngFor="let integrante of integrantes" (click)="clickMiembro(integrante)"
-        >
+        <mat-list-item *ngFor="let integrante of integrantes" (click)="clickMiembro(integrante)">
           <mat-icon mat-list-icon>account_circle</mat-icon>
           <h4 mat-line>{{ integrante.nombre }}</h4>
           <p mat-line>{{ integrante.rol }}</p>
@@ -50,12 +48,351 @@
   <div fxLayout="column" fxFlex="4"></div>
   <div fxLayout="column" fxFlex="48">
     <mat-card class="example-card">
-      <app-miembro *ngIf="mostrarCard" [integrante]="integranteSeleccionado" [esMiembro]="esMiembro" [agregando]="agregando">
+      <app-miembro *ngIf="mostrarCard" [integrante]="integranteSeleccionado" [esMiembro]="esMiembro"
+        [agregando]="agregando">
       </app-miembro>
     </mat-card>
   </div>
 </div>
-
-<div hidden >
-  <ng-template #curriculumContainer></ng-template>
+<div [hidden]="mostrarCurriculum">
+  <div class="content" #content style="background-color: white">
+    <h1>Curriculum de Cuerpo Académico</h1>
+    <br>
+    <h2>Miembros del Cuerpo Académico</h2>
+    <div *ngFor="let integrante of integrantes">
+      <table *ngIf="integrante.rol  === 'Miembro'">
+        <tr>
+          <td><b>Atributo</b></td>
+          <td><b>Dato de Miembro</b></td>
+        </tr>
+        <tr>
+          <td><b>Nombre</b></td>
+          <td>{{integrante.nombre}}</td>
+        </tr>
+        <tr>
+          <td><b>Correo Electrónico</b></td>
+          <td>{{integrante.correo}}</td>
+        </tr>
+      </table>
+      <br>
+    </div>
+    <h2>Productos</h2>
+    <div *ngFor="let item of productos">
+      <table *ngIf="item.tipo  === 'articulo'">
+        <h4>Articulo</h4>
+        <tr>
+          <td><b>Atributo</b></td>
+          <td><b>Producción</b></td>
+        </tr>
+        <tr>
+          <td><b>Título</b></td>
+          <td>{{ item.titulo }}</td>
+        </tr>
+        <tr>
+          <td><b>Autor</b></td>
+          <td>{{ item.autor }}</td>
+        </tr>
+        <tr>
+          <td><b>Descripción</b></td>
+          <td>{{ item.descripcion }}</td>
+        </tr>
+        <tr>
+          <td><b>Propósito</b></td>
+          <td>{{ item.proposito }}</td>
+        </tr>
+        <tr>
+          <td><b>Nombre de Revista</b></td>
+          <td>{{ item.nombreRevista }}</td>
+        </tr>
+        <tr>
+          <td><b>Editorial</b></td>
+          <td>{{ item.nombreRevista }}</td>
+        </tr>
+        <tr>
+          <td><b>ISSN</b></td>
+          <td>{{ item.ISSN }}</td>
+        </tr>
+        <tr>
+          <td><b>Año</b></td>
+          <td>{{ item.year }}</td>
+        </tr>
+        <tr>
+          <td><b>Volumen</b></td>
+          <td>{{ item.volumen }}</td>
+        </tr>
+        <tr>
+          <td><b>Pais</b></td>
+          <td>{{ item.pais }}</td>
+        </tr>
+        <tr *ngIf="item.tipoArticulo === 'indexado'">
+          <td><b>Índice</b></td>
+          <td>{{ item.indice }}</td>
+        </tr>
+        <tr *ngIf="item.tipoArticulo === 'arbitrado'">
+          <td><b>Índice</b></td>
+          <td>{{ item.direccionElectronica }}</td>
+        </tr>
+        <tr>
+          <td><b>Página Inicial</b></td>
+          <td>{{ item.paginaInicio }}</td>
+        </tr>
+        <tr>
+          <td><b>Página Final</b></td>
+          <td>{{ item.paginaFin }}</td>
+        </tr>
+        <tr>
+          <td><b>Línea de Generación del Conocimeinto</b></td>
+          <td>{{ item.lineaGeneracion }}</td>
+        </tr>
+        <tr>
+          <td><b>Estado</b></td>
+          <td>{{ item.estado }}</td>
+        </tr>
+      </table>
+      <table *ngIf="item.tipo  === 'capitulo'">
+        <h4>Capítulo de Libro</h4>
+        <tr>
+          <td><b>Atributo</b></td>
+          <td><b>Producción</b></td>
+        </tr>
+        <tr>
+          <td><b>Título</b></td>
+          <td>{{ item.titulo }}</td>
+        </tr>
+        <tr>
+          <td><b>Título del Libro</b></td>
+          <td>{{ item.tituloLibro }}</td>
+        </tr>
+        <tr>
+          <td><b>Propósito</b></td>
+          <td>{{ item.proposito }}</td>
+        </tr>
+        <tr>
+          <td><b>Número de Edición</b></td>
+          <td>{{ item.numEdicion }}</td>
+        </tr>
+        <tr>
+          <td><b>Editorial</b></td>
+          <td>{{ item.paginaInicio }}</td>
+        </tr>
+        <tr>
+          <td><b>Pais</b></td>
+          <td>{{ item.paginaInicio }}</td>
+        </tr>
+        <tr>
+          <td><b>ISBN</b></td>
+          <td>{{ item.isbn }}</td>
+        </tr>
+        <tr>
+          <td><b>Página Inicial</b></td>
+          <td>{{ item.paginaInicio }}</td>
+        </tr>
+        <tr>
+          <td><b>Página Final</b></td>
+          <td>{{ item.paginaFinal }}</td>
+        </tr>
+        <tr>
+          <td><b>Línea de Generación del Conocimeinto</b></td>
+          <td>{{ item.lineaGeneracion }}</td>
+        </tr>
+        <tr>
+          <td><b>Estado</b></td>
+          <td>{{ item.estado }}</td>
+        </tr>
+      </table>
+      <table *ngIf="item.tipo  === 'libro'">
+        <h4>Libro</h4>
+        <tr>
+          <td><b>Atributo</b></td>
+          <td><b>Producción</b></td>
+        </tr>
+        <tr>
+          <td><b>Título</b></td>
+          <td>{{ item.titulo }}</td>
+        </tr>
+        <tr>
+          <td><b>Autor</b></td>
+          <td>{{ item.autor }}</td>
+        </tr>
+        <tr>
+          <td><b>Propósito</b></td>
+          <td>{{ item.proposito }}</td>
+        </tr>
+        <tr>
+          <td><b>ISBN</b></td>
+          <td>{{ item.isbn }}</td>
+        </tr>
+        <tr>
+          <td><b>Editorial</b></td>
+          <td>{{ item.editorial }}</td>
+        </tr>
+        <tr>
+          <td><b>Pais</b></td>
+          <td>{{ item.pais }}</td>
+        </tr>
+        <tr>
+          <td><b>Edición</b></td>
+          <td>{{ item.edicion }}</td>
+        </tr>
+        <tr>
+          <td><b>Año</b></td>
+          <td>{{ item.year }}</td>
+        </tr>
+        <tr>
+          <td><b>Páginas</b></td>
+          <td>{{ item.paginas }}</td>
+        </tr>
+        <tr>
+          <td><b>Ejemplares</b></td>
+          <td>{{ item.ejemplares }}</td>
+        </tr>
+        <tr>
+          <td><b>Línea de Generación del Conocimeinto</b></td>
+          <td>{{ item.lineaGeneracion }}</td>
+        </tr>
+        <tr>
+          <td><b>Estado</b></td>
+          <td>{{ item.estado }}</td>
+        </tr>
+      </table>
+      <table *ngIf="item.tipo  === 'memoria'">
+        <h4>Memoria</h4>
+        <tr>
+          <td><b>Atributo</b></td>
+          <td><b>Producción</b></td>
+        </tr>
+        <tr>
+          <td><b>Título</b></td>
+          <td>{{ item.titulo }}</td>
+        </tr>
+        <tr>
+          <td><b>Autor</b></td>
+          <td>{{ item.autor }}</td>
+        </tr>
+        <tr>
+          <td><b>Propósito</b></td>
+          <td>{{ item.proposito }}</td>
+        </tr>
+        <tr>
+          <td><b>Nombre del Congreso</b></td>
+          <td>{{ item.nombreCongreso }}</td>
+        </tr>
+        <tr>
+          <td><b>Pais</b></td>
+          <td>{{ item.paginaInicio }}</td>
+        </tr>
+        <tr>
+          <td><b>Ciudad</b></td>
+          <td>{{ item.ciudad }}</td>
+        </tr>
+        <tr>
+          <td><b>Fecha de Publicación</b></td>
+          <td>{{ item.fechaPublicacion.toDate() | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+        <tr>
+          <td><b>Página Inicial</b></td>
+          <td>{{ item.paginaInicio }}</td>
+        </tr>
+        <tr>
+          <td><b>Página Final</b></td>
+          <td>{{ item.paginaFin }}</td>
+        </tr>
+        <tr>
+          <td><b>Línea de Generación del Conocimeinto</b></td>
+          <td>{{ item.lineaGeneracion }}</td>
+        </tr>
+        <tr>
+          <td><b>Estado</b></td>
+          <td>{{ item.estado }}</td>
+        </tr>
+      </table>
+      <table *ngIf="item.tipo  === 'produccion'">
+        <h4>Producción Innovadora</h4>
+        <tr>
+          <td><b>Atributo</b></td>
+          <td><b>Producción</b></td>
+        </tr>
+        <tr>
+          <td><b>Título</b></td>
+          <td>{{ item.titulo }}</td>
+        </tr>
+        <tr>
+          <td><b>Descripción</b></td>
+          <td>{{ item.descripcion }}</td>
+        </tr>
+        <tr>
+          <td><b>Propósito</b></td>
+          <td>{{ item.proposito }}</td>
+        </tr>
+        <tr>
+          <td><b>Uso</b></td>
+          <td>{{ item.uso }}</td>
+        </tr>
+        <tr>
+          <td><b>Clasificación Internacional</b></td>
+          <td>{{ item.clasificacion }}</td>
+        </tr>
+        <tr>
+          <td><b>Usuario</b></td>
+          <td>{{ item.usuario }}</td>
+        </tr>
+        <tr>
+          <td><b>Número de Registro</b></td>
+          <td>{{ item.numRegistro }}</td>
+        </tr>
+        <tr>
+          <td><b>Pais</b></td>
+          <td>{{ item.pais }}</td>
+        </tr>
+        <tr>
+          <td><b>Fecha de Publicacón</b></td>
+          <td>{{ item.fechaPublicacion.toDate() | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+        <tr>
+          <td><b>Línea de Generación del Conocimeinto</b></td>
+          <td>{{ item.lineaGeneracion }}</td>
+        </tr>
+        <tr>
+          <td><b>Estado</b></td>
+          <td>{{ item.estado }}</td>
+        </tr>
+      </table>
+      <table *ngIf="item.tipo  === 'tesis'">
+        <h4>Tesis</h4>
+        <tr>
+          <td><b>Atributo</b></td>
+          <td><b>Producción</b></td>
+        </tr>
+        <tr>
+          <td><b>Título</b></td>
+          <td>{{ item.titulo }}</td>
+        </tr>
+        <tr>
+          <td><b>Grado Académico</b></td>
+          <td>{{ item.grado }}</td>
+        </tr>
+        <tr>
+          <td><b>Fecha de Inicio</b></td>
+          <td>{{ item.fechaInicio.toDate() | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+        <tr>
+          <td><b>Fecha de Termino</b></td>
+          <td>{{ item.fechaTermino.toDate() | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+        <tr>
+          <td><b>Alumnos Participantes</b></td>
+          <td>{{ item.numAlumnos }}</td>
+        </tr>
+        <tr>
+          <td><b>Línea de Generación del Conocimeinto</b></td>
+          <td>{{ item.lineaGeneracion }}</td>
+        </tr>
+        <tr>
+          <td><b>Estado</b></td>
+          <td>{{ item.estado }}</td>
+        </tr>
+      </table>
+      <br>
+    </div>
+  </div>
 </div>

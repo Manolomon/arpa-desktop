@@ -1,9 +1,10 @@
-import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../servicios/login.service';
 import { MiembroService } from '../servicios/miembro.service';
 import { Miembro } from '../models/MiembroInterface'
-import { CurriculumComponent } from './curriculum/curriculum.component';
+import { ProductoService } from '../servicios/productos.service';
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-gestion-ca',
@@ -12,26 +13,31 @@ import { CurriculumComponent } from './curriculum/curriculum.component';
 })
 export class GestionCaComponent implements OnInit {
 
+  public productos: Array<any> = [];
   private correo: string;
   private integrantes: Miembro[] = [];
-  private mostrarCard : boolean;
-  private esMiembro : boolean;
-  private agregando : boolean;
-  private integranteSeleccionado : Miembro;
+  private mostrarCard: boolean;
+  private esMiembro: boolean;
+  private agregando: boolean;
+  private mostrarCurriculum: boolean = true;
+  private integranteSeleccionado: Miembro;
+  @ViewChild('content') content: ElementRef;
   @ViewChild('curriculumContainer', { read: ViewContainerRef }) container: ViewContainerRef;
   componentRef: any;
-  
+
   constructor(
     private router: Router,
     private loginServicio: LoginService,
     private miembroService: MiembroService,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private productoService: ProductoService,
+    private elRef: ElementRef
   ) { }
 
   ngOnInit() {
     this.mostrarCard = false;
     var integrantes = this.integrantes = [];
-    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
+    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         var integrante: Miembro = {
           id: '',
@@ -48,6 +54,22 @@ export class GestionCaComponent implements OnInit {
       });
     });
     this.integrantes = integrantes;
+    console.log("Inicio de carga de archivos");
+    this.productos = [];
+    let inicio = new Date('2019-04-05');
+    let fin = new Date('2019-04-22');
+    var docRefs: Array<any> = [];
+    console.log(this.miembroService.getMiembroActivo());
+    this.productoService.obtenerProductosCurriculum(inicio, fin).then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        console.log(doc);
+        var documento = doc.data();
+        documento.id = doc.id;
+        console.log(documento);
+        docRefs.push(documento);
+      });
+    });
+    this.productos = docRefs;
   }
 
   public clickMiembro(integrante: Miembro) {
@@ -76,12 +98,20 @@ export class GestionCaComponent implements OnInit {
   }
 
   public generarPDF() {
-    this.container.clear();
-    const factory = this.resolver.resolveComponentFactory(CurriculumComponent);
-
-    this.componentRef = this.container.createComponent(factory);
-    let data = ['perros', 'gatos', 'camellos', 'iguanas'];
-    this.componentRef.instance.data = data;
+    this.mostrarCurriculum = false;
+    var margins = {
+      top: 25,
+      bottom: 60,
+      left: 20,
+      width: 522
+    };
+    const doc = new jsPDF("p", "pt", "letter");
+    doc.internal.scaleFactor = 3;
+    doc.addHTML(this.content.nativeElement, margins.top, margins.left, { pagesplit: true }, function () {
+      doc.save('curriculum-ca.pdf');
+    });
+    //this.router.navigateByUrl('/menu');
+    //window.location.reload();
   }
 
   destroyComponent() {
