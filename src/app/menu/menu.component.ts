@@ -3,6 +3,7 @@ import { Miembro } from '../models/MiembroInterface';
 import { LoginService } from '../servicios/login.service';
 import { MiembroService } from '../servicios/miembro.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MiembroComponent } from '../gestion-ca/miembro/miembro.component';
 
 @Component({
   selector: 'app-menu',
@@ -27,8 +28,13 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.correo = this.loginServicio.getUsuario().email;
-    this.miembroService.obtenerMiembros().subscribe(datos => {
-      let miembros: Array<any> = [];
+    var miembroTemp: Miembro = { 
+      id: '',
+      nombre: '',
+      correo: ',',
+    };
+    this.miembroService.obtenerMiembro(this.correo).then(function(doc) {
+      /*let miembros: Array<any> = [];
       for (let i = 0; i < datos.length; i++) {
         let temporal = datos[i].payload.doc.data();
         miembros.push(temporal);
@@ -41,10 +47,16 @@ export class MenuComponent implements OnInit {
           this.miembro.nombre = miembros[i].nombre;
           break;
         }
-      }
-      this.ventana = 'productos';
-      console.log(this.miembro);
+      }*/
+      console.log(doc.docs[0].data());
+      let temporal = doc.docs[0].data();
+      miembroTemp.id = doc.docs[0].ref.id;
+      miembroTemp.correo = temporal.correo;
+      miembroTemp.nombre = temporal.nombre;
     });
+    this.ventana = 'productos';
+    this.miembro = miembroTemp;
+    console.log(this.miembro);
   }
 
   public irAVentana(ventana: string): void {

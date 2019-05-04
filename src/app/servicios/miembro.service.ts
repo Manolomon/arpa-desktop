@@ -26,7 +26,11 @@ export class MiembroService {
   ) { }
 
   obtenerMiembros() {
-    return this.db.collection("miembros").snapshotChanges();
+    return this.db.collection("miembros").ref.orderBy("nombre").get();
+  }
+
+  obtenerMiembro(correo: string) {
+    return this.db.collection("miembros").ref.where("correo", "==", correo).limit(1).get();
   }
 
   registrarMiembro(nombre: string, correo: string, rol: string) {

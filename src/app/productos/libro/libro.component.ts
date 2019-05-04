@@ -113,19 +113,27 @@ export class LibroComponent implements OnInit, OnChanges {
       this.libroForm.disable();
     }
 
-    this.miembroService.obtenerMiembros().subscribe(datos => {
-      this.colaboradoresLista = [];
-      for (let dato of datos) {
-        const temporal: any = (dato.payload.doc.data());
-        this.colaboradoresLista.push(temporal.nombre);
-        this.refColaboladores.set(temporal.nombre, dato.payload.doc.ref);
-        for (let docRef of this.libro.colaboradores) {
-          if (docRef.id == dato.payload.doc.ref.id) {
-            this.colaboradoresSeleccionados.push(temporal.nombre);
+    this.colaboradoresLista = [];
+    var colaboradoresLista = this.colaboradoresLista;
+    var refColaboladores = this.refColaboladores;
+    var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
+    var colaboradores = this.libro.colaboradores;
+    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const temporal: any = doc.data();
+        colaboradoresLista.push(temporal.nombre);
+        refColaboladores.set(temporal.nombre, doc.ref);
+        for (let docRef of colaboradores) {
+          if (docRef.id == doc.ref.id) {
+            colaboradoresSeleccionados.push(temporal.nombre);
           }
         }
-      }
+      });
     });
+    this.colaboradoresLista = colaboradoresLista;
+    this.refColaboladores = refColaboladores;
+    this.colaboradoresSeleccionados = colaboradoresSeleccionados;
+
     this.productoService.obtenerLGAC().subscribe(datos => {
       this.lgac = [];
       for (let dato of datos) {

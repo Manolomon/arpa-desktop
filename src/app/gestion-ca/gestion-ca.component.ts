@@ -30,22 +30,22 @@ export class GestionCaComponent implements OnInit {
 
   ngOnInit() {
     this.mostrarCard = false;
-    this.miembroService.obtenerMiembros().subscribe(datos => {
+    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
       this.integrantes = [];
-      for (let dato of datos) {
+      querySnapshot.forEach(function (doc) {
         var integrante: Miembro = {
           id: '',
           nombre: '',
           correo: '',
           rol: '',
         };
-        let temporal: any = (dato.payload.doc.data());
+        let temporal: any = doc.data();
         integrante.nombre = temporal.nombre;
         integrante.correo = temporal.correo;
         integrante.rol = temporal.rol;
-        integrante.id = dato.payload.doc.ref.id;
+        integrante.id = doc.ref.id;
         this.integrantes.push(integrante);
-      }
+      });
     });
   }
 
