@@ -168,15 +168,21 @@ export class GestionCaComponent implements OnInit {
           this.notifier.notify('error', 'Intervalo de fechas no es posible');
         } else {
           this.cargarProductos();
-          if (this.productos.length < 1) {
-            this.notifier.notify('warning', 'No se encontraron productos en ese intervalo');
+          if (this.confirmarCurriculum()) { // Algo como "Generando Curriculum, desea continuar?"
+            if (this.productos.length < 1) {
+              this.notifier.notify('warning', 'No se encontraron productos en ese intervalo');
+            }
+            this.generarPDF();
           }
-          this.generarPDF();
         }
       } else {
         this.notifier.notify('warning', 'Operación abortada');
       }
     });
+  }
+
+  confirmarCurriculum(): boolean {
+    return true;
   }
 
 }
