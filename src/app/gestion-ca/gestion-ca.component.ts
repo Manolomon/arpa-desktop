@@ -1,10 +1,18 @@
-import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef, ElementRef } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef, ElementRef, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../servicios/login.service';
 import { MiembroService } from '../servicios/miembro.service';
 import { Miembro } from '../models/MiembroInterface'
 import { ProductoService } from '../servicios/productos.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
 import * as jsPDF from 'jspdf';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { NotifierService } from 'angular-notifier';
+
+export interface DialogData {
+  initDate: Date;
+  finalDate: Date;
+}
 
 @Component({
   selector: 'app-gestion-ca',
@@ -21,6 +29,10 @@ export class GestionCaComponent implements OnInit {
   private agregando: boolean;
   private mostrarCurriculum: boolean = true;
   private integranteSeleccionado: Miembro;
+
+  initDate: Date;
+  finalDate: Date;
+
   @ViewChild('content') content: ElementRef;
   @ViewChild('curriculumContainer', { read: ViewContainerRef }) container: ViewContainerRef;
   componentRef: any;
@@ -31,7 +43,8 @@ export class GestionCaComponent implements OnInit {
     private miembroService: MiembroService,
     private resolver: ComponentFactoryResolver,
     private productoService: ProductoService,
-    private elRef: ElementRef
+    public dialog: MatDialog,
+    private notifier: NotifierService,
   ) { }
 
   ngOnInit() {
@@ -111,11 +124,95 @@ export class GestionCaComponent implements OnInit {
       doc.save('curriculum-ca.pdf');
     });
     //this.router.navigateByUrl('/menu');
-    //window.location.reload();
   }
 
   destroyComponent() {
     this.componentRef.destroy();
+  }
+
+  cargarProductos() {
+    console.log("Inicio de carga de archivos");
+    this.productos = [];
+    //let inicio = new Date('2019-04-05');
+    //let fin = new Date('2019-04-22');
+    var docRefs: Array<any> = [];
+    console.log(this.miembroService.getMiembroActivo());
+    this.productoService.obtenerProductosCurriculum(this.initDate, this.finalDate).then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        console.log(doc);
+        var documento = doc.data();
+        documento.id = doc.id;
+        console.log(documento);
+        docRefs.push(documento);
+      });
+    });
+    this.productos = docRefs;
+    this.generarPDF();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogCurriculum, {
+      width: '250px',
+      data: { initDate: this.initDate, finalDate: this.finalDate }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.initDate = result.initDate;
+        this.finalDate = result.finalDate;
+        console.log('Init date: ' + (this.initDate));
+        console.log('FInal date: ' + (this.finalDate));
+
+        if (this.finalDate < this.initDate) {
+          this.notifier.notify('error', 'Intervalo de fechas no es posible');
+        } else {
+          this.cargarProductos();
+          if (this.productos.length < 1) {
+            this.notifier.notify('warning', 'No se encontraron productos en ese intervalo');
+          }
+          this.generarPDF();
+        }
+      } else {
+        this.notifier.notify('warning', 'Operación abortada');
+      }
+    });
+  }
+
+}
+
+@Component({
+  selector: 'app-dialog-curriculum',
+  templateUrl: 'dialog-curriculum.html',
+})
+export class DialogCurriculum {
+
+  private curriculumForm: FormGroup;
+  private fechaInicioControl: FormControl = new FormControl('', [Validators.required]);
+  private fechaTerminoControl: FormControl = new FormControl('', [Validators.required]);
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogCurriculum>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    this.curriculumForm = new FormGroup({});
+  }
+
+  ngOnInit(): void {
+    this.fechaTerminoControl = new FormControl(this.data.initDate);
+    this.fechaInicioControl = new FormControl(this.data.finalDate);
+    this.curriculumForm.addControl("fechaTerminoControl", this.fechaTerminoControl);
+    this.curriculumForm.addControl("fechaInicioControl", this.fechaInicioControl);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  public setFechaInicio(event: MatDatepickerInputEvent<Date>) {
+    this.data.initDate = (event.value);
+  }
+  public setFechaFin(event: MatDatepickerInputEvent<Date>) {
+    this.data.finalDate = (event.value);
   }
 
 }

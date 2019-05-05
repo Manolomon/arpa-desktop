@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Generar Curriculum</h1>
+<div mat-dialog-content>
+    <p>Ingrese el intervalo de generación de productos</p>
+    <form novalidate [formGroup]="curriculumForm">
+        <mat-form-field>
+            <mat-label>Fecha Inicio</mat-label>
+            <input matInput [matDatepicker]="myPicker" formControlName="fechaInicioControl" placeholder="Fecha"
+                (dateChange)="setFechaInicio($event)" required />
+            <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+            <mat-datepicker #myPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Fecha Final</mat-label>
+            <input matInput [matDatepicker]="myPicker2" formControlName="fechaTerminoControl" placeholder="Fecha"
+                (dateChange)="setFechaFin($event)" required />
+            <mat-datepicker-toggle matSuffix [for]="myPicker2"></mat-datepicker-toggle>
+            <mat-datepicker #myPicker2></mat-datepicker>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Aceptar</button>
+</div>
