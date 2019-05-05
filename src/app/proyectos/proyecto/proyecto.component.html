@@ -1,60 +1,33 @@
 <mat-divider></mat-divider>
 <br />
-<form
-  novalidate
-  [formGroup]="proyectoForm"
-  (ngSubmit)="onGuardarProyecto(formNew)"
-  #formNew="ngForm"
-  fxLayout="column"
-  >
+<form novalidate [formGroup]="proyectoForm" (ngSubmit)="onGuardarProyecto(formNew)" #formNew="ngForm" fxLayout="column">
   <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
     <div fxLayout="column" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Nombre del Proyecto</mat-label>
-          <input
-            formControlName="nombreControl"
-            [(ngModel)]="proyecto.nombre"
-            name="nombre"
-            matInput
-            required
-          />
+          <input formControlName="nombreControl" [(ngModel)]="proyecto.nombre" name="nombre" matInput required />
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Descripción</mat-label>
-          <input
-            formControlName="descripcionControl"
-            [(ngModel)]="proyecto.descripcion"
-            name="descripcion"
-            matInput
-            required
-          />
+          <input formControlName="descripcionControl" [(ngModel)]="proyecto.descripcion" name="descripcion" matInput
+            required />
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Fecha de Inicio</mat-label>
-          <input
-            matInput [matDatepicker]="myPicker"
-            formControlName = "fechaInicioControl"
-            placeholder="Fecha"
-            (dateChange)="setFechaInicio($event)"
-            required
-          />
+          <input matInput [matDatepicker]="myPicker" formControlName="fechaInicioControl" placeholder="Fecha"
+            (dateChange)="setFechaInicio($event)" required />
           <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
           <mat-datepicker #myPicker></mat-datepicker>
         </mat-form-field>
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Fecha de Finalización</mat-label>
-          <input
-            matInput [matDatepicker]="myPicker2"
-            formControlName = "fechaFinControl"
-            placeholder="FechaFin"
-            (dateChange)="setFechaFin($event)"
-            required
-           />
+          <input matInput [matDatepicker]="myPicker2" formControlName="fechaFinControl" placeholder="FechaFin"
+            (dateChange)="setFechaFin($event)" required />
           <mat-datepicker-toggle matSuffix [for]="myPicker2"></mat-datepicker-toggle>
           <mat-datepicker #myPicker2></mat-datepicker>
         </mat-form-field>
@@ -62,30 +35,30 @@
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Actividades Realizadas</mat-label>
-          <input
-            formControlName="actividadesControl"
-            [(ngModel)]="proyecto.actividadesRealizadas"
-            name="actividades"
-            matInput
-            required
-          />
+          <input formControlName="actividadesControl" [(ngModel)]="proyecto.actividadesRealizadas" name="actividades"
+            matInput required />
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
         <section class="example-section">
-          <mat-checkbox
-            [(ngModel)]="proyecto.consideradoPCA"
-            (change)="onChange($event)"
-            formControlName="btnConsideradoControl"
-            class="example-margin"
-            color="primary"
-          >
+          <mat-checkbox [(ngModel)]="proyecto.consideradoPCA" (change)="onChange($event)"
+            formControlName="btnConsideradoControl" class="example-margin" color="primary">
             Considerar para Cuerpo Académico
           </mat-checkbox>
         </section>
       </div>
     </div>
     <div style="padding-left: 10px" fxLayout="column" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Mis Productos</mat-label>
+        <mat-select name="productos"
+          multiple>
+          <mat-option>Holis</mat-option>
+          <mat-option>Adios</mat-option>
+          <mat-option>K pex</mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="material-icon">file_copy</mat-icon>
+      </mat-form-field>
       <mat-list class="make-scrollable" flex>
         <h2 mat-subheader>Produtos Asociados</h2>
         <mat-divider></mat-divider>
