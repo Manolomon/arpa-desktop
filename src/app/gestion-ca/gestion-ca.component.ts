@@ -8,6 +8,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } fro
 import * as jsPDF from 'jspdf';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { NotifierService } from 'angular-notifier';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 
 export interface DialogData {
   initDate: Date;
@@ -182,7 +183,19 @@ export class GestionCaComponent implements OnInit {
   }
 
   confirmarCurriculum(): boolean {
-    return true;
+    var resultado : boolean;
+    const dialogRef = this.dialog.open(DialogoComponent, {
+      width: '400px',
+      disableClose: true,
+      data: { 
+        mensaje: "Generando curriculum ¿Está seguro de continuar?",
+        dobleBoton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+    });
+    return resultado;
   }
 
 }
