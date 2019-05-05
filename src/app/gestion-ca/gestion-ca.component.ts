@@ -148,7 +148,6 @@ export class GestionCaComponent implements OnInit {
       });
     });
     this.productos = docRefs;
-    this.generarPDF();
   }
 
   openDialog(): void {
@@ -169,12 +168,7 @@ export class GestionCaComponent implements OnInit {
           this.notifier.notify('error', 'Intervalo de fechas no es posible');
         } else {
           this.cargarProductos();
-          if (this.confirmarCurriculum()) { // Algo como "Generando Curriculum, desea continuar?"
-            if (this.productos.length < 1) {
-              this.notifier.notify('warning', 'No se encontraron productos en ese intervalo');
-            }
-            this.generarPDF();
-          }
+          this.confirmarCurriculum()
         }
       } else {
         this.notifier.notify('warning', 'Operación abortada');
@@ -182,20 +176,26 @@ export class GestionCaComponent implements OnInit {
     });
   }
 
-  confirmarCurriculum(): boolean {
-    var resultado : boolean;
+  confirmarCurriculum() {
+    var resultado: boolean;
     const dialogRef = this.dialog.open(DialogoComponent, {
       width: '400px',
       disableClose: true,
-      data: { 
+      data: {
         mensaje: "Generando curriculum ¿Está seguro de continuar?",
         dobleBoton: true
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       resultado = result;
+      if (result) {
+        if (this.productos.length < 1) {
+          this.notifier.notify('warning', 'No se encontraron productos en ese intervalo');
+        } else {
+          this.generarPDF();
+        }
+      }
     });
-    return resultado;
   }
 
 }
