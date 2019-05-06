@@ -17,9 +17,7 @@ export class ProductoService {
     }
 
     obtenerProductos() {
-        var docsRef: any[];
-        docsRef = [];
-        return this.db.collection('productos').ref.orderBy("titulo").get();
+        return this.db.collection("productos").ref.orderBy("titulo").get();
     }
 
     obtenerProducto(idProducto) {
@@ -61,10 +59,10 @@ export class ProductoService {
         );
     }
 
-    obtenerProductosCurriculum(inicio: Date, fin: Date){
+    obtenerProductosCurriculum(inicio: Date, fin: Date) {
         return this.db.collection('productos').ref.where('registrado', '>=',
             firebase.firestore.Timestamp.fromDate(inicio)).where('registrado', '<=',
-            firebase.firestore.Timestamp.fromDate(fin)).get();
+                firebase.firestore.Timestamp.fromDate(fin)).get();
     }
 
 }

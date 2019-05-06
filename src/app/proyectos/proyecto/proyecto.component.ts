@@ -7,6 +7,7 @@ import { isNullOrUndefined } from 'util';
 import * as firebase from 'firebase';
 import { MatDatepickerInputEvent } from '@angular/material'
 import { Miembro } from '../../models/MiembroInterface'
+import { ProductoService } from '../../servicios/productos.service'
 
 @Component({
   selector: 'app-proyecto',
@@ -24,6 +25,10 @@ export class ProyectoComponent implements OnInit, OnChanges {
   private proyectoForm: FormGroup;
   private fechaInicioControl: FormControl = new FormControl('', [Validators.required]);
   private fechaFinControl: FormControl = new FormControl('', [Validators.required]);
+  private productosControl: FormControl = new FormControl('');
+  private productosSeleccionados: string[] = [];
+  private productosLista: string[] = [];
+  private refProductos = new Map();
   private considerar: boolean;
 
 
@@ -33,11 +38,13 @@ export class ProyectoComponent implements OnInit, OnChanges {
     actividadesRealizadas: '',
     descripcion: '',
     idCreador: '',
+    productos: [],
   }
 
   constructor(
     private proyectoService: ProyectoService,
     private notifier: NotifierService,
+    private productoService: ProductoService,
   ) {
     this.proyectoForm = new FormGroup({
       nombreControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -45,6 +52,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
       actividadesControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       btnConsideradoControl: new FormControl(''),
     });
+    this.proyectoForm.addControl("productosControl", this.productosControl);
     this.considerar = false;
   }
 
@@ -61,6 +69,29 @@ export class ProyectoComponent implements OnInit, OnChanges {
     } else {
       this.proyectoForm.disable();
     }
+    /*
+    this.productosLista = [];
+    var productosLista = this.productosLista;
+    var refProductos = this.refProductos;
+    var productosSeleccionados = this.productosSeleccionados;
+    var productos = this.proyecto.productos;
+    this.productoService.obtenerProductos().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const temporal: any = doc.data();
+        productosLista.push(temporal.nombre);
+        refProductos.set(temporal.nombre, doc.ref);
+        for (let docRef of productos) {
+          if (docRef.id == doc.ref.id) {
+            productosSeleccionados.push(temporal.nombre);
+          }
+        }
+      });
+    });
+    this.productosLista = productosLista;
+    this.refProductos = refProductos;
+    this.productosSeleccionados = productosSeleccionados;*/
+
+
   }
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -81,6 +112,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
     this.proyecto.descripcion = this.proyectoObjeto.descripcion;
     this.proyecto.idCreador = this.proyectoObjeto.idCreador;
     this.considerar = this.proyectoObjeto.consideradoPCA;
+    this.proyecto.productos = this.proyectoObjeto.productos;
   }
 
   public onChange(event) {
@@ -91,6 +123,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
 
   public onGuardarProyecto(myForm: NgForm): void {
     if (this.proyectoForm.valid) {
+      this.proyecto.productos = this.productosSeleccionados;
       this.proyecto.idCreador = this.miembroObjeto.id;
       let idGenerado: string;
       if (isNullOrUndefined(this.proyecto.fechaInicio) || isNullOrUndefined(this.proyecto.fechaTentativaFin)) {
@@ -110,7 +143,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
           });
       } else {
         this.proyectoService.agregarProyecto(this.proyecto)
-          .then(function(docRef) {
+          .then(function (docRef) {
             idGenerado = docRef.id;
             console.log(idGenerado);
             if (this.archivo != null) {
@@ -150,5 +183,13 @@ export class ProyectoComponent implements OnInit, OnChanges {
   public setFechaFin(event: MatDatepickerInputEvent<Date>) {
     this.proyecto.fechaTentativaFin = firebase.firestore.Timestamp.fromDate(event.value);
   }
+
+  /* private pasarReferencias() {
+     for (let producto of this.productosSeleccionados) {
+       if (this.refProductos.has(producto)) {
+         this.proyecto.productos.push(this.refProductos.get(producto));
+       }
+     }
+   }*/
 
 }

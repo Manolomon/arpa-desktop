@@ -7,4 +7,5 @@ export interface Proyecto {
   actividadesRealizadas?: string;
   descripcion?: string;
   idCreador?: string;
+  productos?: string[];
 }
