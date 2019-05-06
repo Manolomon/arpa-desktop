@@ -9,9 +9,7 @@ export class ProyectoService {
   constructor(public db: AngularFirestore) { }
 
   obtenerProyectosMiembro(idMiembro) {
-    return this.db.collection('proyectos', ref => ref.where(
-      'creador', 'array-contains', idMiembro
-    )).snapshotChanges();
+    return this.db.collection('proyectos').ref.where("idCreador", "==", idMiembro).get();
   }
 
   obtenerParticipaciones(idMiembro) {
@@ -23,7 +21,7 @@ export class ProyectoService {
   obtenerProyectos() {
     var docRefs: any[];
     docRefs = [];
-    return this.db.collection('proyectos').ref.orderBy("titulo").get();
+    return this.db.collection('proyectos').ref.orderBy("nombre").get();
   }
 
   obtenerProyecto(idProyecto) {

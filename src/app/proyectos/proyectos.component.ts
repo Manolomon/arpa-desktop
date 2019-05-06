@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProyectoService } from '../servicios/proyecto.service';
 import { Proyecto } from '../models/ProyectoInterface'
 import { NotifierService } from 'angular-notifier';
-
+import { Miembro } from '../models/MiembroInterface';
 
 @Component({
   selector: 'app-proyectos',
@@ -11,8 +11,10 @@ import { NotifierService } from 'angular-notifier';
 })
 export class ProyectosComponent implements OnInit {
 
+  @Input() private miembroObjeto: Miembro;
+
   private camposHabilitados: boolean;
-  private proyectos: Array<Proyecto> = [];
+  private proyectos: Array<any> = [];
   private agregaProyecto: boolean;
   private indexExpanded: number = -1;
 
@@ -27,8 +29,8 @@ export class ProyectosComponent implements OnInit {
   public ngOnInit(): void {
     this.proyectos = [];
     var docRefs: Array<any> = [];
-    this.proyectoService.obtenerProyectos().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.proyectoService.obtenerProyectosMiembro(this.miembroObjeto.id).then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         var documento = doc.data();
         documento.id = doc.id;
         console.log(documento);

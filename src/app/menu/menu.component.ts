@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.correo = this.loginServicio.getUsuario().email;
-    var miembroTemp: Miembro = { 
+    var miembroTemp: Miembro = {
       id: '',
       nombre: '',
       correo: ',',
@@ -42,6 +42,7 @@ export class MenuComponent implements OnInit {
     });
     this.ventana = 'productos';
     this.miembro = miembroTemp;
+    console.log("Tu gfa");
     console.log(this.miembro);
   }
 

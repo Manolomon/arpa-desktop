@@ -6,6 +6,7 @@ import { NgForm, NgModel, FormGroup, FormControl, Validators } from '@angular/fo
 import { isNullOrUndefined } from 'util';
 import * as firebase from 'firebase';
 import { MatDatepickerInputEvent } from '@angular/material'
+import { Miembro } from '../../models/MiembroInterface'
 
 @Component({
   selector: 'app-proyecto',
@@ -15,7 +16,7 @@ import { MatDatepickerInputEvent } from '@angular/material'
 export class ProyectoComponent implements OnInit, OnChanges {
 
   @Input() private proyectoObjeto: Proyecto;
-  @Input() private idMiembro: string;
+  @Input() private miembroObjeto: Miembro;
   @Input() private habilitaCampos: boolean;
   @Input() private nuevoProyecto: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>();
@@ -90,6 +91,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
 
   public onGuardarProyecto(myForm: NgForm): void {
     if (this.proyectoForm.valid) {
+      this.proyecto.idCreador = this.miembroObjeto.id;
       let idGenerado: string;
       if (isNullOrUndefined(this.proyecto.fechaInicio) || isNullOrUndefined(this.proyecto.fechaTentativaFin)) {
         this.notifier.notify("warning", "Datos incompletos o inválidos");
@@ -99,6 +101,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
         this.proyectoService.agregarProyecto(this.proyecto)
           .then((docRef) => {
             idGenerado = docRef.id;
+            console.log(idGenerado);
             this.notifier.notify("success", "Proyecto guardado con éxito");
           })
           .catch((err) => {
@@ -107,7 +110,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
           });
       } else {
         this.proyectoService.agregarProyecto(this.proyecto)
-          .then(function (docRef) {
+          .then(function(docRef) {
             idGenerado = docRef.id;
             console.log(idGenerado);
             if (this.archivo != null) {
@@ -123,6 +126,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
+    this.cancelarEdicion();
   }
 
   public hasError = (controlName: string, errorName: string) => {
@@ -132,6 +136,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
   public cancelarEdicion(): void {
     if (!isNullOrUndefined(this.proyecto.id)) {
       this.llenarCampos();
+      this.proyectoForm.disable();
     } else {
       this.nuevoProyecto = !this.nuevoProyecto;
       this.creacionCancelada.emit(false);

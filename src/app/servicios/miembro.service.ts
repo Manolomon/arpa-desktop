@@ -12,13 +12,13 @@ import * as firebase from 'firebase';
 })
 export class MiembroService {
 
-  public miembroDocRef : DocumentReference;
+  public miembroDocRef: DocumentReference;
   public miembro: Miembro = {
     id: '',
     correo: '',
     nombre: '',
   };
-  private dictionary : Array<String>;
+  private dictionary: Array<String>;
 
   constructor(
     public db: AngularFirestore,
@@ -27,6 +27,10 @@ export class MiembroService {
 
   obtenerMiembros() {
     return this.db.collection("miembros").ref.orderBy("nombre").get();
+  }
+
+  obtenerMiembroId(idMiembro: string) {
+    return this.db.doc("miembros/" + idMiembro);
   }
 
   obtenerMiembro(correo: string) {
@@ -41,14 +45,14 @@ export class MiembroService {
       databaseURL: "https://arpa-desktop.firebaseio.com"
     };
     var segundaConexion = firebase.initializeApp(config, "Secundiaria");
-    var caracteres : String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPWRSTUVWXYZ0123456789";
+    var caracteres: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPWRSTUVWXYZ0123456789";
     this.dictionary = caracteres.split("");
     var passGenerada = "";
     for (var i = 0; i < 6; i++) {
       passGenerada += this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
     }
     console.log(passGenerada);
-    segundaConexion.auth().createUserWithEmailAndPassword(correo, passGenerada).then(function(firebaseUser) {
+    segundaConexion.auth().createUserWithEmailAndPassword(correo, passGenerada).then(function (firebaseUser) {
       console.log("User " + firebaseUser.user.uid + " created successfully!");
       dbTemp.collection("miembros").doc(firebaseUser.user.uid).set({
         nombre: nombre,
@@ -57,7 +61,7 @@ export class MiembroService {
         passGenerada: passGenerada.toString()
       });
       segundaConexion.auth().signOut();
-    }).catch(function(error) {
+    }).catch(function (error) {
       console.log(error);
     });
     return passGenerada;

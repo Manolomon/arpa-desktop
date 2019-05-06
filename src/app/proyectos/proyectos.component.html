@@ -13,28 +13,33 @@
     <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
   </mat-form-field>
 </div>
-</div>
 <div layout="row" style="padding-bottom: 25px;">
 <div fxLayout="column" fxFlex="10"></div>
 <div fxLayout="column" fxFlex="70">
   <p class="additional_info">Vista de la producción colaborativa del miembro</p>
 </div>
 <div fxLayout="row" fxLayoutAlign="end center">
-  <button mat-raised-button color="primary">
+  <button type="button" (click)="agregarProyecto($event)" mat-raised-button color="primary">
     <mat-icon>create_new_folder</mat-icon>
       Nuevo Proyecto
     </button>
 </div>
 <mat-divider class="br_div"></mat-divider>
 </div>
+</div>
+<div fxFlexAlign="center" fxLayoutAlign="center center">
+  <app-proyecto [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
+   *ngIf="agregaProyecto" [miembroObjeto]="miembroObjeto">
+ </app-proyecto>
+</div>
 <div fxFlexAlign="center" fxLayoutAlign="center center">
   <mat-accordion class="example-headers-align">
     <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i"
-      (afterExpand)="indexExpanded = i" (closed)="togglePanels(-1)"
+      (afterExpand)="indexExpanded = i" (closed)="togglePanels(-1)" *ngFor="let proyecto of proyectos; let i = index"
       class="hideOption">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <p>Nombre del Proyecto</p>
+          <p>{{proyecto.nombre}}</p>
         </mat-panel-title>
         <mat-panel-description>
           <mat-chip-list>
@@ -42,20 +47,20 @@
               5 Productos
             </mat-chip>
           </mat-chip-list>
-          Por: Manolomon <!-- TODO -->
+          Por: {{miembroObjeto.nombre}} <!-- TODO -->
           <div class="example-icon showOption">
             <button *ngIf="indexExpanded == i" (click)="habilitarCampos(); togglePanels(i)" mat-icon-button
               matTooltip="Editar" matTooltipPosition="above">
               <mat-icon aria-label="Edit Button">edit</mat-icon>
             </button>
-            <button (click)="eliminarProducto(i)" mat-icon-button *ngIf="indexExpanded == i" matTooltip="Eliminar"
+            <button (click)="eliminarProyecto(i)" mat-icon-button *ngIf="indexExpanded == i" matTooltip="Eliminar"
               matTooltipPosition="above">
               <mat-icon aria-label="Delete Button">delete</mat-icon>
             </button>
           </div>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-proyecto></app-proyecto>
+      <app-proyecto [habilitaCampos]="camposHabilitados" [proyectoObjeto]="proyecto" [miembroObjeto]="miembroObjeto"></app-proyecto>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
