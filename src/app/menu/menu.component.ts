@@ -32,6 +32,7 @@ export class MenuComponent implements OnInit {
       id: '',
       nombre: '',
       correo: ',',
+      rol: '',
     };
     this.miembroService.obtenerMiembro(this.correo).then(function(doc) {
       console.log(doc.docs[0].data());
@@ -39,6 +40,7 @@ export class MenuComponent implements OnInit {
       miembroTemp.id = doc.docs[0].ref.id;
       miembroTemp.correo = temporal.correo;
       miembroTemp.nombre = temporal.nombre;
+      miembroTemp.rol = temporal.rol;
     });
     this.ventana = 'productos';
     this.miembro = miembroTemp;

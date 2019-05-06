@@ -7,7 +7,7 @@
     <button mat-button (click)="irAVentana('productos')">Productos</button>
     <button mat-button (click)="irAVentana('proyectos')">Proyectos</button>
     <button mat-button (click)="irAVentana('cuenta')">Cuenta</button>
-    <button mat-button (click)="irAVentana('gestion')">Gestión de CA</button>
+    <button mat-button *ngIf="miembro.rol == 'Coordinador'" (click)="irAVentana('gestion')">Gestión de CA</button>
     <!-- Sólo se muestra si el tipo de cuenta es de Coordinador -->
   </div>
   <!-- This fills the remaining space of the current row -->
@@ -22,7 +22,7 @@
           </div>
           <div fxLayout="column" fxLayoutGap="-16px" fxFlex="80">
             <p>{{miembro.correo}}</p>
-            <small style="color: #a9adcc">Miembro</small> <!-- Tipo del Usuario -->
+            <small style="color: #a9adcc">{{miembro.rol}}</small> <!-- Tipo del Usuario -->
           </div>
         </div>
       </mat-list-item>
@@ -38,7 +38,7 @@
   <button mat-button (click)="irAVentana('productos')">Productos</button>
   <button mat-button (click)="irAVentana('proyectos')">Proyectos</button>
   <button mat-button (click)="irAVentana('cuenta')">Cuenta</button>
-  <button mat-button (click)="irAVentana('gestion')">Gestión de CA</button>
+  <button mat-button *ngIf="miembro.rol == 'Coordinador'" (click)="irAVentana('gestion')">Gestión de CA</button>
   <!--<button mat-menu-item>Help</button>-->
   </mat-menu>
 

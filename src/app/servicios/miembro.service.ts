@@ -30,7 +30,7 @@ export class MiembroService {
   }
 
   obtenerMiembroId(idMiembro: string) {
-    return this.db.doc("miembros/" + idMiembro);
+    return this.db.collection("miembros").doc(idMiembro).ref;
   }
 
   obtenerMiembro(correo: string) {
@@ -52,7 +52,7 @@ export class MiembroService {
       passGenerada += this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
     }
     console.log(passGenerada);
-    segundaConexion.auth().createUserWithEmailAndPassword(correo, passGenerada).then(function (firebaseUser) {
+    segundaConexion.auth().createUserWithEmailAndPassword(correo, passGenerada).then(function(firebaseUser) {
       console.log("User " + firebaseUser.user.uid + " created successfully!");
       dbTemp.collection("miembros").doc(firebaseUser.user.uid).set({
         nombre: nombre,
@@ -61,7 +61,7 @@ export class MiembroService {
         passGenerada: passGenerada.toString()
       });
       segundaConexion.auth().signOut();
-    }).catch(function (error) {
+    }).catch(function(error) {
       console.log(error);
     });
     return passGenerada;
@@ -70,9 +70,9 @@ export class MiembroService {
   degradarMiembro(idMiembro: string) {
     var docRef = this.db.collection("miembros").doc(idMiembro).ref;
     docRef.get().then(function(doc) {
-      docRef.set({ 
+      docRef.set({
         nombre: doc.data().nombre,
-        correo: doc.data().correo,  
+        correo: doc.data().correo,
         rol: "Colaborador",
         passGenerada: doc.data().passGenerada
       });
@@ -83,9 +83,9 @@ export class MiembroService {
     var passBD: string;
     var docRef = this.db.doc("miembros/" + idMiembro).ref.get();
     docRef.then(function(doc) {
-      doc.ref.set({ 
+      doc.ref.set({
         nombre: doc.data().nombre,
-        correo: doc.data().correo,  
+        correo: doc.data().correo,
         rol: "Miembro",
         passGenerada: doc.data().passGenerada
       });
@@ -93,7 +93,7 @@ export class MiembroService {
     return docRef;
   }
 
-  setMiembroActivo(idMiembro : string) {
+  setMiembroActivo(idMiembro: string) {
     this.miembroDocRef = this.db.collection("miembros").doc(idMiembro).ref;
   }
 

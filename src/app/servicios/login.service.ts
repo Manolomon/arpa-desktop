@@ -40,8 +40,16 @@ export class LoginService {
         }
       })
     )*/
-    this.afsAuth.authState.subscribe((auth) => {
+    /*this.afsAuth.authState.subscribe((auth) => {
       this.authState = auth;
+    });*/
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.authState = user;
+      } else {
+        this.authState = null;
+      }
     });
   }
 

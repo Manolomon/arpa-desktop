@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { MiembroService } from '../servicios/miembro.service';
+import { Miembro } from '../models/MiembroInterface'
 
 @Component({
   selector: 'app-login',
@@ -46,19 +47,36 @@ export class LoginComponent implements OnInit {
     var estado: Number;
     //this.notifier.notify("info", "hola mundo");
     if (this.loginForm.valid) {
-      this.loginServicio.iniciarSesion(this.email, this.password)
-        .then((res) => {
-          estado = 200;
-          console.log(estado);
-          this.router.navigate(['menu']);
-          this.miembroService.setMiembroActivo(this.atAuth.auth.currentUser.uid);
-        })
-        .catch((err) => {
-          console.log('err', err.message);
-          estado = 405;
-          this.notifier.notify("error", "Datos erróneos");
-          console.log(estado);
-        });
+      var miembroTemp: Miembro = {
+        id: '',
+        nombre: '',
+        correo: ',',
+        rol: '',
+      };
+      this.miembroService.obtenerMiembro(this.email).then(function(doc) {
+        console.log(doc.docs[0].data());
+        let temporal = doc.docs[0].data();
+        miembroTemp.id = doc.docs[0].ref.id;
+        miembroTemp.correo = temporal.correo;
+        miembroTemp.nombre = temporal.nombre;
+        miembroTemp.rol = temporal.rol;
+      });
+
+      if (miembroTemp.rol != 'Colaborador') {
+        this.loginServicio.iniciarSesion(this.email, this.password)
+          .then((res) => {
+            estado = 200;
+            console.log(estado);
+            this.router.navigate(['menu']);
+            this.miembroService.setMiembroActivo(this.atAuth.auth.currentUser.uid);
+          })
+          .catch((err) => {
+            console.log('err', err.message);
+            estado = 405;
+            this.notifier.notify("error", "Datos erróneos");
+            console.log(estado);
+          });
+      }
     } else {
       this.notifier.notify("error", "Campos incompletos");
     }

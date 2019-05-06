@@ -28,7 +28,7 @@
 </div>
 </div>
 <div fxFlexAlign="center" fxLayoutAlign="center center">
-  <app-proyecto [habilitaCampos]="true" (creacionCancelada)="creacionCancelada($event)"
+  <app-proyecto [habilitaCampos]="true" (cargarProyectos)="cargarProyectos($event)"  (creacionCancelada)="creacionCancelada($event)"
    *ngIf="agregaProyecto" [miembroObjeto]="miembroObjeto">
  </app-proyecto>
 </div>
@@ -44,7 +44,7 @@
         <mat-panel-description>
           <mat-chip-list>
             <mat-chip color="primary" selected>
-              5 Productos
+              {{proyecto.productos.length}} Productos
             </mat-chip>
           </mat-chip-list>
           Por: {{miembroObjeto.nombre}} <!-- TODO -->
@@ -60,7 +60,7 @@
           </div>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-proyecto [habilitaCampos]="camposHabilitados" [proyectoObjeto]="proyecto" [miembroObjeto]="miembroObjeto"></app-proyecto>
+      <app-proyecto (cargarProyectos)="cargarProyectos($event)" (edicionCancelada)="edicionCancelada($event)" [habilitaCampos]="camposHabilitados" [proyectoObjeto]="proyecto" [miembroObjeto]="miembroObjeto"></app-proyecto>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

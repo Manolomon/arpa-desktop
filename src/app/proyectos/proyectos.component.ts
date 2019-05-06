@@ -29,8 +29,8 @@ export class ProyectosComponent implements OnInit {
   public ngOnInit(): void {
     this.proyectos = [];
     var docRefs: Array<any> = [];
-    this.proyectoService.obtenerProyectosMiembro(this.miembroObjeto.id).then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    this.proyectoService.obtenerProyectosMiembro(this.miembroObjeto.id).then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         var documento = doc.data();
         documento.id = doc.id;
         console.log(documento);
@@ -48,9 +48,10 @@ export class ProyectosComponent implements OnInit {
     this.indexExpanded = index == this.indexExpanded ? -1 : index;
   }
 
-  public eliminarProyecto(posicion: number): void {
+  public async eliminarProyecto(posicion: number) {
     if (confirm("Desea eliminar este proyecto?")) {
-      this.proyectoService.eliminarProyecto(this.proyectos[posicion].id);
+      await this.proyectoService.eliminarProyecto(this.proyectos[posicion].id);
+      this.ngOnInit();
     }
   }
 
@@ -61,4 +62,14 @@ export class ProyectosComponent implements OnInit {
   public creacionCancelada(cancelado: boolean) {
     this.agregaProyecto = !this.agregaProyecto;
   }
+
+  public cargarProyectos(cargar: boolean) {
+    console.log("cargando proyectos");
+    this.ngOnInit();
+  }
+
+  public edicionCancelada(editado: boolean) {
+    this.camposHabilitados = false;
+  }
+
 }

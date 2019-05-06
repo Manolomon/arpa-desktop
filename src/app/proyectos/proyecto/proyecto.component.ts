@@ -20,7 +20,9 @@ export class ProyectoComponent implements OnInit, OnChanges {
   @Input() private miembroObjeto: Miembro;
   @Input() private habilitaCampos: boolean;
   @Input() private nuevoProyecto: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
+  @Output() private creacionCancelada = new EventEmitter<boolean>(false);
+  @Output() private cargarProyectos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
 
   private proyectoForm: FormGroup;
   private fechaInicioControl: FormControl = new FormControl('', [Validators.required]);
@@ -30,7 +32,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
   private productosLista: string[] = [];
   private refProductos = new Map();
   private considerar: boolean;
-
+  private noProductos: Number;
 
   private proyecto: Proyecto = {
     nombre: '',
@@ -54,6 +56,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
     });
     this.proyectoForm.addControl("productosControl", this.productosControl);
     this.considerar = false;
+    this.proyecto.productos = [];
   }
 
   ngOnInit() {
@@ -113,6 +116,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
     this.proyecto.idCreador = this.proyectoObjeto.idCreador;
     this.considerar = this.proyectoObjeto.consideradoPCA;
     this.proyecto.productos = this.proyectoObjeto.productos;
+    console.log(this.proyectoObjeto.productos);
   }
 
   public onChange(event) {
@@ -121,9 +125,12 @@ export class ProyectoComponent implements OnInit, OnChanges {
     console.log("Consideracion cambiada");
   }
 
-  public onGuardarProyecto(myForm: NgForm): void {
+  public async onGuardarProyecto(myForm: NgForm) {
+    let creacionCancelada: EventEmitter<boolean> = this.creacionCancelada;
+    let cargarProyectos: EventEmitter<boolean> = this.cargarProyectos;
     if (this.proyectoForm.valid) {
       this.proyecto.productos = this.productosSeleccionados;
+      console.log(this.productosSeleccionados);
       this.proyecto.idCreador = this.miembroObjeto.id;
       let idGenerado: string;
       if (isNullOrUndefined(this.proyecto.fechaInicio) || isNullOrUndefined(this.proyecto.fechaTentativaFin)) {
@@ -135,21 +142,21 @@ export class ProyectoComponent implements OnInit, OnChanges {
           .then((docRef) => {
             idGenerado = docRef.id;
             console.log(idGenerado);
-            this.notifier.notify("success", "Proyecto guardado con éxito");
+            if (!isNullOrUndefined(idGenerado)) {
+              this.cargarProyectos.emit(false);
+              this.creacionCancelada.emit(false);
+              this.notifier.notify("success", "Salchichas con huevo");
+            }
           })
           .catch((err) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir el documento: ", err);
           });
+
       } else {
-        this.proyectoService.agregarProyecto(this.proyecto)
-          .then(function (docRef) {
-            idGenerado = docRef.id;
-            console.log(idGenerado);
-            if (this.archivo != null) {
-              this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
-            }
-            this.notifier.notify("success", "Proyecto guardado exitosamente")
+        this.proyectoService.modificarProyecto(this.proyecto)
+          .then(() => {
+            this.cargarProyectos.emit(false);
           })
           .catch((err) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
@@ -159,7 +166,6 @@ export class ProyectoComponent implements OnInit, OnChanges {
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
-    this.cancelarEdicion();
   }
 
   public hasError = (controlName: string, errorName: string) => {
@@ -170,6 +176,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
     if (!isNullOrUndefined(this.proyecto.id)) {
       this.llenarCampos();
       this.proyectoForm.disable();
+      this.edicionCancelada.emit(true);
     } else {
       this.nuevoProyecto = !this.nuevoProyecto;
       this.creacionCancelada.emit(false);
