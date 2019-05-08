@@ -27,6 +27,7 @@ export class GestionCaComponent implements OnInit {
   private integrantes: Miembro[] = [];
   private mostrarCard: boolean;
   private esMiembro: boolean;
+  private esCoordinador: boolean;
   private agregando: boolean;
   private mostrarCurriculum: boolean = true;
   private integranteSeleccionado: Miembro;
@@ -91,8 +92,14 @@ export class GestionCaComponent implements OnInit {
     this.integranteSeleccionado = integrante;
     if (this.integranteSeleccionado.rol == "Miembro") {
       this.esMiembro = true;
+      this.esCoordinador = false;
     } else {
       this.esMiembro = false;
+      if (this.integranteSeleccionado.rol == "Coordinador") {
+        this.esCoordinador = true;
+      } else {
+        this.esCoordinador = false;
+      }
     }
     this.agregando = false;
   }

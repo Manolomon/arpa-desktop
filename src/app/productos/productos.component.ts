@@ -35,7 +35,7 @@ export class ProductosComponent implements OnInit {
     this.productos = [];
     var docRefs: Array<any> = [];
     console.log(this.miembroService.getMiembroActivo());
-    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo().id).then(function(querySnapshot) {
+    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo()).then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         console.log(doc);
         var documento = doc.data();

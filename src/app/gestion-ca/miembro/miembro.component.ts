@@ -16,21 +16,31 @@ export class MiembroComponent implements OnInit {
   @Input() private integrante: Miembro;
   @Input() private esMiembro : boolean;
   @Input() private agregando : boolean;
+  @Input() private esCoordinador : boolean;
   private nombreNuevo : string;
   private correoNuevo : string;
   private minLengthChar : number;
   private passGenerada : string;
   private resultadoDialog: boolean;
-  
+  private miembroForm : FormGroup;
+
   constructor(
     private miembroService: MiembroService,
     public dialog: MatDialog
-  ) {
-    this.minLengthChar = 2;
-  }
+  ) {}
 
   ngOnInit() {
     console.log("Es miembro: " + this.esMiembro);
+    this.miembroForm = new FormGroup({
+      nombreControl : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      correoControl : new FormControl('', [Validators.required, Validators.minLength(2)]),
+    });
+    if (this.integrante.rol == "Coordinador") {
+      this.esCoordinador = true;
+    } else {
+      this.esCoordinador = false;
+    }
+    console.log("Es coordinador: " +this.esCoordinador);
   }
 
   private degradarMiembro() {
@@ -111,7 +121,8 @@ export class MiembroComponent implements OnInit {
   }
 
   public registrarIntegrante() {
-    var rol: string;
+    if(this.miembroForm.valid) {
+      var rol: string;
     if (this.esMiembro) {
       rol = "Miembro";
     } else {
@@ -127,6 +138,7 @@ export class MiembroComponent implements OnInit {
       });
     }
     console.log("La pass generada es: " + this.passGenerada);
+    }
   }
 
 }

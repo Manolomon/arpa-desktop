@@ -7,11 +7,17 @@
       fxFlex="20"
     />
     <div fxLayout="column" fxLayoutGap="-1px" fxFlex="10"></div>
+    <form
+    [formGroup]="miembroForm"
+    (ngSubmit)="registrarIntegrante()"
+    #formNew="ngForm"
+    >
     <div fxLayout="column" fxLayoutGap="-1px" fxFlex="70">
       <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Nombre</mat-label>
           <input
+            formControlName="nombreControl"
             [(ngModel)]="nombreNuevo"
             name="nombreNuevo"
             matInput
@@ -23,6 +29,7 @@
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Correo</mat-label>
           <input
+            formControlName="correoControl"
             [(ngModel)]="correoNuevo"
             name="correoNuevo"
             matInput
@@ -31,6 +38,7 @@
         </mat-form-field>
       </div>
     </div>
+  </form>
   </div>
   <div class="example-margin" layout="row">
     <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
@@ -40,7 +48,7 @@
         >Es miembro
       </mat-slide-toggle>
     </div>
-    <button type="submit" mat-raised-button color="primary" (click)="registrarIntegrante()">Guardar</button>
+    <button type="submit" mat-raised-button color="primary">Guardar</button>
   </div>
 </div>
 
@@ -64,7 +72,7 @@
       </div>
     </div>
   </div>
-  <div class="example-margin" layout="row">
+  <div  [hidden]="esCoordinador" class="example-margin" layout="row">
     <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
       <mat-slide-toggle
         [(ngModel)]="esMiembro"
