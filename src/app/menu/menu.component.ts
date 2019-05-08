@@ -18,6 +18,7 @@ export class MenuComponent implements OnInit {
     id: '',
     nombre: '',
     correo: ',',
+    rol: '',
   }
   constructor(
     private loginServicio: LoginService,
@@ -34,7 +35,7 @@ export class MenuComponent implements OnInit {
       correo: ',',
       rol: '',
     };
-    this.miembroService.obtenerMiembro(this.correo).then(function(doc) {
+    this.miembroService.obtenerMiembro(this.correo).then(function (doc) {
       console.log(doc.docs[0].data());
       let temporal = doc.docs[0].data();
       miembroTemp.id = doc.docs[0].ref.id;

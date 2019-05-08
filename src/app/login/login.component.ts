@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  public onIniciarSesion(event): void {
+  public async onIniciarSesion(event) {
     var estado: Number;
     //this.notifier.notify("info", "hola mundo");
     if (this.loginForm.valid) {
@@ -53,14 +53,14 @@ export class LoginComponent implements OnInit {
         correo: ',',
         rol: '',
       };
-      this.miembroService.obtenerMiembro(this.email).then(function(doc) {
-        console.log(doc.docs[0].data());
-        let temporal = doc.docs[0].data();
-        miembroTemp.id = doc.docs[0].ref.id;
-        miembroTemp.correo = temporal.correo;
-        miembroTemp.nombre = temporal.nombre;
-        miembroTemp.rol = temporal.rol;
-      });
+      await this.miembroService.obtenerMiembro(this.email)
+        .then(function (doc) {
+          let temporal = doc.docs[0].data();
+          miembroTemp.id = doc.docs[0].ref.id;
+          miembroTemp.correo = temporal.correo;
+          miembroTemp.nombre = temporal.nombre;
+          miembroTemp.rol = temporal.rol;
+        });
 
       if (miembroTemp.rol != 'Colaborador') {
         this.loginServicio.iniciarSesion(this.email, this.password)
@@ -76,6 +76,8 @@ export class LoginComponent implements OnInit {
             this.notifier.notify("error", "Datos erróneos");
             console.log(estado);
           });
+      } else {
+        this.notifier.notify("warning", "Acceso denegado");
       }
     } else {
       this.notifier.notify("error", "Campos incompletos");
