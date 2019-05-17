@@ -62,8 +62,8 @@ export class ProductosComponent implements OnInit {
   public eliminarProducto(i: number) {
     console.log("Eliminando producto..." + this.productos[i].id);
     if (confirm("Desea borrar este producto de la base de datos?")) {
-      console.log("Implement delete functionality here");
       this.productoService.eliminarProducto(this.productos[i].id);
+      this.notifier.notify("success", "Producto eliminado correctamente");
     }
     this.ngOnInit();
   }

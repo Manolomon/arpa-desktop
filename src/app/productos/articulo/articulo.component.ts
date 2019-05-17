@@ -40,6 +40,7 @@ export class ArticuloComponent implements OnInit {
   private colaboradoresSeleccionados: string[] = [];
 
   private llenarCampos() {
+    this.idArticulo = this.articuloObjeto.id;
     this.articulo.titulo = this.articuloObjeto.titulo;
     this.articulo.estado = this.articuloObjeto.estado;
     this.articulo.tipo = this.articuloObjeto.tipo;
@@ -170,10 +171,9 @@ export class ArticuloComponent implements OnInit {
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idArticulo)
         .catch(function (error) {
-          this.notifier.notify("error", "Error con la conexión a la base de datos");
+          //this.notifier.notify("error", "Error con la conexión a la base de datos");
         });
       console.log("Eliminando producto con id: " + this.idArticulo);
-      this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
 
@@ -221,7 +221,7 @@ export class ArticuloComponent implements OnInit {
             this.notifier.notify("success", "Artículo almacenado exitosamente");
           })
           .catch(function (error) {
-            this.notifier.notify("error", "Error con la conexión a la base de datos");
+            //this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         console.log(this.articulo.colaboradores);
@@ -230,7 +230,7 @@ export class ArticuloComponent implements OnInit {
         this.articulo.id = this.idArticulo;
         this.productoService.modificarProducto(this.articulo)
           .catch(function (error) {
-            this.notifier.notify("error", "Error con la conexión a la base de datos");
+            //this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         if (this.archivo != null) {
@@ -242,6 +242,7 @@ export class ArticuloComponent implements OnInit {
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
+    this.ngOnInit()
   }
 
   public cancelarEdicion() {

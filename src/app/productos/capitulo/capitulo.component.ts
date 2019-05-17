@@ -231,6 +231,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
+    this.ngOnInit();
   }
 
   public cancelarEdicion() {
