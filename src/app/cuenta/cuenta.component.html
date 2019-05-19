@@ -1,0 +1,100 @@
+<mat-divider></mat-divider>
+<div class="example-margin" layout="row">
+  <img style="padding-right: 15px;" src="../assets/academic-icon.svg" alt="Product-Icon" />
+  <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
+    <h2>Gestión Cuenta</h2>
+    <p class="subtitle">Administración y Registro de Producción Académica</p>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar Miembro</mat-label>
+      <input matInput />
+      <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
+    </mat-form-field>
+  </div>
+</div>
+<div layout="row" style="padding-left: 25px; padding-right: 25px;">
+  <div fxLayout="column" fxFlex="48">
+    <mat-card class="example-card">
+        <mat-card-header>
+        <mat-card-title>&nbsp;Datos Personales</mat-card-title>
+        <div class="example-icon showOption">
+          <button mat-icon-button matTooltip="Editar" matTooltipPosition="above">
+            <mat-icon aria-label="Edit Button">edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Guardar"matTooltipPosition="above" color="primary">
+            <mat-icon aria-label="Save Button">save</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <form fxLayout="column" fxLayoutGap="-1px">
+        <div layout="row" class="example-margin">
+          <img style="padding-right: 15px;" width="90px" height="90px" src="../assets/user-icon.svg" alt="Product-Icon"
+            fxFlex="20" />
+          <div fxLayout="column" fxLayoutGap="-1px" fxFlex="10"></div>
+          <div fxLayout="column" fxLayoutGap="-1px" fxFlex="70">
+            <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Correo Electrónico</mat-label>
+                <input name="nombreNuevo" matInput required />
+              </mat-form-field>
+            </div>
+            <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input matInput required placeholder="Contraseña" [type]="hide ? 'password' : 'text'">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input name="nombreNuevo" matInput required />
+          </mat-form-field>
+        </div>
+        <div layout="row">
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Facultad</mat-label>
+            <input name="nombreNuevo" matInput required />
+          </mat-form-field>
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Institución</mat-label>
+            <input name="nombreNuevo" matInput required />
+          </mat-form-field>
+        </div>
+        <div layout="row">
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Puesto</mat-label>
+            <input name="nombreNuevo" matInput required />
+          </mat-form-field>
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>SNI</mat-label>
+            <input name="nombreNuevo" matInput required />
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+  <div fxLayout="column" fxFlex="4"></div>
+  <div fxLayout="column" fxFlex="48">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>&nbsp;Datos Laborales</mat-card-title>
+        <button mat-raised-button color="primary">
+          <mat-icon>add</mat-icon>
+          Agregar Datos
+        </button>
+      </mat-card-header>
+      <mat-action-list class="make-scrollable" flex>
+        <mat-list-item>
+          <mat-icon mat-list-icon>school</mat-icon>
+          <h4 mat-line>Licenciatura en Ingeniería de Sofyware</h4>
+          <p mat-line>Universidad Veracruzana, México</p>
+        </mat-list-item>
+      </mat-action-list>
+    </mat-card>
+  </div>
+</div>
+<notifier-container></notifier-container>

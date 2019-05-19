@@ -71,9 +71,8 @@
 </div>
 <div fxFlexAlign="center" fxLayoutAlign="center center">
   <mat-accordion class="example-headers-align">
-    <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i"
-      (afterExpand)="indexExpanded = i" (closed)="togglePanels(-1)" *ngFor="let producto of productos; let i = index"
-      class="hideOption">
+    <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i" (afterExpand)="indexExpanded = i"
+      (closed)="togglePanels(-1)" *ngFor="let producto of productos; let i = index" class="hideOption">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <p>{{ producto.titulo }}</p>
@@ -113,8 +112,8 @@
       <app-libro [libroObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
         *ngIf="producto.tipo === 'libro'">
       </app-libro>
-      <app-memoria [memoriaObjeto]="producto" [habilitaCampos]="camposHabilitados"
-        [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'memoria'">
+      <app-memoria [memoriaObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
+        *ngIf="producto.tipo === 'memoria'">
       </app-memoria>
       <app-articulo [articuloObjeto]="producto" [habilitaCampos]="camposHabilitados"
         [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'articulo'">

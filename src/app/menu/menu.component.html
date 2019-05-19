@@ -19,9 +19,6 @@
         <div fxLayout="column" fxLayoutGap="-30px" fxFlex="80" position="absolute" top="0" right="0">
           <div fxLayout="column" fxLayoutGap="-16px" fxFlex="80">
             <p>{{miembro.nombre}}</p><!-- Nombre del Usuario -->
-          </div>
-          <div fxLayout="column" fxLayoutGap="-16px" fxFlex="80">
-            <p>{{miembro.correo}}</p>
             <small style="color: #a9adcc">{{miembro.rol}}</small> <!-- Tipo del Usuario -->
           </div>
         </div>
@@ -45,4 +42,5 @@
   <app-productos *ngIf="ventana === 'productos'"></app-productos>
   <app-gestion-ca *ngIf="ventana === 'gestion'"></app-gestion-ca>
   <app-proyectos *ngIf="ventana === 'proyectos'" [miembroObjeto]="miembro" ></app-proyectos>
+  <app-cuenta *ngIf="ventana === 'cuenta'"></app-cuenta>
 </div>

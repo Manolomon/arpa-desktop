@@ -1,237 +1,95 @@
 <mat-divider></mat-divider>
 <br />
-<form 
-  novalidate
-  [formGroup]="libroForm"
-  (ngSubmit)="onGuardarLibro(formNew)"
-  #formNew="ngForm"
-  fxLayout="column"
->
-  <div
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="7px"
-    fxLayoutGap.sm="0px"
-  >
+<form novalidate [formGroup]="libroForm" (ngSubmit)="onGuardarLibro(formNew)" #formNew="ngForm" fxLayout="column">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Título del Libro</mat-label>
-      <input
-       formControlName="tituloControl"
-       [(ngModel)]="libro.titulo"
-       name="titulo"
-       matInput 
-       required />
+      <input formControlName="tituloControl" [(ngModel)]="libro.titulo" name="titulo" matInput required />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Autor</mat-label>
-      <input 
-      formControlName="autorControl"
-      [(ngModel)]="libro.autor"
-      name="autor"
-      matInput 
-      required />
+      <input formControlName="autorControl" [(ngModel)]="libro.autor" name="autor" matInput required />
     </mat-form-field>
-    <div
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="7px"
-      fxLayoutGap.sm="0px"
-    >
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>ISBN</mat-label>
-        <input 
-        formControlName="isbnControl"
-        [(ngModel)]="libro.isbn"
-        name="isbn"
-        matInput 
-        required />
+        <input formControlName="isbnControl" [(ngModel)]="libro.isbn" name="isbn" matInput required />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Año</mat-label>
-        <input 
-        formControlName="yearControl"
-        [(ngModel)]="libro.year"
-        name="year"
-        matInput 
-        required />
+        <input formControlName="yearControl" [(ngModel)]="libro.year" name="year" matInput required />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Edición</mat-label>
-        <input 
-        formControlName="edicionControl"
-        [(ngModel)]="libro.edicion"
-        name="edicion"
-        matInput 
-        required />
+        <input formControlName="edicionControl" [(ngModel)]="libro.edicion" name="edicion" matInput required />
       </mat-form-field>
     </div>
   </div>
-  <div
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="7px"
-    fxLayoutGap.sm="0px"
-  >
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Propósito</mat-label>
-      <input 
-      formControlName="propositoControl"
-      [(ngModel)]="libro.proposito"
-      name="proposito"
-      matInput 
-      required />
+      <input formControlName="propositoControl" [(ngModel)]="libro.proposito" name="proposito" matInput required />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Línea de Generación</mat-label>
-      <mat-select 
-        formControlName="lineaGeneracionControl"
-        [(ngModel)]="libro.lineaGeneracion"
-        name="lineaGeneracion"
-        required
-      >
-      <mat-option
-      *ngFor="let linea of lgac"
-      [value]="linea"
-    >{{ linea }}</mat-option
-  >
+      <mat-select formControlName="lineaGeneracionControl" [(ngModel)]="libro.lineaGeneracion" name="lineaGeneracion"
+        required>
+        <mat-option *ngFor="let linea of lgac" [value]="linea">{{ linea }}</mat-option>
       </mat-select>
     </mat-form-field>
     <section class="example-section">
-      <div
-        fxLayout="row"
-        fxLayout.xs="column"
-        fxLayoutGap="7px"
-        fxLayoutGap.sm="0px"
-      >
-        <button
-          type="button"
-          mat-raised-button
-          color="primary"
-          (click)="fileInput.click()"
-          [disabled]="libroForm.disabled"
-        >
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+        <button type="button" mat-raised-button color="primary" (click)="fileInput.click()"
+          [disabled]="libroForm.disabled">
           Evidencia
           <mat-icon>create_new_folder</mat-icon>
         </button>
-        <input
-          hidden
-          type="file"
-          #fileInput
-          (change)="detectarArchivos($event)"
-          accept="application/pdf"
-        />
-        <mat-progress-spinner
-          *ngIf="cargaDeArchivo > 0"
-          fxFlex
-          [color]="color"
-          [mode]="determinate"
-          [value]="cargaDeArchivo"
-          [diameter]="40"
-          style="padding-right: 10px"
-        >
+        <input hidden type="file" #fileInput (change)="detectarArchivos($event)" accept="application/pdf" />
+        <mat-progress-spinner *ngIf="cargaDeArchivo > 0" fxFlex [color]="color" [mode]="determinate"
+          [value]="cargaDeArchivo" [diameter]="40" style="padding-right: 10px">
         </mat-progress-spinner>
       </div>
     </section>
   </div>
-  <div
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="7px"
-    fxLayoutGap.sm="0px"
-  >
-    <div
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="7px"
-      fxLayoutGap.sm="0px"
-    >
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Editorial</mat-label>
-        <input 
-        formControlName="editorialControl"
-        [(ngModel)]="libro.editorial"
-        name="editorial"
-        matInput 
-        required />
+        <input formControlName="editorialControl" [(ngModel)]="libro.editorial" name="editorial" matInput required />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>País</mat-label>
-        <input 
-        formControlName="paisControl"
-        [(ngModel)]="libro.pais"
-        name="pais"
-        matInput 
-        required />
+        <input formControlName="paisControl" [(ngModel)]="libro.pais" name="pais" matInput required />
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Colaboradores</mat-label>
-      <mat-select 
-        [formControl]="colaboradoresControl"
-        multiple
-        [(ngModel)]="colaboradoresSeleccionados"
-        name="colaboradores"
-      >
-        <mat-option 
-          *ngFor="let colaborador of colaboradoresLista"
-          [value]="colaborador"
-          >{{ colaborador }}</mat-option>
+      <mat-select [formControl]="colaboradoresControl" multiple [(ngModel)]="colaboradoresSeleccionados"
+        name="colaboradores">
+        <mat-option *ngFor="let colaborador of colaboradoresLista" [value]="colaborador">{{ colaborador }}</mat-option>
       </mat-select>
-      <mat-icon matSuffix class="material-icon"
-        >supervised_user_circle</mat-icon
-      >
+      <mat-icon matSuffix class="material-icon">supervised_user_circle</mat-icon>
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Estado</mat-label>
-      <mat-select 
-        formControlName="estadoControl"
-        [(ngModel)]="libro.estado"
-        name="estado"
-        required
-      >
+      <mat-select formControlName="estadoControl" [(ngModel)]="libro.estado" name="estado" required>
         <mat-option value="publicado">Publicado</mat-option>
         <mat-option value="terminado">Terminado</mat-option>
         <mat-option value="en_proceso">En Proceso</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-  <div
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutGap="7px"
-    fxLayoutGap.sm="0px"
-  >
-    <div
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutGap="7px"
-      fxLayoutGap.sm="0px"
-    >
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Páginas</mat-label>
-        <input 
-          formControlName="paginasControl"
-          [(ngModel)]="libro.paginas"
-          name="paginas"
-          type="number" 
-          min="0" 
-          step="1" 
-          matInput 
-          required 
-        />
+        <input formControlName="paginasControl" [(ngModel)]="libro.paginas" name="paginas" type="number" min="0"
+          step="1" matInput required />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Ejemplares</mat-label>
-        <input 
-          formControlName="ejemplaresControl"
-          [(ngModel)]="libro.ejemplares"
-          name="ejemplares"
-          type="number" 
-          min="0" 
-          step="1" 
-          matInput 
-          required 
-        />
+        <input formControlName="ejemplaresControl" [(ngModel)]="libro.ejemplares" name="ejemplares" type="number"
+          min="0" step="1" matInput required />
       </mat-form-field>
     </div>
     <mat-form-field fxFlex appearance="outline">
@@ -241,18 +99,11 @@
           topping
         }}</mat-option>
       </mat-select>
-      <mat-icon matSuffix class="material-icon"
-        >supervised_user_circle</mat-icon
-      >
+      <mat-icon matSuffix class="material-icon">supervised_user_circle</mat-icon>
     </mat-form-field>
     <section class="example-section">
-      <mat-checkbox 
-        [(ngModel)]="libro.consideradoPCA"
-        (change)="onchange($event)"
-        class="example-margin" 
-        color="primary"
-        formControlName = "btnConsideradoControl"  
-      >
+      <mat-checkbox [(ngModel)]="libro.consideradoPCA" (change)="onchange($event)" class="example-margin"
+        color="primary" formControlName="btnConsideradoControl">
         Considerar para Cuerpo Académico
       </mat-checkbox>
     </section>

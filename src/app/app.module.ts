@@ -33,6 +33,7 @@ import { MenuComponent } from './menu/menu.component';
 import { MiembroComponent } from './gestion-ca/miembro/miembro.component';
 import { ProyectoComponent } from './proyectos/proyecto/proyecto.component';
 import { DialogoComponent } from './dialogo/dialogo.component';
+import { CuentaComponent } from './cuenta/cuenta.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -93,7 +94,8 @@ const customNotifierOptions: NotifierOptions = {
     MiembroComponent,
     ProyectoComponent,
     DialogoComponent,
-    DialogCurriculum
+    DialogCurriculum,
+    CuentaComponent
   ],
   imports: [
     BrowserModule,

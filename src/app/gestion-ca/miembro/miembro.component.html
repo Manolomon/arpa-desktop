@@ -1,51 +1,26 @@
 <div fxLayout="column" fxLayoutGap="-1px" *ngIf="agregando">
   <div class="example-margin" layout="row">
-    <img
-      style="padding-right: 15px;"
-      src="../assets/user-icon.svg"
-      alt="Product-Icon"
-      fxFlex="20"
-    />
+    <img style="padding-right: 15px;" src="../assets/user-icon.svg" alt="Product-Icon" fxFlex="20" />
     <div fxLayout="column" fxLayoutGap="-1px" fxFlex="10"></div>
-    <form
-    [formGroup]="miembroForm"
-    (ngSubmit)="registrarIntegrante()"
-    #formNew="ngForm"
-    >
-    <div fxLayout="column" fxLayoutGap="-1px" fxFlex="70">
+    <form fxLayout="column" fxLayoutGap="-1px" fxFlex="70" [formGroup]="miembroForm" (ngSubmit)="registrarIntegrante()"
+      #formNew="ngForm">
       <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Nombre</mat-label>
-          <input
-            formControlName="nombreControl"
-            [(ngModel)]="nombreNuevo"
-            name="nombreNuevo"
-            matInput
-            required
-          />
+          <input formControlName="nombreControl" [(ngModel)]="nombreNuevo" name="nombreNuevo" matInput required />
         </mat-form-field>
       </div>
       <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Correo</mat-label>
-          <input
-            formControlName="correoControl"
-            [(ngModel)]="correoNuevo"
-            name="correoNuevo"
-            matInput
-            required
-          />
+          <input formControlName="correoControl" [(ngModel)]="correoNuevo" name="correoNuevo" matInput required />
         </mat-form-field>
       </div>
-    </div>
-  </form>
+    </form>
   </div>
   <div class="example-margin" layout="row">
     <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
-      <mat-slide-toggle
-        [(ngModel)]="esMiembro"
-        (toggleChange)="confirmarCambio()"
-        >Es miembro
+      <mat-slide-toggle [(ngModel)]="esMiembro" (toggleChange)="confirmarCambio()">Es miembro
       </mat-slide-toggle>
     </div>
     <button type="submit" mat-raised-button color="primary">Guardar</button>
@@ -54,12 +29,7 @@
 
 <div fxLayout="column" fxLayoutGap="-1px" *ngIf="!agregando">
   <div class="example-margin" layout="row">
-    <img
-      style="padding-right: 15px;"
-      src="../assets/user-icon.svg"
-      alt="Product-Icon"
-      fxFlex="20"
-    />
+    <img style="padding-right: 15px;" src="../assets/user-icon.svg" alt="Product-Icon" fxFlex="20" />
     <div fxLayout="column" fxLayoutGap="-1px" fxFlex="10"></div>
     <div fxLayout="column" fxLayoutGap="-1px" fxFlex="70">
       <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
@@ -72,12 +42,9 @@
       </div>
     </div>
   </div>
-  <div  [hidden]="esCoordinador" class="example-margin" layout="row">
+  <div [hidden]="esCoordinador" class="example-margin" layout="row">
     <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
-      <mat-slide-toggle
-        [(ngModel)]="esMiembro"
-        (toggleChange)="confirmarCambio()"
-        >Es miembro
+      <mat-slide-toggle [(ngModel)]="esMiembro" (toggleChange)="confirmarCambio()">Es miembro
       </mat-slide-toggle>
     </div>
   </div>
