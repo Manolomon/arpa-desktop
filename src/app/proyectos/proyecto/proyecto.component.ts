@@ -145,7 +145,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
             if (!isNullOrUndefined(idGenerado)) {
               this.cargarProyectos.emit(false);
               this.creacionCancelada.emit(false);
-              this.notifier.notify("success", "Salchichas con huevo");
+              this.notifier.notify("success", "Proyecto agregado a la base de datos");
             }
           })
           .catch((err) => {
