@@ -1,11 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { database } from 'firebase';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export interface DialogData {
   mensaje: string,
-  resultado : boolean,
-  dobleBoton : boolean
+  resultado: boolean,
+  dobleBoton: boolean
 }
 
 @Component({
@@ -14,7 +13,7 @@ export interface DialogData {
   styleUrls: ['./dialogo.component.sass']
 })
 export class DialogoComponent implements OnInit {
-  
+
   constructor(public dialogRef: MatDialogRef<DialogoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 

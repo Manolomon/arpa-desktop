@@ -3,7 +3,6 @@ import { Miembro } from '../models/MiembroInterface';
 import { LoginService } from '../servicios/login.service';
 import { MiembroService } from '../servicios/miembro.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MiembroComponent } from '../gestion-ca/miembro/miembro.component';
 
 @Component({
   selector: 'app-menu',

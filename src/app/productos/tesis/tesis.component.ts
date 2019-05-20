@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
-import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Tesis } from '../../models/TesisInterface';
 import { ProductoService } from '../../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { MiembroService } from '../../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined, isUndefined } from 'util';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent } from '@angular/material';
 import { NotifierService } from "angular-notifier";
 
 

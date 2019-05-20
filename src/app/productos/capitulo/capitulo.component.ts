@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
-import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Capitulo } from '../../models/CapituloInterface';
 import { ProductoService } from '../../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';

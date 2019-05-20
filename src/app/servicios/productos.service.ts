@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Capitulo } from '../models/CapituloInterface';
 import * as firebase from 'firebase';
 
 @Injectable({

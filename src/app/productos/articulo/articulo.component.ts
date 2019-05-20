@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
-import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Articulo } from '../../models/ArticuloInterface';
 import { ProductoService } from '../../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { MiembroService } from '../../servicios/miembro.service';
 import * as firebase from 'firebase';
-import { isNullOrUndefined, isUndefined } from 'util';
+import { isNullOrUndefined } from 'util';
 import { NotifierService } from "angular-notifier";
 
 @Component({
@@ -242,7 +242,7 @@ export class ArticuloComponent implements OnInit {
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
-    this.ngOnInit()
+    this.ngOnInit();
   }
 
   public cancelarEdicion() {

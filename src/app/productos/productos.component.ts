@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ProductoService } from "../servicios/productos.service";
 import { MiembroService } from '../servicios/miembro.service';
 import { NotifierService } from "angular-notifier";
@@ -35,8 +35,8 @@ export class ProductosComponent implements OnInit {
     this.productos = [];
     var docRefs: Array<any> = [];
     console.log(this.miembroService.getMiembroActivo());
-    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo()).then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo()).then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         console.log(doc);
         var documento = doc.data();
         documento.id = doc.id;

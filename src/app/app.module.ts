@@ -27,7 +27,7 @@ import { ProyectosComponent } from "./proyectos/proyectos.component";
 import { ProductoService } from "./servicios/productos.service";
 import { LoginComponent } from './login/login.component';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { GestionCaComponent, DialogCurriculum } from './gestion-ca/gestion-ca.component';
 import { MenuComponent } from './menu/menu.component';
 import { MiembroComponent } from './gestion-ca/miembro/miembro.component';

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../servicios/login.service'
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';

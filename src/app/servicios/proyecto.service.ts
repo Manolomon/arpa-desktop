@@ -19,8 +19,6 @@ export class ProyectoService {
   }
 
   obtenerProyectos() {
-    var docRefs: any[];
-    docRefs = [];
     return this.db.collection('proyectos').ref.orderBy("nombre").get();
   }
 

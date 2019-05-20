@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, Input, SimpleChange, EventEmitter, Output
 import { ProyectoService } from '../../servicios/proyecto.service';
 import { Proyecto } from '../../models/ProyectoInterface';
 import { NotifierService } from 'angular-notifier';
-import { NgForm, NgModel, FormGroup, FormControl, Validators } from '@angular/forms'
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms'
 import { isNullOrUndefined } from 'util';
 import * as firebase from 'firebase';
 import { MatDatepickerInputEvent } from '@angular/material'
@@ -126,8 +126,6 @@ export class ProyectoComponent implements OnInit, OnChanges {
   }
 
   public async onGuardarProyecto(myForm: NgForm) {
-    let creacionCancelada: EventEmitter<boolean> = this.creacionCancelada;
-    let cargarProyectos: EventEmitter<boolean> = this.cargarProyectos;
     if (this.proyectoForm.valid) {
       this.proyecto.productos = this.productosSeleccionados;
       console.log(this.productosSeleccionados);

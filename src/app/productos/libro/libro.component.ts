@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Libro } from '../../models/LibroInterface';
 import { ProductoService } from '../../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';

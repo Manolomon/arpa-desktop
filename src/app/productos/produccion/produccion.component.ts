@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
-import { FormControl, FormGroup, Validators, Form } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Produccion } from '../../models/ProduccionInterface';
 import { ProductoService } from '../../servicios/productos.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { MiembroService } from '../../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined, isUndefined } from 'util';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent } from '@angular/material';
 import { NotifierService } from "angular-notifier";
 
 @Component({
@@ -86,14 +86,14 @@ export class ProduccionComponent implements OnInit {
     this.considerar = this.produccionObjeto.consideradoPCA;
     this.produccion.descripcion = this.produccionObjeto.descripcion;
     this.produccion.estado = this.produccionObjeto.estado;
-    this.produccion.evidencia = this.produccion.evidencia;
+    this.produccion.evidencia = this.produccionObjeto.evidencia;
     this.produccion.fechaPublicacion = this.produccionObjeto.fechaPublicacion;
     this.produccion.id = this.produccionObjeto.id;
     this.idProduccion = this.produccionObjeto.id;
     this.produccion.lineaGeneracion = this.produccionObjeto.lineaGeneracion;
     this.produccion.numRegistro = this.produccionObjeto.numRegistro;
     this.produccion.pais = this.produccionObjeto.pais;
-    this.produccion.proposito = this.produccion.proposito;
+    this.produccion.proposito = this.produccionObjeto.proposito;
     this.produccion.titulo = this.produccionObjeto.titulo;
     this.produccion.uso = this.produccionObjeto.uso;
     this.produccion.usuario = this.produccionObjeto.usuario;
