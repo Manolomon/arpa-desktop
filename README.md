@@ -1,6 +1,7 @@
 # ArpaDesktop
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a7464d5a202f421086deb3fd25f6860e)](https://app.codacy.com/app/Manolomon/arpa-desktop?utm_source=github.com&utm_medium=referral&utm_content=Manolomon/arpa-desktop&utm_campaign=Badge_Grade_Dashboard) [![Travis (.org)](https://img.shields.io/travis/Manolomon/arpa-desktop.svg?logo=travis-ci&logoColor=white)](https://travis-ci.org/Manolomon/arpa-desktop)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/Manolomon/arpa-desktop.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Manolomon/arpa-desktop/context:javascript)
 
 ## Hall of Fame
 
