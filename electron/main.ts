@@ -16,8 +16,8 @@ app.on("activate", () => {
 function createWindow() {
 
     mainWindow = new BrowserWindow({
-        width: 1100,
-        height: 600,
+        width: 1200,
+        height: 800,
         minWidth: 1000,
         minHeight: 300,
         icon: path.join(__dirname, '/../../assets/icons/png/128x128.png'),

@@ -111,7 +111,7 @@ export class GestionCaComponent implements OnInit {
   }
 
   public onCerrarSesion() {
-    if (confirm("Desea cerrar la sesion?")) {
+    if (confirm("¿Desea cerrar la sesion?")) {
       console.log(this.loginServicio.getUsuario());
       this.loginServicio.cerrarSesion();
       this.router.navigate(['login']);
@@ -168,14 +168,18 @@ export class GestionCaComponent implements OnInit {
       if (result) {
         this.initDate = result.initDate;
         this.finalDate = result.finalDate;
-        console.log('Init date: ' + (this.initDate));
-        console.log('FInal date: ' + (this.finalDate));
-
-        if (this.finalDate < this.initDate) {
-          this.notifier.notify('error', 'Intervalo de fechas no es posible');
+        if (this.initDate == null || this.finalDate == null) {
+          this.notifier.notify('error', 'Por favor agregue las fechas correctamente  ');
         } else {
-          this.cargarProductos();
-          this.confirmarCurriculum()
+          console.log('Init date: ' + (this.initDate));
+          console.log('FInal date: ' + (this.finalDate));
+
+          if (this.finalDate < this.initDate) {
+            this.notifier.notify('error', 'Intervalo de fechas no es posible');
+          } else {
+            this.cargarProductos();
+            this.confirmarCurriculum();
+          }
         }
       } else {
         this.notifier.notify('warning', 'Operación abortada');

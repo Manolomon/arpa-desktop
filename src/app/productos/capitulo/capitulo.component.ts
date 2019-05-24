@@ -38,6 +38,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   @Input() private eliminarProducto: boolean;
   @Input() private nuevoCapitulo: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>();
+  @Output() private cargarProductos = new EventEmitter<boolean>(false);
 
   public capitulo: Capitulo = {
     titulo: '',
@@ -191,7 +192,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     console.log("Consideracion cambiada");
   }
 
-  public onGuardarCapitulo(myForm: NgForm) {
+  async onGuardarCapitulo(myForm: NgForm) {
     this.cargaDeArchivo = 0;
     if (this.capituloForm.valid) {
       let idGenerado: string;
@@ -208,6 +209,7 @@ export class CapituloComponent implements OnInit, OnChanges {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
             this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
+            this.cargarProductos.emit(false);
           })
           .catch(function (error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
@@ -217,7 +219,7 @@ export class CapituloComponent implements OnInit, OnChanges {
       } else {
         console.log("Modificando producto");
         this.capitulo.id = this.idCapitulo;
-        this.productoService.modificarProducto(this.capitulo)
+        await this.productoService.modificarProducto(this.capitulo)
           .catch(function (error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
@@ -227,11 +229,11 @@ export class CapituloComponent implements OnInit, OnChanges {
         }
         this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
         console.log(this.capitulo.colaboradores);
+        this.cargarProductos.emit(false);
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
-    this.ngOnInit();
   }
 
   public cancelarEdicion() {

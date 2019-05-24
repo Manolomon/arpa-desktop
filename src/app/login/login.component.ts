@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   public cerrarSesion(): void {
-    if (confirm("Desea cerrar la sesion?")) {
+    if (confirm("¿Desea cerrar la sesion?")) {
       this.loginServicio.cerrarSesion();
     }
   }

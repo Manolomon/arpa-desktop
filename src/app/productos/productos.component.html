@@ -104,7 +104,7 @@
           </div>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-capitulo [capituloObjeto]="producto" [habilitaCampos]="camposHabilitados"
+      <app-capitulo (cargarProductos)="cargarProductos($event)" [capituloObjeto]="producto" [habilitaCampos]="camposHabilitados"
         [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'capitulo'"></app-capitulo>
       <app-tesis [tesisObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
         *ngIf="producto.tipo === 'tesis'">

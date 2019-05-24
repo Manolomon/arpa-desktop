@@ -82,4 +82,8 @@ export class ProductosComponent implements OnInit {
     this.ngOnInit();
   }
 
+  public cargarProductos(cargar: boolean){
+    this.ngOnInit();
+  }
+
 }

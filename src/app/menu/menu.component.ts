@@ -53,7 +53,7 @@ export class MenuComponent implements OnInit {
   }
 
   public onCerrarSesion(): void {
-    if (confirm("Desea cerrar la sesion?")) {
+    if (confirm("¿Desea cerrar la sesion?")) {
       console.log(this.loginServicio.getUsuario());
       this.loginServicio.cerrarSesion();
       this.router.navigate(['login']);

@@ -1,42 +1,41 @@
 <mat-divider></mat-divider>
 <br />
 <div class="example-margin" layout="row">
-<img style="padding-right: 15px;" src="../assets/project_icon.svg" alt="Product-Icon" />
-<div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
-  <h2>Proyectos</h2>
-  <p class="subtitle">Administración y Registro de Producción Académica</p>
-</div>
-<div fxLayout="row" fxLayoutAlign="end center">
-  <mat-form-field appearance="outline">
-    <mat-label>Buscar Proyecto</mat-label>
-    <input matInput />
-    <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
-  </mat-form-field>
+  <img style="padding-right: 15px;" src="../assets/project_icon.svg" alt="Product-Icon" />
+  <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
+    <h2>Proyectos</h2>
+    <p class="subtitle">Administración y Registro de Producción Académica</p>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar Proyecto</mat-label>
+      <input matInput />
+      <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
+    </mat-form-field>
+  </div>
 </div>
 <div layout="row" style="padding-bottom: 25px;">
-<div fxLayout="column" fxFlex="10"></div>
-<div fxLayout="column" fxFlex="70">
-  <p class="additional_info">Vista de la producción colaborativa del miembro</p>
-</div>
-<div fxLayout="row" fxLayoutAlign="end center">
-  <button type="button" (click)="agregarProyecto($event)" mat-raised-button color="primary">
-    <mat-icon>create_new_folder</mat-icon>
+  <div fxLayout="column" fxFlex="10"></div>
+  <div fxLayout="column" fxFlex="70">
+    <p class="additional_info">Vista de la producción colaborativa del miembro</p>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <button type="button" (click)="agregarProyecto($event)" mat-raised-button color="primary">
+      <mat-icon>create_new_folder</mat-icon>
       Nuevo Proyecto
     </button>
-</div>
-<mat-divider class="br_div"></mat-divider>
-</div>
+  </div>
+  <mat-divider class="br_div"></mat-divider>
 </div>
 <div fxFlexAlign="center" fxLayoutAlign="center center">
-  <app-proyecto [habilitaCampos]="true" (cargarProyectos)="cargarProyectos($event)"  (creacionCancelada)="creacionCancelada($event)"
-   *ngIf="agregaProyecto" [miembroObjeto]="miembroObjeto">
- </app-proyecto>
+  <app-proyecto [habilitaCampos]="true" (cargarProyectos)="cargarProyectos($event)"
+    (creacionCancelada)="creacionCancelada($event)" *ngIf="agregaProyecto" [miembroObjeto]="miembroObjeto">
+  </app-proyecto>
 </div>
 <div fxFlexAlign="center" fxLayoutAlign="center center">
   <mat-accordion class="example-headers-align">
-    <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i"
-      (afterExpand)="indexExpanded = i" (closed)="togglePanels(-1)" *ngFor="let proyecto of proyectos; let i = index"
-      class="hideOption">
+    <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i" (afterExpand)="indexExpanded = i"
+      (closed)="togglePanels(-1)" *ngFor="let proyecto of proyectos; let i = index" class="hideOption">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <p>{{proyecto.nombre}}</p>
@@ -47,7 +46,8 @@
               {{proyecto.productos.length}} Productos
             </mat-chip>
           </mat-chip-list>
-          Por: {{miembroObjeto.nombre}} <!-- TODO -->
+          Por: {{miembroObjeto.nombre}}
+          <!-- TODO -->
           <div class="example-icon showOption">
             <button *ngIf="indexExpanded == i" (click)="habilitarCampos(); togglePanels(i)" mat-icon-button
               matTooltip="Editar" matTooltipPosition="above">
@@ -60,7 +60,8 @@
           </div>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-proyecto (cargarProyectos)="cargarProyectos($event)" (edicionCancelada)="edicionCancelada($event)" [habilitaCampos]="camposHabilitados" [proyectoObjeto]="proyecto" [miembroObjeto]="miembroObjeto"></app-proyecto>
+      <app-proyecto (cargarProyectos)="cargarProyectos($event)" (edicionCancelada)="edicionCancelada($event)"
+        [habilitaCampos]="camposHabilitados" [proyectoObjeto]="proyecto" [miembroObjeto]="miembroObjeto"></app-proyecto>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

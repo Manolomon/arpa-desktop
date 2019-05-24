@@ -1,16 +1,9 @@
 <mat-divider></mat-divider>
 <div class="example-margin" layout="row">
-  <img style="padding-right: 15px;" src="../assets/academic-icon.svg" alt="Product-Icon" />
+  <img style="padding-right: 15px;" src="../assets/user-icon.svg" alt="Product-Icon" />
   <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
     <h2>Gestión Cuenta</h2>
     <p class="subtitle">Administración y Registro de Producción Académica</p>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="end center">
-    <mat-form-field appearance="outline">
-      <mat-label>Buscar Miembro</mat-label>
-      <input matInput />
-      <mat-icon matSuffix style="color: #A9ADCC;">search</mat-icon>
-    </mat-form-field>
   </div>
 </div>
 <div layout="row" style="padding-left: 25px; padding-right: 25px;">
@@ -67,7 +60,10 @@
         <div layout="row">
           <mat-form-field fxFlex appearance="outline">
             <mat-label>Puesto</mat-label>
-            <input name="nombreNuevo" matInput required />
+            <mat-select name="puesto" required>
+              <mat-option value="docente_tcompleto">Docente de Tiempo Completo</mat-option>
+              <mat-option value="investigador">Investigador</mat-option>
+            </mat-select>
           </mat-form-field>
           <mat-form-field fxFlex appearance="outline">
             <mat-label>SNI</mat-label>
