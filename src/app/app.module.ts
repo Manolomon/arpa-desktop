@@ -34,6 +34,7 @@ import { MiembroComponent } from './gestion-ca/miembro/miembro.component';
 import { ProyectoComponent } from './proyectos/proyecto/proyecto.component';
 import { DialogoComponent } from './dialogo/dialogo.component';
 import { CuentaComponent } from './cuenta/cuenta.component';
+import { EstudioComponent } from './cuenta/estudio/estudio.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -95,7 +96,8 @@ const customNotifierOptions: NotifierOptions = {
     ProyectoComponent,
     DialogoComponent,
     DialogCurriculum,
-    CuentaComponent
+    CuentaComponent,
+    EstudioComponent
   ],
   imports: [
     BrowserModule,

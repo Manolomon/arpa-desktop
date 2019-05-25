@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>Generar Curriculum</h1>
+<div mat-dialog-content>
+    <p>Datos laborales del miembro</p>
+    <form novalidate [formGroup]="estudioForm">
+        <mat-form-field>
+            <mat-label>Titulo</mat-label>
+              <input 
+                formControlName="tituloControl"
+                [(ngModel)]="estudio.titulo"
+                name="titulo"
+                matInput
+                required
+              />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Grado</mat-label>
+              <input 
+                formControlName="gradoControl"
+                [(ngModel)]="estudio.grado"
+                name="grado"
+                matInput
+                required
+              />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Institución</mat-label>
+              <input 
+                formControlName="institucionControl"
+                [(ngModel)]="estudio.institucion"
+                name="institucion"
+                matInput
+                required
+              />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Área</mat-label>
+              <input 
+                formControlName="areaControl"
+                [(ngModel)]="estudio.area"
+                name="area"
+                matInput
+                required
+              />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Pais de la Institucion</mat-label>
+              <input 
+                formControlName="paisInstitucionControl"
+                [(ngModel)]="estudio.paisInstitucion"
+                name="paisInstitucion"
+                matInput
+                required
+              />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="myPicker" formControlName="fechaControl" placeholder="Fecha"
+                (dateChange)="setFechaEstudio($event)" required />
+            <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+            <mat-datepicker #myPicker></mat-datepicker>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button type="button" (click)="guardarEstudio()">Guardar</button>
+    <button mat-button type="button" (click)="cancelarEdicion()" cdkFocusInitial>Cancelar</button>
+</div>

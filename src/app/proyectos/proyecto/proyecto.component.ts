@@ -154,6 +154,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
       } else {
         this.proyectoService.modificarProyecto(this.proyecto)
           .then(() => {
+            this.notifier.notify("success", "Proyecto agregado a la base de datos");
             this.cargarProyectos.emit(false);
           })
           .catch((err) => {

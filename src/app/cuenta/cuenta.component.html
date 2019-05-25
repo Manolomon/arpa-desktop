@@ -78,16 +78,16 @@
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>&nbsp;Datos Laborales</mat-card-title>
-        <button mat-raised-button color="primary">
+        <button mat-raised-button color="primary" type = "button" (click)="agregarEstudio()">
           <mat-icon>add</mat-icon>
           Agregar Datos
         </button>
       </mat-card-header>
       <mat-action-list class="make-scrollable" flex>
-        <mat-list-item>
+        <mat-list-item *ngFor="let estudio of estudios; let i = index">
           <mat-icon mat-list-icon>school</mat-icon>
-          <h4 mat-line>Licenciatura en Ingeniería de Sofyware</h4>
-          <p mat-line>Universidad Veracruzana, México</p>
+          <h4 mat-line>{{estudio.grado}}</h4>
+          <p mat-line>{{estudio.institucion}},{{estudio.paisInstitucion}}</p>
         </mat-list-item>
       </mat-action-list>
     </mat-card>
