@@ -99,20 +99,24 @@ export class EstudioComponent implements OnInit {
             console.log(idGenerado);
             if (!isNullOrUndefined(idGenerado)) {
               this.notifier.notify("success", "Estudio agregado correctamente");
+              this.dialogRef.close(true);
             }
           })
           .catch((err) => {
             this.notifier.notify("error", "Error con la conexion a la base de datos");
             console.error("Error al añadir el estudio: ", err);
+            this.dialogRef.close(false);
           });
       } else {
         this.estudioService.modificarEstudio(this.estudio)
           .then(() => {
             this.notifier.notify("success", "Estudio guardado correctamente");
+            this.dialogRef.close(true);
           })
           .catch((err) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir el estudio: ", err);
+            this.dialogRef.close(false);
           });
       }
     } else {
@@ -125,7 +129,7 @@ export class EstudioComponent implements OnInit {
   }
 
   public cancelarEdicion(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
 }

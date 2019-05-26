@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
 import { EstudioService } from '../servicios/estudio.service';
+import { EstudioComponent } from './estudio/estudio.component';
+import { Miembro } from '../models/MiembroInterface';
+import { dialog } from 'electron';
 
 @Component({
   selector: 'app-cuenta',
@@ -10,6 +13,7 @@ import { EstudioService } from '../servicios/estudio.service';
 })
 export class CuentaComponent implements OnInit {
 
+  @Input() private miembroObjeto: Miembro;
   hide = true;
   estudios: Array<any> = []
 
@@ -34,8 +38,15 @@ export class CuentaComponent implements OnInit {
 
   agregarEstudio() {
     var resultado: boolean;
-    const dialogRef = this.dialog.open();
-
+    const dialogRef = this.dialog.open(EstudioComponent, {
+      width: '250px',
+      data: { miembroObjeto: this.miembroObjeto, habilitacampos: true }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+      if (result) {
+        this.ngOnInit();
+      }
+    });
   }
-
 }
