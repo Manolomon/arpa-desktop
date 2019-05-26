@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } fro
 import { EstudioService } from '../servicios/estudio.service';
 import { EstudioComponent } from './estudio/estudio.component';
 import { Miembro } from '../models/MiembroInterface';
-
+import { Estudio } from '../models/EstudioInterface';
 @Component({
   selector: 'app-cuenta',
   templateUrl: './cuenta.component.html',
@@ -41,6 +41,28 @@ export class CuentaComponent implements OnInit {
     const dialogRef = this.dialog.open(EstudioComponent, {
       width: '250px',
       data: { miembroObjeto: this.miembroObjeto, habilitaCampos: true, edicion: false }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+      if (result) {
+        this.ngOnInit();
+      }
+    });
+  }
+
+  editarEstudio(posicion: number) {
+    console.log('Editar estudio');
+    console.log(posicion);
+    var resultado: boolean;
+    console.log(this.miembroObjeto);
+    const dialogRef = this.dialog.open(EstudioComponent, {
+      width: '250px',
+      data: {
+        miembroObjeto: this.miembroObjeto,
+        habilitaCampos: false,
+        edicion: true,
+        estudioObjeto: this.estudios[posicion]
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       resultado = result;

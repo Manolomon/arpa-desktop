@@ -84,7 +84,7 @@
         </button>
       </mat-card-header>
       <mat-action-list class="make-scrollable" flex>
-        <mat-list-item *ngFor="let estudio of estudios; let i = index">
+        <mat-list-item *ngFor="let estudio of estudios; let i = index" (click)="editarEstudio(i)">
           <mat-icon mat-list-icon>school</mat-icon>
           <h4 mat-line>{{estudio.grado}}</h4>
           <p mat-line>{{estudio.institucion}},{{estudio.paisInstitucion}}</p>

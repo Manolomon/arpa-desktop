@@ -27,7 +27,7 @@ export class EstudioComponent implements OnInit {
   private estudioObjeto: Estudio;
   private estudioForm: FormGroup;
   private fechaControl: FormControl = new FormControl('', [Validators.required]);
-  private habilitaCampos: boolean = true;
+  private habilitaCampos: boolean;
   private edicion: boolean;
 
   private estudio: Estudio = {
@@ -55,11 +55,13 @@ export class EstudioComponent implements OnInit {
     console.log(this.miembroObjeto);
     this.habilitaCampos = data.habilitaCampos;
     this.edicion = data.edicion;
+    console.log(this.habilitaCampos);
     if (this.habilitaCampos) {
       this.estudioForm.enable();
     } else {
       this.estudioForm.disable();
     }
+    console.log(data.estudioObjeto);
     if (!isNullOrUndefined(data.estudioObjeto)) {
       this.estudioObjeto = data.estudioObjeto;
       this.llenarCampos();
@@ -69,6 +71,7 @@ export class EstudioComponent implements OnInit {
   ngOnInit() {
     if (!isNullOrUndefined(this.estudioObjeto)) {
       this.fechaControl = new FormControl(this.estudioObjeto.fecha.toDate());
+      this.fechaControl.disable();
     }
     this.estudioForm.addControl("fechaControl", this.fechaControl);
   }
@@ -81,20 +84,23 @@ export class EstudioComponent implements OnInit {
     this.estudio.institucion = this.estudioObjeto.institucion;
     this.estudio.paisInstitucion = this.estudioObjeto.paisInstitucion;
     this.estudio.titulo = this.estudioObjeto.titulo;
+    this.estudio.fecha = this.estudioObjeto.fecha;
   }
 
   public setFechaEstudio(event: MatDatepickerInputEvent<Date>) {
     this.estudio.fecha = firebase.firestore.Timestamp.fromDate(event.value);
   }
 
-  async onGuardarEstudio() {
+  async onGuardarEstudio(myForm: NgForm) {
     if (this.estudioForm.valid) {
+      console.log('paso 1');
       this.estudio.idMiembro = this.miembroObjeto.id;
       let idGenerado: string;
       if (isNullOrUndefined(this.estudio.fecha)) {
         this.notifier.notify("warning", "Datos Incompleto o inválidos");
         return;
       }
+      console.log('paso 2');
       if (isNullOrUndefined(this.estudio.id)) {
         console.log('Agregando estudio');
         this.estudioService.agregarEstudio(this.estudio)
@@ -135,6 +141,10 @@ export class EstudioComponent implements OnInit {
 
   public cancelarEdicion(): void {
     this.dialogRef.close(false);
+  }
+  public habilitarCampos(): void {
+    this.estudioForm.enable();
+    this.edicion = false;
   }
 
 }

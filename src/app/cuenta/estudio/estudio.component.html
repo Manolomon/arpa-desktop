@@ -1,8 +1,12 @@
 <h1 mat-dialog-title>Datos laborales del miembro</h1>
 <div mat-dialog-content>
     <p></p>
-    <form novalidate 
-      [formGroup]="estudioForm">
+    <form 
+      novalidate 
+      [formGroup]="estudioForm"
+      (ngSubmit)="onGuardarEstudio(formNew)"
+      #formNew="ngForm"
+    >
         <mat-form-field>
             <mat-label>Titulo</mat-label>
               <input 
@@ -56,14 +60,15 @@
         <mat-form-field>
             <mat-label>Fecha</mat-label>
             <input matInput [matDatepicker]="myPicker" formControlName="fechaControl" placeholder="Fecha"
-                (dateChange)="setFechaEstudio($event)" required />
+                (dateChange)="setFechaEstudio($event)" required [disabled]="estudioForm.disabled" />
             <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
             <mat-datepicker #myPicker></mat-datepicker>
         </mat-form-field>
+
+      <div mat-dialog-actions>
+        <button mat-button *ngIf="edicion==true" type="button" (click)="habilitarCampos()" >Editar</button>
+        <button mat-button *ngIf="edicion==false" type="submit" [disabled]="estudioForm.disabled">Guardar</button>
+        <button mat-button type="button" (click)="cancelarEdicion()" cdkFocusInitial>Cancelar</button>  
+      </div>
     </form>
-</div>
-<div mat-dialog-actions>
-    <button mat-button type="button" (click)="onGuardarEstudio()">Guardar</button>
-    <button mat-button type="button" (click)="cancelarEdicion()" cdkFocusInitial>Cancelar</button>
-    <button mat-button *ngIf="edicion==true" type="button" >Editar</button>
 </div>
