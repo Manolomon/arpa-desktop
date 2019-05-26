@@ -4,7 +4,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } fro
 import { EstudioService } from '../servicios/estudio.service';
 import { EstudioComponent } from './estudio/estudio.component';
 import { Miembro } from '../models/MiembroInterface';
-import { dialog } from 'electron';
 
 @Component({
   selector: 'app-cuenta',
@@ -25,8 +24,8 @@ export class CuentaComponent implements OnInit {
   ngOnInit() {
     this.estudios = [];
     var docRefs: Array<any> = [];
-    this.estudioService.obtenerEstudios().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    this.estudioService.obtenerEstudios().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         var documento = doc.data();
         documento.id = doc.id;
         console.log(documento);
@@ -38,9 +37,10 @@ export class CuentaComponent implements OnInit {
 
   agregarEstudio() {
     var resultado: boolean;
+    console.log(this.miembroObjeto);
     const dialogRef = this.dialog.open(EstudioComponent, {
       width: '250px',
-      data: { miembroObjeto: this.miembroObjeto, habilitacampos: true }
+      data: { miembroObjeto: this.miembroObjeto, habilitaCampos: true, edicion: false }
     });
     dialogRef.afterClosed().subscribe(result => {
       resultado = result;

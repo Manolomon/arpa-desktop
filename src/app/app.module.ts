@@ -97,7 +97,7 @@ const customNotifierOptions: NotifierOptions = {
     DialogoComponent,
     DialogCurriculum,
     CuentaComponent,
-    EstudioComponent
+    EstudioComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,6 +122,10 @@ const customNotifierOptions: NotifierOptions = {
     AngularFireAuth,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogoComponent, DialogCurriculum]
+  entryComponents: [
+    DialogoComponent,
+    DialogCurriculum,
+    EstudioComponent,
+  ]
 })
 export class AppModule { }

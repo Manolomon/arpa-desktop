@@ -13,6 +13,7 @@ export interface DialogData {
   miembroObjeto: Miembro;
   estudioObjeto?: Estudio;
   habilitaCampos: boolean;
+  edicion: boolean;
 }
 
 @Component({
@@ -26,10 +27,10 @@ export class EstudioComponent implements OnInit {
   private estudioObjeto: Estudio;
   private estudioForm: FormGroup;
   private fechaControl: FormControl = new FormControl('', [Validators.required]);
-  private habilitaCampos: boolean = false;
+  private habilitaCampos: boolean = true;
+  private edicion: boolean;
 
   private estudio: Estudio = {
-    id: '',
     titulo: '',
     area: '',
     institucion: '',
@@ -51,7 +52,9 @@ export class EstudioComponent implements OnInit {
       paisInstitucionControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
     });
     this.miembroObjeto = data.miembroObjeto;
+    console.log(this.miembroObjeto);
     this.habilitaCampos = data.habilitaCampos;
+    this.edicion = data.edicion;
     if (this.habilitaCampos) {
       this.estudioForm.enable();
     } else {
@@ -84,7 +87,7 @@ export class EstudioComponent implements OnInit {
     this.estudio.fecha = firebase.firestore.Timestamp.fromDate(event.value);
   }
 
-  async onGuardarEstudio(myFOrm: NgForm) {
+  async onGuardarEstudio() {
     if (this.estudioForm.valid) {
       this.estudio.idMiembro = this.miembroObjeto.id;
       let idGenerado: string;
@@ -93,6 +96,7 @@ export class EstudioComponent implements OnInit {
         return;
       }
       if (isNullOrUndefined(this.estudio.id)) {
+        console.log('Agregando estudio');
         this.estudioService.agregarEstudio(this.estudio)
           .then((docRef) => {
             idGenerado = docRef.id;
@@ -108,6 +112,7 @@ export class EstudioComponent implements OnInit {
             this.dialogRef.close(false);
           });
       } else {
+        console.log('modificando producto');
         this.estudioService.modificarEstudio(this.estudio)
           .then(() => {
             this.notifier.notify("success", "Estudio guardado correctamente");

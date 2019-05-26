@@ -42,5 +42,5 @@
   <app-productos *ngIf="ventana === 'productos'"></app-productos>
   <app-gestion-ca *ngIf="ventana === 'gestion'"></app-gestion-ca>
   <app-proyectos *ngIf="ventana === 'proyectos'" [miembroObjeto]="miembro" ></app-proyectos>
-  <app-cuenta *ngIf="ventana === 'cuenta'"></app-cuenta>
+  <app-cuenta *ngIf="ventana === 'cuenta'" [miembroObjeto] = "miembro"></app-cuenta>
 </div>

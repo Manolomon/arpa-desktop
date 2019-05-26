@@ -1,7 +1,8 @@
-<h1 mat-dialog-title>Generar Curriculum</h1>
+<h1 mat-dialog-title>Datos laborales del miembro</h1>
 <div mat-dialog-content>
-    <p>Datos laborales del miembro</p>
-    <form novalidate [formGroup]="estudioForm">
+    <p></p>
+    <form novalidate 
+      [formGroup]="estudioForm">
         <mat-form-field>
             <mat-label>Titulo</mat-label>
               <input 
@@ -62,6 +63,7 @@
     </form>
 </div>
 <div mat-dialog-actions>
-    <button mat-button type="button" (click)="guardarEstudio()">Guardar</button>
+    <button mat-button type="button" (click)="onGuardarEstudio()">Guardar</button>
     <button mat-button type="button" (click)="cancelarEdicion()" cdkFocusInitial>Cancelar</button>
+    <button mat-button *ngIf="edicion==true" type="button" >Editar</button>
 </div>
