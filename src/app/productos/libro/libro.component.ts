@@ -21,7 +21,8 @@ export class LibroComponent implements OnInit, OnChanges {
   @Input() private habilitaCampos: boolean;
   @Input() private eliminarProducto: boolean;
   @Input() private nuevoLibro: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
+  @Output() private creacionCancelada = new EventEmitter<boolean>(false);
+  @Output() private cargarProductos = new EventEmitter<boolean>(false);
 
   private idLibro: string;
   private cargaDeArchivo: number;
@@ -118,8 +119,8 @@ export class LibroComponent implements OnInit, OnChanges {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.libro.colaboradores;
-    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -151,7 +152,7 @@ export class LibroComponent implements OnInit, OnChanges {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idLibro)
-        .catch(function (error) {
+        .catch(function(error) {
           this.notifier.notify("error", "Error con la conexión a la base de datos");
         });
       console.log("Eliminando producto con id: " + this.idLibro);
@@ -191,39 +192,46 @@ export class LibroComponent implements OnInit, OnChanges {
     }
   }
 
-  public onGuardarLibro(myForm: NgForm) {
+  async onGuardarLibro(myForm: NgForm) {
     this.cargaDeArchivo = 0;
     if (this.libroForm.valid) {
       let idGenerado: string;
+      this.pasarReferencias();
       console.log(this.idLibro);
-      if (isUndefined(this.idLibro)) {
+      if (isNullOrUndefined(this.idLibro)) {
         console.log("Agregando producto");
         this.libro.registrado = firebase.firestore.Timestamp.fromDate(new Date());
-        this.productoService.agregarProducto(this.libro)
-          .then(function (docRef) {
+        await this.productoService.agregarProducto(this.libro)
+          .then((docRef) => {
             idGenerado = docRef.id;
             console.log(idGenerado);
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
-            this.notifier.notify("success", "Libro almacenado exitosamente");
           })
-          .catch(function (error) {
+          .catch(function(error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
+            return;
           });
         console.log(this.libro.colaboradores);
+        this.cargarProductos.emit(false);
+        this.creacionCancelada.emit(false);
+        this.notifier.notify("success", "Libro almacenado exitosamente");
       } else {
         console.log("Modificando producto");
         this.libro.id = this.idLibro;
-        this.productoService.modificarProducto(this.libro)
-          .catch(function (error) {
+        await this.productoService.modificarProducto(this.libro)
+          .catch(function(error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
+            return;
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idLibro, this.cargaDeArchivo);
         }
+        this.cargarProductos.emit(false);
+        this.creacionCancelada.emit(false);
         this.notifier.notify("success", "Libro almacenado exitosamente");
         console.log(this.libro.colaboradores);
       }

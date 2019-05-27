@@ -40,7 +40,8 @@ export class TesisComponent implements OnInit, OnChanges {
   @Input() private habilitaCampos: boolean;
   @Input() private eliminarProducto: boolean;
   @Input() private nuevaTesis: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
+  @Output() private creacionCancelada = new EventEmitter<boolean>(false);
+  @Output() private cargarProductos = new EventEmitter<boolean>(false);
 
   public tesis: Tesis = {
     titulo: '',
@@ -106,8 +107,8 @@ export class TesisComponent implements OnInit, OnChanges {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.tesis.colaboradores;
-    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -141,7 +142,7 @@ export class TesisComponent implements OnInit, OnChanges {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idTesis)
-        .catch(function (error) {
+        .catch(function(error) {
           this.notifier.notify("error", "Error con la conexión a la base de datos");
         });
       console.log("Eliminando producto con id: " + this.idTesis);
@@ -174,44 +175,51 @@ export class TesisComponent implements OnInit, OnChanges {
     console.log("Consideracion cambiada");
   }
 
-  public onGuardarTesis(myForm: NgForm): void {
+  async onGuardarTesis(myForm: NgForm) {
     this.cargaDeArchivo = 0;
     if (this.tesisForm.valid) {
       let idGenerado: string;
+      this.pasarReferencias();
       if (isNullOrUndefined(this.tesis.fechaInicio) || isNullOrUndefined(this.tesis.fechaTermino)) {
         this.notifier.notify("warning", "Datos incompletos o inválidos");
         return;
       }
-      if (isUndefined(this.idTesis)) {
+      if (isNullOrUndefined(this.idTesis)) {
         console.log("Agregando producto");
         this.tesis.registrado = firebase.firestore.Timestamp.fromDate(new Date());
-        this.productoService.agregarProducto(this.tesis)
-          .then(function (docRef) {
+        await this.productoService.agregarProducto(this.tesis)
+          .then((docRef) => {
             idGenerado = docRef.id;
             console.log(idGenerado);
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
-            this.notifier.notify("success", "Tesis almacenada exitosamente");
           })
-          .catch(function (error) {
+          .catch(function(error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
+            return;
           });
         console.log(this.tesis.colaboradores);
+        this.cargarProductos.emit(false);
+        this.creacionCancelada.emit(false);
+        this.notifier.notify("success", "Tesis almacenada exitosamente");
       } else {
         console.log("Modificando producto");
         this.tesis.id = this.idTesis;
-        this.productoService.modificarProducto(this.tesis)
-          .catch(function (error) {
+        await this.productoService.modificarProducto(this.tesis)
+          .catch(function(error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
+            return;
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idTesis, this.cargaDeArchivo);
         }
-        this.notifier.notify("success", "Tesis modificada exitosamente");
         console.log(this.tesis.colaboradores);
+        this.cargarProductos.emit(false);
+        this.creacionCancelada.emit(false);
+        this.notifier.notify("success", "Tesis modificada exitosamente");
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");

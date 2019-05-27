@@ -36,8 +36,8 @@ export class ProduccionComponent implements OnInit {
   @Input() private habilitaCampos: boolean;
   @Input() private eliminarProducto: boolean;
   @Input() private nuevaProduccion: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
-
+  @Output() private creacionCancelada = new EventEmitter<boolean>(false);
+  @Output() private cargarProductos = new EventEmitter<boolean>(false);
   public produccion: Produccion = {
     titulo: '',
     estado: '',
@@ -117,8 +117,8 @@ export class ProduccionComponent implements OnInit {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.produccion.colaboradores;
-    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -150,7 +150,7 @@ export class ProduccionComponent implements OnInit {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idProduccion)
-        .catch(function (error) {
+        .catch(function(error) {
           this.notifier.notify("error", "Error con la conexión a la base de datos");
         });
       console.log("Eliminando producto con id: " + this.idProduccion);
@@ -183,44 +183,51 @@ export class ProduccionComponent implements OnInit {
     console.log("Consideracion cambiada");
   }
 
-  public onGuardarProduccion(myForm: NgForm) {
+  async onGuardarProduccion(myForm: NgForm) {
     this.cargaDeArchivo = 0;
     if (this.produccionForm.valid) {
       let idGenerado: string;
+      this.pasarReferencias();
       if (isNullOrUndefined(this.produccion.fechaPublicacion)) {
         this.notifier.notify("warning", "Datos incompletos o inválidos");
         return 0;
       }
-      if (isUndefined(this.idProduccion)) {
+      if (isNullOrUndefined(this.idProduccion)) {
         console.log("Agregando producto");
         this.produccion.registrado = firebase.firestore.Timestamp.fromDate(new Date());
-        this.productoService.agregarProducto(this.produccion)
-          .then(function (docRef) {
+        await this.productoService.agregarProducto(this.produccion)
+          .then((docRef) => {
             idGenerado = docRef.id;
             console.log(idGenerado);
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
-            this.notifier.notify("success", "produccion almacenada exitosamente");
           })
-          .catch(function (error) {
+          .catch(function(error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
+            return;
           });
         console.log(this.produccion.colaboradores);
+        this.cargarProductos.emit(false);
+        this.creacionCancelada.emit(false);
+        this.notifier.notify("success", "Producción almacenada exitosamente");
       } else {
         console.log("Modificando producto");
         this.produccion.id = this.idProduccion;
-        this.productoService.modificarProducto(this.produccion)
-          .catch(function (error) {
+        await this.productoService.modificarProducto(this.produccion)
+          .catch(function(error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
+            return;
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idProduccion, this.cargaDeArchivo);
         }
-        this.notifier.notify("success", "Produccion modificada exitosamente");
         console.log(this.produccion.colaboradores);
+        this.cargarProductos.emit(false);
+        this.creacionCancelada.emit(false);
+        this.notifier.notify("success", "Producción modificada exitosamente");
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");

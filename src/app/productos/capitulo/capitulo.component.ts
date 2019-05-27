@@ -37,7 +37,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   @Input() private habilitaCampos: boolean;
   @Input() private eliminarProducto: boolean;
   @Input() private nuevoCapitulo: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
+  @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
 
   public capitulo: Capitulo = {
@@ -124,8 +124,8 @@ export class CapituloComponent implements OnInit, OnChanges {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.capitulo.colaboradores;
-    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -159,7 +159,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idCapitulo)
-        .catch(function (error) {
+        .catch(function(error) {
           this.notifier.notify("error", "Error con la conexión a la base de datos");
         });
       console.log("Eliminando producto con id: " + this.idCapitulo);
@@ -193,43 +193,43 @@ export class CapituloComponent implements OnInit, OnChanges {
   }
 
   async onGuardarCapitulo(myForm: NgForm) {
-    this.cargaDeArchivo = 0;
     if (this.capituloForm.valid) {
-      let idGenerado: string;
       this.pasarReferencias();
       console.log(this.idCapitulo);
+      let idGenerado: string;
       if (isUndefined(this.idCapitulo)) {
         console.log("Agregando producto");
         this.capitulo.registrado = firebase.firestore.Timestamp.fromDate(new Date());
-        this.productoService.agregarProducto(this.capitulo)
-          .then(function (docRef) {
+        await this.productoService.agregarProducto(this.capitulo)
+          .then((docRef) => {
             idGenerado = docRef.id;
             console.log(idGenerado);
             if (this.archivo != null) {
-              this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
+              this.productoService.subirArchivo(this.archivo.item(0), idGenerado, 0);
             }
-            this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
-            this.cargarProductos.emit(false);
           })
-          .catch(function (error) {
+          .catch(function(error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         console.log(this.capitulo.colaboradores);
+        this.cargarProductos.emit(false);
+        this.creacionCancelada.emit(false);
+        this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
       } else {
         console.log("Modificando producto");
         this.capitulo.id = this.idCapitulo;
         await this.productoService.modificarProducto(this.capitulo)
-          .catch(function (error) {
+          .catch(function(error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idCapitulo, this.cargaDeArchivo);
         }
+        this.cargarProductos.emit(false);
         this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
         console.log(this.capitulo.colaboradores);
-        this.cargarProductos.emit(false);
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");

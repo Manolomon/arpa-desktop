@@ -104,21 +104,21 @@
           </div>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <app-capitulo (cargarProductos)="cargarProductos($event)" [capituloObjeto]="producto" [habilitaCampos]="camposHabilitados"
+      <app-capitulo (cargarProductos)="cargarProductos($event)" (edicionCancelada)="edicionCancelada($event)" [capituloObjeto]="producto" [habilitaCampos]="camposHabilitados"
         [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'capitulo'"></app-capitulo>
-      <app-tesis [tesisObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
+      <app-tesis (cargarProductos)="cargarProductos($event)" (edicionCancelada)="edicionCancelada($event)" [tesisObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
         *ngIf="producto.tipo === 'tesis'">
       </app-tesis>
-      <app-libro [libroObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
+      <app-libro (cargarProductos)="cargarProductos($event)" (edicionCancelada)="edicionCancelada($event)" [libroObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
         *ngIf="producto.tipo === 'libro'">
       </app-libro>
-      <app-memoria [memoriaObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
+      <app-memoria (cargarProductos)="cargarProductos($event)" (edicionCancelada)="edicionCancelada($event)" [memoriaObjeto]="producto" [habilitaCampos]="camposHabilitados" [eliminarProducto]="eliminaProducto"
         *ngIf="producto.tipo === 'memoria'">
       </app-memoria>
-      <app-articulo [articuloObjeto]="producto" [habilitaCampos]="camposHabilitados"
+      <app-articulo (cargarProductos)="cargarProductos($event)" (edicionCancelada)="edicionCancelada($event)" [articuloObjeto]="producto" [habilitaCampos]="camposHabilitados"
         [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'articulo'">
       </app-articulo>
-      <app-produccion [produccionObjeto]="producto" [habilitaCampos]="camposHabilitados"
+      <app-produccion (cargarProductos)="cargarProductos($event)" (edicionCancelada)="edicionCancelada($event)" [produccionObjeto]="producto" [habilitaCampos]="camposHabilitados"
         [eliminarProducto]="eliminaProducto" *ngIf="producto.tipo === 'produccion'">
       </app-produccion>
     </mat-expansion-panel>

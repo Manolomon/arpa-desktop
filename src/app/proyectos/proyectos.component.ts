@@ -38,6 +38,9 @@ export class ProyectosComponent implements OnInit {
       });
     });
     this.proyectos = docRefs;
+    this.camposHabilitados = false;
+    this.agregaProyecto = false;
+    this.togglePanels(-1);
   }
 
   public habilitarCampos(): void {

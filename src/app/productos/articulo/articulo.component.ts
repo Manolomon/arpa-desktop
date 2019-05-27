@@ -21,7 +21,8 @@ export class ArticuloComponent implements OnInit {
   @Input() private habilitaCampos: boolean;
   @Input() private eliminarProducto: boolean;
   @Input() private nuevoArticulo: boolean;
-  @Output() private creacionCancelada = new EventEmitter<boolean>();
+  @Output() private creacionCancelada = new EventEmitter<boolean>(false);
+  @Output() private cargarProductos = new EventEmitter<boolean>(false);
 
   private idArticulo: string;
   private cargaDeArchivo: number;
@@ -137,8 +138,8 @@ export class ArticuloComponent implements OnInit {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.articulo.colaboradores;
-    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -170,7 +171,7 @@ export class ArticuloComponent implements OnInit {
     }
     if (this.eliminarProducto) {
       this.productoService.eliminarProducto(this.idArticulo)
-        .catch(function (error) {
+        .catch(function(error) {
           //this.notifier.notify("error", "Error con la conexión a la base de datos");
         });
       console.log("Eliminando producto con id: " + this.idArticulo);
@@ -202,7 +203,7 @@ export class ArticuloComponent implements OnInit {
     console.log("Consideracion cambiada");
   }
 
-  public onGuardarArticulo(myForm: NgForm) {
+  async onGuardarArticulo(myForm: NgForm) {
     this.cargaDeArchivo = 0;
     if (this.articuloForm.valid) {
       let idGenerado: string;
@@ -211,32 +212,37 @@ export class ArticuloComponent implements OnInit {
       if (isNullOrUndefined(this.idArticulo)) {
         console.log("Agregando producto");
         this.articulo.registrado = firebase.firestore.Timestamp.fromDate(new Date());
-        this.productoService.agregarProducto(this.articulo)
-          .then(function (docRef) {
+        await this.productoService.agregarProducto(this.articulo)
+          .then((docRef) => {
             idGenerado = docRef.id;
             console.log(idGenerado);
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
-            this.notifier.notify("success", "Artículo almacenado exitosamente");
           })
-          .catch(function (error) {
-            //this.notifier.notify("error", "Error con la conexión a la base de datos");
+          .catch(function(error) {
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
+            return;
           });
         console.log(this.articulo.colaboradores);
+        this.cargarProductos.emit(false);
+        this.creacionCancelada.emit(false);
+        this.notifier.notify("success", "Artículo almacenado exitosamente");
       } else {
         console.log("Modificando producto");
         this.articulo.id = this.idArticulo;
-        this.productoService.modificarProducto(this.articulo)
-          .catch(function (error) {
-            //this.notifier.notify("error", "Error con la conexión a la base de datos");
+        await this.productoService.modificarProducto(this.articulo)
+          .catch(function(error) {
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
+            return;
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idArticulo, this.cargaDeArchivo);
         }
-        this.notifier.notify("success", "Artículo modificado exitosamente");
+        this.cargarProductos.emit(false);
+        this.notifier.notify("success", "Artículo almacenado exitosamente");
         console.log(this.articulo.colaboradores);
       }
     } else {

@@ -35,8 +35,8 @@ export class ProductosComponent implements OnInit {
     this.productos = [];
     var docRefs: Array<any> = [];
     console.log(this.miembroService.getMiembroActivo());
-    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo()).then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo()).then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         console.log(doc);
         var documento = doc.data();
         documento.id = doc.id;
@@ -45,6 +45,10 @@ export class ProductosComponent implements OnInit {
       });
     });
     this.productos = docRefs;
+    this.camposHabilitados = false;
+    this.eliminaProducto = false;
+    this.agregaProducto = false;
+    this.togglePanels(-1);
   }
 
   public showNotification(event): void {
@@ -59,10 +63,10 @@ export class ProductosComponent implements OnInit {
     this.camposHabilitados = !this.camposHabilitados;
   }
 
-  public eliminarProducto(i: number) {
+  async eliminarProducto(i: number) {
     console.log("Eliminando producto..." + this.productos[i].id);
     if (confirm("Desea borrar este producto de la base de datos?")) {
-      this.productoService.eliminarProducto(this.productos[i].id);
+      await this.productoService.eliminarProducto(this.productos[i].id);
       this.notifier.notify("success", "Producto eliminado correctamente");
     }
     this.ngOnInit();
@@ -82,7 +86,8 @@ export class ProductosComponent implements OnInit {
     this.ngOnInit();
   }
 
-  public cargarProductos(cargar: boolean){
+  public cargarProductos(cargar: boolean) {
+    console.log("cargando productos");
     this.ngOnInit();
   }
 
