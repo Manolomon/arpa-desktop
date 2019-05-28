@@ -67,11 +67,8 @@ export class MiembroService {
   degradarMiembro(idMiembro: string) {
     var docRef = this.db.collection("miembros").doc(idMiembro).ref;
     docRef.get().then(function (doc) {
-      docRef.set({
-        nombre: doc.data().nombre,
-        correo: doc.data().correo,
-        rol: "Colaborador",
-        passGenerada: doc.data().passGenerada
+      docRef.update({
+        rol: "Colaborador"
       });
     });
   }
@@ -79,11 +76,8 @@ export class MiembroService {
   ascenderColaborador(idMiembro: string) {
     var docRef = this.db.doc("miembros/" + idMiembro).ref.get();
     docRef.then(function (doc) {
-      doc.ref.set({
-        nombre: doc.data().nombre,
-        correo: doc.data().correo,
-        rol: "Miembro",
-        passGenerada: doc.data().passGenerada
+      doc.ref.update({
+        rol: "Miembro"
       });
     });
     return docRef;
@@ -95,6 +89,22 @@ export class MiembroService {
 
   getMiembroActivo() {
     return this.miembroDocRef;
+  }
+
+  obtenerEstudios(idMiembro) {
+    return this.db.collection("miembros").doc(idMiembro).collection("estudios").ref.orderBy("titulo").get();
+  }
+
+  agregarEstudio(idMiembro, estudio) {
+    return this.db.collection("miembros").doc(idMiembro).collection("estudios").add(estudio);
+  }
+
+  modificarEstudio(idMiembro, estudio) {
+    return this.db.collection("miembros").doc(idMiembro).collection("estudios").doc(estudio.id).set(estudio)
+  }
+
+  eliminarEstudio(idMiembro, idEstudio) {
+    return this.db.collection("miembros").doc(idMiembro).collection("estudios").doc(idEstudio).delete();
   }
 
 }

@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } fro
 import { EstudioService } from '../servicios/estudio.service';
 import { EstudioComponent } from './estudio/estudio.component';
 import { Miembro } from '../models/MiembroInterface';
-import { Estudio } from '../models/EstudioInterface';
+import { MiembroService } from '../servicios/miembro.service';
 @Component({
   selector: 'app-cuenta',
   templateUrl: './cuenta.component.html',
@@ -17,14 +17,14 @@ export class CuentaComponent implements OnInit {
   estudios: Array<any> = []
 
   constructor(
-    private estudioService: EstudioService,
+    private miembroService: MiembroService,
     public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
     this.estudios = [];
     var docRefs: Array<any> = [];
-    this.estudioService.obtenerEstudios().then(function (querySnapshot) {
+    this.miembroService.obtenerEstudios(this.miembroService.getMiembroActivo().id).then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         var documento = doc.data();
         documento.id = doc.id;
