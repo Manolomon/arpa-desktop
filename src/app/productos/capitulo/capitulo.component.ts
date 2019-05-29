@@ -166,6 +166,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   }
 
   public pasarReferencias() {
+    this.articulo.colaboradores = [];
     for (let nombre of this.colaboradoresSeleccionados) {
       if (this.refColaboladores.has(nombre)) {
         this.capitulo.colaboradores.push(this.refColaboladores.get(nombre));

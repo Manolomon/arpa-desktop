@@ -26,7 +26,7 @@
         </mat-form-field>
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Fecha de Finalización</mat-label>
-          <input matInput [min]="minDate" [max ]="maxDate" [matDatepicker]="myPicker2" formControlName="fechaFinControl" placeholder="FechaFin"
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="myPicker2" formControlName="fechaFinControl" placeholder="FechaFin"
             (dateChange)="setFechaFin($event)" required />
           <mat-datepicker-toggle matSuffix [for]="myPicker2"></mat-datepicker-toggle>
           <mat-datepicker #myPicker2></mat-datepicker>
