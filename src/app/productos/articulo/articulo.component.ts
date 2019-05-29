@@ -40,6 +40,7 @@ export class ArticuloComponent implements OnInit {
   private lgac: string[] = [];
   private refColaboladores = new Map();
   private colaboradoresSeleccionados: string[] = [];
+  private selected: string;
 
   private llenarCampos() {
     this.idArticulo = this.articuloObjeto.id;
@@ -55,6 +56,7 @@ export class ArticuloComponent implements OnInit {
     this.articulo.editorial = this.articuloObjeto.editorial;
     this.articulo.indice = this.articuloObjeto.indice;
     this.articulo.tipoArticulo = this.articuloObjeto.tipoArticulo;
+    this.selected = this.articuloObjeto.tipoArticulo;
     this.articulo.nombreRevista = this.articuloObjeto.nombreRevista;
     this.articulo.ISSN = this.articuloObjeto.ISSN;
     this.articulo.paginaInicio = this.articuloObjeto.paginaInicio;
@@ -89,6 +91,7 @@ export class ArticuloComponent implements OnInit {
     lineaGeneracion: '',
     colaboradores: [],
     autor: '',
+    evidencia: '',
   };
 
   constructor(
@@ -273,5 +276,16 @@ export class ArticuloComponent implements OnInit {
         this.ngOnInit();
       }
     });
+  }
+
+  public cambiarTipo(tipo: string) {
+    if (tipo == 'indexado') {
+      this.articulo.direccionElectronica = ' ';
+    } else if (tipo == 'arbitrado') {
+      this.articulo.indice = ' ';
+    } else {
+      this.articulo.direccionElectronica = ' ';
+      this.articulo.indice = ' ';
+    }
   }
 }

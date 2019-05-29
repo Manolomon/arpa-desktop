@@ -57,6 +57,7 @@ export class TesisComponent implements OnInit, OnChanges {
     numAlumnos: 0,
     lineaGeneracion: '',
     colaboradores: [],
+    evidencia: '',
   };
 
   constructor(
@@ -115,8 +116,8 @@ export class TesisComponent implements OnInit, OnChanges {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.tesis.colaboradores;
-    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);

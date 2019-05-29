@@ -59,6 +59,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     tituloLibro: '',
     lineaGeneracion: '',
     colaboradores: [],
+    evidencia: '',
   };
 
   constructor(

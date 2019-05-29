@@ -75,6 +75,7 @@ export class LibroComponent implements OnInit, OnChanges {
     ejemplares: 0,
     lineaGeneracion: '',
     colaboradores: [],
+    evidencia: '',
   }
 
   constructor(

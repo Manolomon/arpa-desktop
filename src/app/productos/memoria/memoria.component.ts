@@ -60,6 +60,7 @@ export class MemoriaComponent implements OnInit, OnChanges {
     proposito: '',
     lineaGeneracion: '',
     colaboradores: [],
+    evidencia: '',
   }
 
   constructor(
