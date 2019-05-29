@@ -151,6 +151,7 @@ export class TesisComponent implements OnInit, OnChanges {
   }
 
   public pasarReferencias() {
+    this.tesis.colaboradores = [];
     for (let nombre of this.colaboradoresSeleccionados) {
       if (this.refColaboladores.has(nombre)) {
         this.tesis.colaboradores.push(this.refColaboladores.get(nombre));

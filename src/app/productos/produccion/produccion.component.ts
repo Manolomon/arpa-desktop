@@ -159,6 +159,7 @@ export class ProduccionComponent implements OnInit {
   }
 
   public pasarReferencias() {
+    this.produccion.colaboradores = [];
     for (let nombre of this.colaboradoresSeleccionados) {
       if (this.refColaboladores.has(nombre)) {
         this.produccion.colaboradores.push(this.refColaboladores.get(nombre));

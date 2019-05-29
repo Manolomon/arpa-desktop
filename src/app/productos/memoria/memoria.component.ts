@@ -161,6 +161,7 @@ export class MemoriaComponent implements OnInit, OnChanges {
   }
 
   public pasarReferencias() {
+    this.memoria.colaboradores = [];
     for (let nombre of this.colaboradoresSeleccionados) {
       if (this.refColaboladores.has(nombre)) {
         this.memoria.colaboradores.push(this.refColaboladores.get(nombre));

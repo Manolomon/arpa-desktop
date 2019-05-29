@@ -175,6 +175,7 @@ export class ArticuloComponent implements OnInit {
   }
 
   public pasarReferencias() {
+    this.articulo.colaboradores = [];
     for (let nombre of this.colaboradoresSeleccionados) {
       if (this.refColaboladores.has(nombre)) {
         this.articulo.colaboradores.push(this.refColaboladores.get(nombre));
