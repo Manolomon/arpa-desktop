@@ -43,6 +43,11 @@ export class TesisComponent implements OnInit, OnChanges {
   @Input() private nuevaTesis: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
+
+  private actualYear = new Date().getFullYear();
+  private minDate = new Date(2010, 1, 1);
+  private maxDate = new Date(this.actualYear + 7, 31, 12);
 
   public tesis: Tesis = {
     titulo: '',
@@ -74,6 +79,7 @@ export class TesisComponent implements OnInit, OnChanges {
   }
 
   public llenarCampos() {
+    this.tesis.id = this.tesisObjeto.id;
     this.tesis.titulo = this.tesisObjeto.titulo;
     this.tesis.estado = this.tesisObjeto.estado;
     this.tesis.tipo = this.tesisObjeto.tipo;
@@ -109,8 +115,8 @@ export class TesisComponent implements OnInit, OnChanges {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.tesis.colaboradores;
-    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -142,17 +148,10 @@ export class TesisComponent implements OnInit, OnChanges {
     } else {
       this.tesisForm.disable();
     }
-    if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idTesis)
-        .catch(function(error) {
-          this.notifier.notify("error", "Error con la conexión a la base de datos");
-        });
-      console.log("Eliminando producto con id: " + this.idTesis);
-      this.notifier.notify("success", "Producto eliminado correctamente");
-    }
   }
 
   public pasarReferencias() {
+    this.tesis.colaboradores = [];
     for (let nombre of this.colaboradoresSeleccionados) {
       if (this.refColaboladores.has(nombre)) {
         this.tesis.colaboradores.push(this.refColaboladores.get(nombre));
@@ -182,11 +181,13 @@ export class TesisComponent implements OnInit, OnChanges {
     if (this.tesisForm.valid) {
       let idGenerado: string;
       this.pasarReferencias();
-      if (isNullOrUndefined(this.tesis.fechaInicio) || isNullOrUndefined(this.tesis.fechaTermino)) {
+      if (isNullOrUndefined(this.tesis.fechaInicio) ||
+        isNullOrUndefined(this.tesis.fechaTermino) ||
+        !this.fechaValida()) {
         this.notifier.notify("warning", "Datos incompletos o inválidos");
         return;
       }
-      if (isNullOrUndefined(this.idTesis)) {
+      if (isNullOrUndefined(this.tesis.id)) {
         console.log("Agregando producto");
         this.tesis.registrado = firebase.firestore.Timestamp.fromDate(new Date());
         await this.productoService.agregarProducto(this.tesis)
@@ -196,32 +197,34 @@ export class TesisComponent implements OnInit, OnChanges {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
+            console.log(this.tesis.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Tesis almacenada exitosamente");
           })
-          .catch(function(error) {
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        console.log(this.tesis.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Tesis almacenada exitosamente");
       } else {
         console.log("Modificando producto");
         this.tesis.id = this.idTesis;
         await this.productoService.modificarProducto(this.tesis)
-          .catch(function(error) {
+          .then((docRef) => {
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), this.idTesis, this.cargaDeArchivo);
+            }
+            console.log(this.tesis.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Tesis modificada exitosamente");
+          })
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), this.idTesis, this.cargaDeArchivo);
-        }
-        console.log(this.tesis.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Tesis modificada exitosamente");
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
@@ -229,16 +232,26 @@ export class TesisComponent implements OnInit, OnChanges {
   }
 
   public cancelarEdicion() {
+    console.log("cancelando edicion");
     if (!isNullOrUndefined(this.tesis.id)) {
-      this.llenarCampos();
+      console.log(this.tesis.id);
+      this.habilitaCampos = false;
+      this.ngOnInit();
+      this.edicionCancelada.emit(false);
     } else {
+      console.log("cancelado 2");
       this.nuevaTesis = !this.nuevaTesis;
       this.creacionCancelada.emit(false);
     }
   }
 
   public setFechaInicio(event: MatDatepickerInputEvent<Date>) {
-    this.tesis.fechaInicio = firebase.firestore.Timestamp.fromDate(event.value);
+    this.tesis.fechaInicio = null;
+    try {
+      this.tesis.fechaInicio = firebase.firestore.Timestamp.fromDate(event.value);
+    } catch (exception) {
+      this.tesis.fechaInicio = firebase.firestore.Timestamp.fromDate(new Date());
+    }
   }
   public setFechaFin(event: MatDatepickerInputEvent<Date>) {
     this.tesis.fechaTermino = firebase.firestore.Timestamp.fromDate(event.value);
@@ -256,6 +269,35 @@ export class TesisComponent implements OnInit, OnChanges {
         this.ngOnInit();
       }
     });
+  }
+
+  private fechaValida(): boolean {
+    let anioVal = this.tesis.fechaInicio.toDate().getFullYear();
+    let anioVal2 = this.tesis.fechaTermino.toDate().getFullYear();
+    let monthVal = this.tesis.fechaInicio.toDate().getMonth();
+    let monthVal2 = this.tesis.fechaTermino.toDate().getMonth();
+    let dayVal = this.tesis.fechaInicio.toDate().getDay();
+    let dayVal2 = this.tesis.fechaTermino.toDate().getDay();
+
+    if (anioVal > anioVal2) {
+      console.log("año 1 mayor");
+      return false;
+    } else if (anioVal == anioVal2) {
+      if (monthVal > monthVal2) {
+        console.log("mes 1 mayor")
+        return false;
+      } else if (monthVal == monthVal2) {
+        if (dayVal > dayVal2) {
+          console.log("dia1 mayor");
+          return false;
+        } else if (dayVal == dayVal2) {
+          console.log("dias iguales");
+          return false;
+        }
+      }
+    }
+    return true;
+
   }
 
 }

@@ -39,6 +39,12 @@ export class ProduccionComponent implements OnInit {
   @Input() private nuevaProduccion: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
+
+  private actualYear = new Date().getFullYear();
+  private minDate = new Date(2010, 1, 1);
+  private maxDate = new Date(this.actualYear + 7, 31, 12);
+
   public produccion: Produccion = {
     titulo: '',
     estado: '',
@@ -150,17 +156,10 @@ export class ProduccionComponent implements OnInit {
     } else {
       this.produccionForm.disable();
     }
-    if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idProduccion)
-        .catch(function(error) {
-          this.notifier.notify("error", "Error con la conexión a la base de datos");
-        });
-      console.log("Eliminando producto con id: " + this.idProduccion);
-      this.notifier.notify("success", "Producto eliminado correctamente");
-    }
   }
 
   public pasarReferencias() {
+    this.produccion.colaboradores = [];
     for (let nombre of this.colaboradoresSeleccionados) {
       if (this.refColaboladores.has(nombre)) {
         this.produccion.colaboradores.push(this.refColaboladores.get(nombre));
@@ -204,32 +203,34 @@ export class ProduccionComponent implements OnInit {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
+            console.log(this.produccion.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Producción modificada exitosamente");
           })
-          .catch(function(error) {
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        console.log(this.produccion.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Producción almacenada exitosamente");
       } else {
         console.log("Modificando producto");
         this.produccion.id = this.idProduccion;
         await this.productoService.modificarProducto(this.produccion)
-          .catch(function(error) {
+          .then((docRef) => {
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), this.idProduccion, this.cargaDeArchivo);
+            }
+            console.log(this.produccion.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Producción modificada exitosamente");
+          })
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), this.idProduccion, this.cargaDeArchivo);
-        }
-        console.log(this.produccion.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Producción modificada exitosamente");
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
@@ -238,7 +239,9 @@ export class ProduccionComponent implements OnInit {
 
   public cancelarEdicion() {
     if (!isNullOrUndefined(this.produccion.id)) {
-      this.llenarCampos();
+      this.habilitaCampos = false;
+      this.ngOnInit();
+      this.edicionCancelada.emit(false);
     } else {
       this.nuevaProduccion = !this.nuevaProduccion;
       this.creacionCancelada.emit(false);

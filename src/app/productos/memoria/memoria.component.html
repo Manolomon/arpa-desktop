@@ -85,7 +85,7 @@
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Fecha de Publicación</mat-label>
-        <input matInput [matDatepicker]="myPicker" formControlName="fechaPublicacion"
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="myPicker" formControlName="fechaPublicacion"
           (dateChange)="setFechaPublicacion($event)" placeholder="Fecha" required />
         <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
         <mat-datepicker #myPicker></mat-datepicker>

@@ -20,7 +20,7 @@ export interface DialogData {
 @Component({
   selector: 'app-estudio',
   templateUrl: './estudio.component.html',
-  styleUrls: ['./estudio.component.sass']
+  styleUrls: ['./estudio.component.scss']
 })
 export class EstudioComponent implements OnInit {
 

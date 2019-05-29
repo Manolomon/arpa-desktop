@@ -34,6 +34,10 @@ export class ProyectoComponent implements OnInit, OnChanges {
   private considerar: boolean;
   private noProductos: Number;
 
+  private actualYear = new Date().getFullYear();
+  private minDate = new Date(2010, 1, 1);
+  private maxDate = new Date(this.actualYear + 7, 31, 12);
+
   private proyecto: Proyecto = {
     nombre: '',
     consideradoPCA: false,
@@ -131,7 +135,10 @@ export class ProyectoComponent implements OnInit, OnChanges {
       console.log(this.productosSeleccionados);
       this.proyecto.idCreador = this.miembroObjeto.id;
       let idGenerado: string;
-      if (isNullOrUndefined(this.proyecto.fechaInicio) || isNullOrUndefined(this.proyecto.fechaTentativaFin)) {
+      if (isNullOrUndefined(this.proyecto.fechaInicio) ||
+        isNullOrUndefined(this.proyecto.fechaTentativaFin) ||
+        !this.fechaValida()
+      ) {
         this.notifier.notify("warning", "Datos incompletos o inválidos");
         return;
       }
@@ -188,6 +195,35 @@ export class ProyectoComponent implements OnInit, OnChanges {
 
   public setFechaFin(event: MatDatepickerInputEvent<Date>) {
     this.proyecto.fechaTentativaFin = firebase.firestore.Timestamp.fromDate(event.value);
+  }
+
+  private fechaValida(): boolean {
+    let anioVal = this.proyecto.fechaInicio.toDate().getFullYear();
+    let anioVal2 = this.proyecto.fechaTentativaFin.toDate().getFullYear();
+    let monthVal = this.proyecto.fechaInicio.toDate().getMonth();
+    let monthVal2 = this.proyecto.fechaTentativaFin.toDate().getMonth();
+    let dayVal = this.proyecto.fechaInicio.toDate().getDay();
+    let dayVal2 = this.proyecto.fechaTentativaFin.toDate().getDay();
+
+    if (anioVal > anioVal2) {
+      console.log("año 1 mayor");
+      return false;
+    } else if (anioVal == anioVal2) {
+      if (monthVal > monthVal2) {
+        console.log("mes 1 mayor")
+        return false;
+      } else if (monthVal == monthVal2) {
+        if (dayVal > dayVal2) {
+          console.log("dia1 mayor");
+          return false;
+        } else if (dayVal == dayVal2) {
+          console.log("dias iguales");
+          return false;
+        }
+      }
+    }
+    return true;
+
   }
 
   /* private pasarReferencias() {

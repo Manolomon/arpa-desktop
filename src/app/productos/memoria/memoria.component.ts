@@ -41,6 +41,11 @@ export class MemoriaComponent implements OnInit, OnChanges {
   @Input() private nuevaMemoria: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
+
+  private actualYear = new Date().getFullYear();
+  private minDate = new Date(2010, 1, 1);
+  private maxDate = new Date(this.actualYear + 7, 31, 12);
 
   private memoria: Memoria = {
     titulo: '',
@@ -153,17 +158,10 @@ export class MemoriaComponent implements OnInit, OnChanges {
     } else {
       this.memoriaForm.disable();
     }
-    if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idMemoria)
-        .catch(function(error) {
-          this.notifier.notify("error", "Error con la conexión a la base de datos");
-        });
-      console.log("Eliminando producto con id: " + this.idMemoria);
-      this.notifier.notify("success", "Producto eliminado correctamente");
-    }
   }
 
   public pasarReferencias() {
+    this.memoria.colaboradores = [];
     for (let nombre of this.colaboradoresSeleccionados) {
       if (this.refColaboladores.has(nombre)) {
         this.memoria.colaboradores.push(this.refColaboladores.get(nombre));
@@ -208,33 +206,35 @@ export class MemoriaComponent implements OnInit, OnChanges {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
-            this.notifier.notify("success", "Tesis almacenada exitosamente");
+            console.log(this.memoria.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Memoria almacenada exitosamente");
           })
           .catch(function(error) {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        console.log(this.memoria.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Memoria almacenada exitosamente");
+
       } else {
         console.log("Modificando producto");
         this.memoria.id = this.idMemoria;
         await this.productoService.modificarProducto(this.memoria)
-          .catch(function(error) {
+          .then((docRef) => {
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), this.idMemoria, this.cargaDeArchivo);
+            }
+            console.log(this.memoria.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Memoria modificada exitosamente");
+          })
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), this.idMemoria, this.cargaDeArchivo);
-        }
-        console.log(this.memoria.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Memoria modificada exitosamente");
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
@@ -243,7 +243,9 @@ export class MemoriaComponent implements OnInit, OnChanges {
 
   public cancelarEdicion() {
     if (!isNullOrUndefined(this.memoria.id)) {
-      this.llenarCampos();
+      this.habilitaCampos = false;
+      this.ngOnInit();
+      this.edicionCancelada.emit(false);
     } else {
       this.nuevaMemoria = !this.nuevaMemoria;
       this.creacionCancelada.emit(false);

@@ -23,6 +23,7 @@ export class ArticuloComponent implements OnInit {
   @Input() private nuevoArticulo: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
 
   private idArticulo: string;
   private cargaDeArchivo: number;
@@ -42,6 +43,7 @@ export class ArticuloComponent implements OnInit {
 
   private llenarCampos() {
     this.idArticulo = this.articuloObjeto.id;
+    this.articulo.id = this.articuloObjeto.id;
     this.articulo.titulo = this.articuloObjeto.titulo;
     this.articulo.estado = this.articuloObjeto.estado;
     this.articulo.tipo = this.articuloObjeto.tipo;
@@ -170,16 +172,10 @@ export class ArticuloComponent implements OnInit {
     } else {
       this.articuloForm.disable();
     }
-    if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idArticulo)
-        .catch(function(error) {
-          //this.notifier.notify("error", "Error con la conexión a la base de datos");
-        });
-      console.log("Eliminando producto con id: " + this.idArticulo);
-    }
   }
 
   public pasarReferencias() {
+    this.articulo.colaboradores = [];
     for (let nombre of this.colaboradoresSeleccionados) {
       if (this.refColaboladores.has(nombre)) {
         this.articulo.colaboradores.push(this.refColaboladores.get(nombre));
@@ -220,41 +216,45 @@ export class ArticuloComponent implements OnInit {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
+            console.log(this.articulo.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Artículo almacenado exitosamente");
           })
-          .catch(function(error) {
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        console.log(this.articulo.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Artículo almacenado exitosamente");
+
       } else {
         console.log("Modificando producto");
         this.articulo.id = this.idArticulo;
         await this.productoService.modificarProducto(this.articulo)
-          .catch(function(error) {
+          .then((docRef) => {
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), this.idArticulo, this.cargaDeArchivo);
+            }
+            this.cargarProductos.emit(false);
+            this.notifier.notify("success", "Artículo almacenado exitosamente");
+            console.log(this.articulo.colaboradores);
+          })
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), this.idArticulo, this.cargaDeArchivo);
-        }
-        this.cargarProductos.emit(false);
-        this.notifier.notify("success", "Artículo almacenado exitosamente");
-        console.log(this.articulo.colaboradores);
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
-    this.ngOnInit();
   }
 
   public cancelarEdicion() {
     if (!isNullOrUndefined(this.articulo.id)) {
-      this.llenarCampos();
+      this.habilitaCampos = false;
+      this.ngOnInit();
+      this.edicionCancelada.emit(false);
     } else {
       this.nuevoArticulo = !this.nuevoArticulo;
       this.creacionCancelada.emit(false);
