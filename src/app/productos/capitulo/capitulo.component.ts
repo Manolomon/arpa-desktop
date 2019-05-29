@@ -162,14 +162,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     } else {
       this.capituloForm.disable();
     }
-    if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idCapitulo)
-        .catch(function(error) {
-          this.notifier.notify("error", "Error con la conexión a la base de datos");
-        });
-      console.log("Eliminando producto con id: " + this.idCapitulo);
-      this.notifier.notify("success", "Producto eliminado correctamente");
-    }
+
   }
 
   public pasarReferencias() {
@@ -212,29 +205,31 @@ export class CapituloComponent implements OnInit, OnChanges {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, 0);
             }
+            console.log(this.capitulo.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
           })
-          .catch(function(error) {
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
-        console.log(this.capitulo.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
       } else {
         console.log("Modificando producto");
         this.capitulo.id = this.idCapitulo;
         await this.productoService.modificarProducto(this.capitulo)
-          .catch(function(error) {
+          .then((docRef) => {
+            this.cargarProductos.emit(false);
+            this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
+            console.log(this.capitulo.colaboradores);
+          })
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idCapitulo, this.cargaDeArchivo);
         }
-        this.cargarProductos.emit(false);
-        this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
-        console.log(this.capitulo.colaboradores);
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");

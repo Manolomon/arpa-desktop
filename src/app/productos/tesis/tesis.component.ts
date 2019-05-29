@@ -115,8 +115,8 @@ export class TesisComponent implements OnInit, OnChanges {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.tesis.colaboradores;
-    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -147,14 +147,6 @@ export class TesisComponent implements OnInit, OnChanges {
       this.tesisForm.enable();
     } else {
       this.tesisForm.disable();
-    }
-    if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idTesis)
-        .catch((error) => {
-          this.notifier.notify("error", "Error con la conexión a la base de datos, reconectando...");
-        });
-      console.log("Eliminando producto con id: " + this.idTesis);
-      this.notifier.notify("success", "Producto eliminado correctamente");
     }
   }
 
@@ -204,32 +196,34 @@ export class TesisComponent implements OnInit, OnChanges {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
+            console.log(this.tesis.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Tesis almacenada exitosamente");
           })
           .catch((error) => {
-            this.notifier.notify("error", "Error con la conexión a la base de datos, reconectando...");
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        console.log(this.tesis.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Tesis almacenada exitosamente");
       } else {
         console.log("Modificando producto");
         this.tesis.id = this.idTesis;
         await this.productoService.modificarProducto(this.tesis)
+          .then((docRef) => {
+            console.log(this.tesis.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Tesis modificada exitosamente");
+          })
           .catch((error) => {
-            this.notifier.notify("error", "Error con la conexión a la base de datos, reconectando...");
+            this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idTesis, this.cargaDeArchivo);
         }
-        console.log(this.tesis.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Tesis modificada exitosamente");
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");

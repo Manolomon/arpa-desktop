@@ -153,14 +153,6 @@ export class LibroComponent implements OnInit, OnChanges {
     } else {
       this.libroForm.disable();
     }
-    if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idLibro)
-        .catch(function(error) {
-          this.notifier.notify("error", "Error con la conexión a la base de datos");
-        });
-      console.log("Eliminando producto con id: " + this.idLibro);
-      this.notifier.notify("success", "Producto eliminado correctamente");
-    }
   }
 
   public pasarReferencias() {
@@ -213,21 +205,27 @@ export class LibroComponent implements OnInit, OnChanges {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
+            console.log(this.libro.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Libro almacenado exitosamente");
           })
-          .catch(function(error) {
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        console.log(this.libro.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Libro almacenado exitosamente");
       } else {
         console.log("Modificando producto");
         this.libro.id = this.idLibro;
         await this.productoService.modificarProducto(this.libro)
-          .catch(function(error) {
+          .then((docRef) => {
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Libro almacenado exitosamente");
+            console.log(this.libro.colaboradores);
+          })
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
@@ -235,10 +233,6 @@ export class LibroComponent implements OnInit, OnChanges {
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idLibro, this.cargaDeArchivo);
         }
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Libro almacenado exitosamente");
-        console.log(this.libro.colaboradores);
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");

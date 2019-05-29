@@ -172,13 +172,6 @@ export class ArticuloComponent implements OnInit {
     } else {
       this.articuloForm.disable();
     }
-    if (this.eliminarProducto) {
-      this.productoService.eliminarProducto(this.idArticulo)
-        .catch(function(error) {
-          //this.notifier.notify("error", "Error con la conexión a la base de datos");
-        });
-      console.log("Eliminando producto con id: " + this.idArticulo);
-    }
   }
 
   public pasarReferencias() {
@@ -222,21 +215,27 @@ export class ArticuloComponent implements OnInit {
             if (this.archivo != null) {
               this.productoService.subirArchivo(this.archivo.item(0), idGenerado, this.cargaDeArchivo);
             }
+            console.log(this.articulo.colaboradores);
+            this.cargarProductos.emit(false);
+            this.creacionCancelada.emit(false);
+            this.notifier.notify("success", "Artículo almacenado exitosamente");
           })
-          .catch(function(error) {
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
           });
-        console.log(this.articulo.colaboradores);
-        this.cargarProductos.emit(false);
-        this.creacionCancelada.emit(false);
-        this.notifier.notify("success", "Artículo almacenado exitosamente");
+
       } else {
         console.log("Modificando producto");
         this.articulo.id = this.idArticulo;
         await this.productoService.modificarProducto(this.articulo)
-          .catch(function(error) {
+          .then((docRef) => {
+            this.cargarProductos.emit(false);
+            this.notifier.notify("success", "Artículo almacenado exitosamente");
+            console.log(this.articulo.colaboradores);
+          })
+          .catch((error) => {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
             return;
@@ -244,9 +243,6 @@ export class ArticuloComponent implements OnInit {
         if (this.archivo != null) {
           this.productoService.subirArchivo(this.archivo.item(0), this.idArticulo, this.cargaDeArchivo);
         }
-        this.cargarProductos.emit(false);
-        this.notifier.notify("success", "Artículo almacenado exitosamente");
-        console.log(this.articulo.colaboradores);
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
