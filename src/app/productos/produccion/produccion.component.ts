@@ -39,6 +39,8 @@ export class ProduccionComponent implements OnInit {
   @Input() private nuevaProduccion: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
+
   public produccion: Produccion = {
     titulo: '',
     estado: '',
@@ -238,7 +240,9 @@ export class ProduccionComponent implements OnInit {
 
   public cancelarEdicion() {
     if (!isNullOrUndefined(this.produccion.id)) {
-      this.llenarCampos();
+      this.habilitaCampos = false;
+      this.ngOnInit();
+      this.edicionCancelada.emit(false);
     } else {
       this.nuevaProduccion = !this.nuevaProduccion;
       this.creacionCancelada.emit(false);

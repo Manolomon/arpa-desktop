@@ -24,6 +24,7 @@ export class LibroComponent implements OnInit, OnChanges {
   @Input() private nuevoLibro: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
 
   private idLibro: string;
   private cargaDeArchivo: number;
@@ -187,7 +188,9 @@ export class LibroComponent implements OnInit, OnChanges {
 
   public cancelarEdicion() {
     if (!isNullOrUndefined(this.libro.id)) {
-      this.llenarCampos();
+      this.habilitaCampos = false;
+      this.ngOnInit();
+      this.edicionCancelada.emit(false);
     } else {
       this.nuevoLibro = !this.nuevoLibro;
       this.creacionCancelada.emit(false);

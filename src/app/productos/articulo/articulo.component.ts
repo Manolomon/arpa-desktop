@@ -23,6 +23,7 @@ export class ArticuloComponent implements OnInit {
   @Input() private nuevoArticulo: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
 
   private idArticulo: string;
   private cargaDeArchivo: number;
@@ -42,6 +43,7 @@ export class ArticuloComponent implements OnInit {
 
   private llenarCampos() {
     this.idArticulo = this.articuloObjeto.id;
+    this.articulo.id = this.articuloObjeto.id;
     this.articulo.titulo = this.articuloObjeto.titulo;
     this.articulo.estado = this.articuloObjeto.estado;
     this.articulo.tipo = this.articuloObjeto.tipo;
@@ -254,7 +256,9 @@ export class ArticuloComponent implements OnInit {
 
   public cancelarEdicion() {
     if (!isNullOrUndefined(this.articulo.id)) {
-      this.llenarCampos();
+      this.habilitaCampos = false;
+      this.ngOnInit();
+      this.edicionCancelada.emit(false);
     } else {
       this.nuevoArticulo = !this.nuevoArticulo;
       this.creacionCancelada.emit(false);

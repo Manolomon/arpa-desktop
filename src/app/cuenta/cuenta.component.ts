@@ -24,8 +24,8 @@ export class CuentaComponent implements OnInit {
   ngOnInit() {
     this.estudios = [];
     var docRefs: Array<any> = [];
-    this.miembroService.obtenerEstudios(this.miembroService.getMiembroActivo().id).then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.miembroService.obtenerEstudios(this.miembroService.getMiembroActivo().id).then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         var documento = doc.data();
         documento.id = doc.id;
         console.log(documento);
@@ -39,7 +39,7 @@ export class CuentaComponent implements OnInit {
     var resultado: boolean;
     console.log(this.miembroObjeto);
     const dialogRef = this.dialog.open(EstudioComponent, {
-      width: '250px',
+      width: '400px',
       data: { miembroObjeto: this.miembroObjeto, habilitaCampos: true, edicion: false }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -56,7 +56,7 @@ export class CuentaComponent implements OnInit {
     var resultado: boolean;
     console.log(this.miembroObjeto);
     const dialogRef = this.dialog.open(EstudioComponent, {
-      width: '250px',
+      width: '400px',
       data: {
         miembroObjeto: this.miembroObjeto,
         habilitaCampos: false,

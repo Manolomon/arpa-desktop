@@ -41,6 +41,7 @@ export class MemoriaComponent implements OnInit, OnChanges {
   @Input() private nuevaMemoria: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
 
   private memoria: Memoria = {
     titulo: '',
@@ -243,7 +244,9 @@ export class MemoriaComponent implements OnInit, OnChanges {
 
   public cancelarEdicion() {
     if (!isNullOrUndefined(this.memoria.id)) {
-      this.llenarCampos();
+      this.habilitaCampos = false;
+      this.ngOnInit();
+      this.edicionCancelada.emit(false);
     } else {
       this.nuevaMemoria = !this.nuevaMemoria;
       this.creacionCancelada.emit(false);

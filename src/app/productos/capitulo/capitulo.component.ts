@@ -41,6 +41,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   @Input() private nuevoCapitulo: boolean;
   @Output() private creacionCancelada = new EventEmitter<boolean>(false);
   @Output() private cargarProductos = new EventEmitter<boolean>(false);
+  @Output() private edicionCancelada = new EventEmitter<boolean>(false);
 
   public capitulo: Capitulo = {
     titulo: '',
@@ -91,6 +92,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   }
 
   public llenarCampos() {
+    this.capitulo.id = this.capituloObjeto.id;
     this.capitulo.titulo = this.capituloObjeto.titulo;
     this.capitulo.estado = this.capituloObjeto.estado;
     this.capitulo.tipo = this.capituloObjeto.tipo;
@@ -241,7 +243,9 @@ export class CapituloComponent implements OnInit, OnChanges {
 
   public cancelarEdicion() {
     if (!isNullOrUndefined(this.capitulo.id)) {
-      this.llenarCampos();
+      this.habilitaCampos = false;
+      this.ngOnInit();
+      this.edicionCancelada.emit(false);
     } else {
       this.nuevoCapitulo = !this.nuevoCapitulo;
       this.creacionCancelada.emit(false);

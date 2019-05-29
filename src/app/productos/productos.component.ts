@@ -91,4 +91,8 @@ export class ProductosComponent implements OnInit {
     this.ngOnInit();
   }
 
+  public edicionCancelada(editar: boolean) {
+    this.camposHabilitados = false;
+  }
+
 }
