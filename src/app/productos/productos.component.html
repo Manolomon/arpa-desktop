@@ -75,7 +75,7 @@
       (closed)="togglePanels(-1)" *ngFor="let producto of productos; let i = index" class="hideOption">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <p>{{ producto.titulo }}</p>
+          <p class="p-title-limit">{{ producto.titulo }}</p>
         </mat-panel-title>
         <mat-panel-description>
           <mat-chip-list>
