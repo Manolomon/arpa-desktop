@@ -251,7 +251,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   public agregarColaborador() {
     var resultado: boolean
     const dialogRef = this.dialog.open(ColaboradorComponent, {
-      width: '250px',
+      width: '120%',
       data: { grado: '', nombre: '', institucion: '' }
     });
     dialogRef.afterClosed().subscribe(result => {

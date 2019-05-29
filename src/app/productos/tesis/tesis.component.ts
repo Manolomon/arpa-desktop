@@ -10,7 +10,6 @@ import { MatDatepickerInputEvent, MatDialog } from '@angular/material';
 import { NotifierService } from "angular-notifier";
 import { ColaboradorComponent } from '../colaborador/colaborador.component';
 
-
 @Component({
   selector: "app-tesis",
   templateUrl: "./tesis.component.html",
@@ -58,7 +57,8 @@ export class TesisComponent implements OnInit, OnChanges {
     numAlumnos: 0,
     lineaGeneracion: '',
     colaboradores: [],
-  }
+  };
+
   constructor(
     private productoService: ProductoService,
     private miembroService: MiembroService,
@@ -260,7 +260,7 @@ export class TesisComponent implements OnInit, OnChanges {
   public agregarColaborador() {
     var resultado: boolean
     const dialogRef = this.dialog.open(ColaboradorComponent, {
-      width: '250px',
+      width: '120%',
       data: { grado: '', nombre: '', institucion: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -297,7 +297,5 @@ export class TesisComponent implements OnInit, OnChanges {
       }
     }
     return true;
-
   }
-
 }

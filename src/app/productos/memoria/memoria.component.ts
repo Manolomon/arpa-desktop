@@ -10,7 +10,6 @@ import { MatDatepickerInputEvent, MatDialog } from '@angular/material';
 import { NotifierService } from "angular-notifier";
 import { ColaboradorComponent } from '../colaborador/colaborador.component';
 
-
 @Component({
   selector: "app-memoria",
   templateUrl: "./memoria.component.html",
@@ -259,7 +258,7 @@ export class MemoriaComponent implements OnInit, OnChanges {
   public agregarColaborador() {
     var resultado: boolean
     const dialogRef = this.dialog.open(ColaboradorComponent, {
-      width: '250px',
+      width: '120%',
       data: { grado: '', nombre: '', institucion: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
