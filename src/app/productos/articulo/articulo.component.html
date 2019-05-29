@@ -137,7 +137,7 @@
     </mat-form-field>
     <section class="example-section">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
-        <button type="button" mat-raised-button color="primary" (click)="agregarColaborador()">
+        <button type="button" mat-raised-button color="primary" [disabled]="articuloForm.disabled" (click)="agregarColaborador()">
           <mat-icon>group_add</mat-icon>
         </button>
       </div>

@@ -102,7 +102,7 @@
         <mat-label>Pais</mat-label>
         <input formControlName="paisControl" [(ngModel)]="produccion.pais" name="pais" matInput required />
       </mat-form-field>
-      
+
     </div>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Colaboradores Externos</mat-label>
@@ -115,7 +115,7 @@
     </mat-form-field>
     <section class="example-section">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
-        <button type="button" mat-raised-button color="primary" (click)="agregarColaborador()">
+        <button type="button" mat-raised-button color="primary" [disabled]="produccionForm.disabled" (click)="agregarColaborador()">
           <mat-icon>group_add</mat-icon>
         </button>
       </div>

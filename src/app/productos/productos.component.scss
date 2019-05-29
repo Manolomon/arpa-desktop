@@ -69,7 +69,7 @@ mat-divider {
   background-color: #696B7A;
 }
 .fill-remaining-space {
-  /*This fills the remaining space, by using flexbox.  
+  /*This fills the remaining space, by using flexbox.
   Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
@@ -85,4 +85,10 @@ mat-divider {
 .icon-button {
   display: flex;
   align-items: center;
+}
+
+.p-title-limit {
+  width: 250px;
+  overflow:hidden;
+  text-overflow: ellipsis;
 }

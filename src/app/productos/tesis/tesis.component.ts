@@ -30,8 +30,8 @@ export class TesisComponent implements OnInit, OnChanges {
   private estadoControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
   private gradoControl: FormControl = new FormControl('', [Validators.required]);
-  private fechaInicioControl: FormControl = new FormControl('', [Validators.required]);
-  private fechaTerminoControl: FormControl = new FormControl('', [Validators.required]);
+  private fechaInicioControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(0)]);
+  private fechaTerminoControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(0)]);
   private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
   private refColaboladores = new Map();
@@ -93,8 +93,8 @@ export class TesisComponent implements OnInit, OnChanges {
   public ngOnInit() {
     if (!isNullOrUndefined(this.tesisObjeto)) {
       this.llenarCampos();
-      this.fechaTerminoControl = new FormControl(this.tesis.fechaTermino.toDate());
-      this.fechaInicioControl = new FormControl(this.tesis.fechaInicio.toDate());
+      this.fechaTerminoControl = new FormControl(this.tesis.fechaTermino.toDate(), [Validators.required, Validators.maxLength(0)]);
+      this.fechaInicioControl = new FormControl(this.tesis.fechaInicio.toDate(), [Validators.required, Validators.maxLength(0)]);
     }
     this.tesisForm.addControl("fechaTerminoControl", this.fechaTerminoControl);
     this.tesisForm.addControl("fechaInicioControl", this.fechaInicioControl);
