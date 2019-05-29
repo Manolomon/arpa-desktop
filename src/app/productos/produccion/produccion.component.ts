@@ -25,7 +25,7 @@ export class ProduccionComponent implements OnInit {
   private considerar: boolean;
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
-  private fechaPublicacionControl: FormControl = new FormControl('', [Validators.required]);
+  private fechaPublicacionControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(0)]);
   private btnConsideradoControl: FormControl = new FormControl();
   private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
@@ -102,7 +102,7 @@ export class ProduccionComponent implements OnInit {
   public ngOnInit() {
     if (!isNullOrUndefined(this.produccionObjeto)) {
       this.llenarCampos();
-      this.fechaPublicacionControl = new FormControl(this.produccion.fechaPublicacion.toDate());
+      this.fechaPublicacionControl = new FormControl(this.produccion.fechaPublicacion.toDate(), [Validators.required, Validators.maxLength(0)]);
     }
     this.produccionForm.addControl("fechaPublicacionControl", this.fechaPublicacionControl);
 

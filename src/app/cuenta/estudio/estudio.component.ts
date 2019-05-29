@@ -6,8 +6,9 @@ import { isNullOrUndefined } from 'util';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material';
 import * as firebase from 'firebase';
-import { EstudioService } from '../../servicios/estudio.service'
-import { NotifierService } from 'angular-notifier'
+import { EstudioService } from '../../servicios/estudio.service';
+import { NotifierService } from 'angular-notifier';
+import { MiembroService } from '../../servicios/miembro.service';
 
 export interface DialogData {
   miembroObjeto: Miembro;
@@ -43,6 +44,7 @@ export class EstudioComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private estudioService: EstudioService,
     private notifier: NotifierService,
+    private miembroService: MiembroService,
   ) {
     this.estudioForm = new FormGroup({
       tituloControl: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -103,7 +105,7 @@ export class EstudioComponent implements OnInit {
       console.log('paso 2');
       if (isNullOrUndefined(this.estudio.id)) {
         console.log('Agregando estudio');
-        this.estudioService.agregarEstudio(this.estudio)
+        this.miembroService.agregarEstudio(this.miembroObjeto.id, this.estudio)
           .then((docRef) => {
             idGenerado = docRef.id;
             console.log(idGenerado);
@@ -119,7 +121,7 @@ export class EstudioComponent implements OnInit {
           });
       } else {
         console.log('modificando producto');
-        this.estudioService.modificarEstudio(this.estudio)
+        this.miembroService.modificarEstudio(this.miembroObjeto.id, this.estudio)
           .then(() => {
             this.notifier.notify("success", "Estudio guardado correctamente");
             this.dialogRef.close(true);
