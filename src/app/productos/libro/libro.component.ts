@@ -221,6 +221,9 @@ export class LibroComponent implements OnInit, OnChanges {
         this.libro.id = this.idLibro;
         await this.productoService.modificarProducto(this.libro)
           .then((docRef) => {
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), this.idLibro, this.cargaDeArchivo);
+            }
             this.cargarProductos.emit(false);
             this.creacionCancelada.emit(false);
             this.notifier.notify("success", "Libro almacenado exitosamente");
@@ -231,9 +234,6 @@ export class LibroComponent implements OnInit, OnChanges {
             console.error("Error al añadir documento: ", error);
             return;
           });
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), this.idLibro, this.cargaDeArchivo);
-        }
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");

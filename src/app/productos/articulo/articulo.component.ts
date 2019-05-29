@@ -232,6 +232,9 @@ export class ArticuloComponent implements OnInit {
         this.articulo.id = this.idArticulo;
         await this.productoService.modificarProducto(this.articulo)
           .then((docRef) => {
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), this.idArticulo, this.cargaDeArchivo);
+            }
             this.cargarProductos.emit(false);
             this.notifier.notify("success", "Artículo almacenado exitosamente");
             console.log(this.articulo.colaboradores);
@@ -241,14 +244,10 @@ export class ArticuloComponent implements OnInit {
             console.error("Error al añadir documento: ", error);
             return;
           });
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), this.idArticulo, this.cargaDeArchivo);
-        }
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
-    this.ngOnInit();
   }
 
   public cancelarEdicion() {

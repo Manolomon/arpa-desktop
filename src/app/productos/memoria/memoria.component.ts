@@ -222,6 +222,9 @@ export class MemoriaComponent implements OnInit, OnChanges {
         this.memoria.id = this.idMemoria;
         await this.productoService.modificarProducto(this.memoria)
           .then((docRef) => {
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), this.idMemoria, this.cargaDeArchivo);
+            }
             console.log(this.memoria.colaboradores);
             this.cargarProductos.emit(false);
             this.creacionCancelada.emit(false);
@@ -232,9 +235,6 @@ export class MemoriaComponent implements OnInit, OnChanges {
             console.error("Error al añadir documento: ", error);
             return;
           });
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), this.idMemoria, this.cargaDeArchivo);
-        }
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");

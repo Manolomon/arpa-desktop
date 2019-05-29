@@ -219,6 +219,9 @@ export class CapituloComponent implements OnInit, OnChanges {
         this.capitulo.id = this.idCapitulo;
         await this.productoService.modificarProducto(this.capitulo)
           .then((docRef) => {
+            if (this.archivo != null) {
+              this.productoService.subirArchivo(this.archivo.item(0), this.idCapitulo, this.cargaDeArchivo);
+            }
             this.cargarProductos.emit(false);
             this.notifier.notify("success", "Capitulo de libro almacenado exitosamente");
             console.log(this.capitulo.colaboradores);
@@ -227,9 +230,6 @@ export class CapituloComponent implements OnInit, OnChanges {
             this.notifier.notify("error", "Error con la conexión a la base de datos");
             console.error("Error al añadir documento: ", error);
           });
-        if (this.archivo != null) {
-          this.productoService.subirArchivo(this.archivo.item(0), this.idCapitulo, this.cargaDeArchivo);
-        }
       }
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
