@@ -7,6 +7,8 @@ import { MiembroService } from '../../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined, isUndefined } from 'util';
 import { NotifierService } from "angular-notifier";
+import { MatDialog } from '@angular/material';
+import { ColaboradorComponent } from '../colaborador/colaborador.component';
 
 
 @Component({
@@ -62,6 +64,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     private productoService: ProductoService,
     private miembroService: MiembroService,
     private notifier: NotifierService,
+    public dialog: MatDialog,
   ) {
     this.minYear = 1900;
     this.minLengthChar = 2;
@@ -245,4 +248,17 @@ export class CapituloComponent implements OnInit, OnChanges {
     }
   }
 
+  public agregarColaborador() {
+    var resultado: boolean
+    const dialogRef = this.dialog.open(ColaboradorComponent, {
+      width: '250px',
+      data: { grado: '', nombre: '', institucion: '' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+      if (result) {
+        this.ngOnInit();
+      }
+    });
+  }
 }

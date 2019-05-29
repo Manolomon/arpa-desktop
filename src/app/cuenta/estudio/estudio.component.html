@@ -1,74 +1,41 @@
 <h1 mat-dialog-title>Datos laborales del miembro</h1>
 <div mat-dialog-content>
-    <p></p>
-    <form 
-      novalidate 
-      [formGroup]="estudioForm"
-      (ngSubmit)="onGuardarEstudio(formNew)"
-      #formNew="ngForm"
-    >
-        <mat-form-field>
-            <mat-label>Titulo</mat-label>
-              <input 
-                formControlName="tituloControl"
-                [(ngModel)]="estudio.titulo"
-                name="titulo"
-                matInput
-                required
-              />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Grado</mat-label>
-              <input 
-                formControlName="gradoControl"
-                [(ngModel)]="estudio.grado"
-                name="grado"
-                matInput
-                required
-              />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Institución</mat-label>
-              <input 
-                formControlName="institucionControl"
-                [(ngModel)]="estudio.institucion"
-                name="institucion"
-                matInput
-                required
-              />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Área</mat-label>
-              <input 
-                formControlName="areaControl"
-                [(ngModel)]="estudio.area"
-                name="area"
-                matInput
-                required
-              />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Pais de la Institucion</mat-label>
-              <input 
-                formControlName="paisInstitucionControl"
-                [(ngModel)]="estudio.paisInstitucion"
-                name="paisInstitucion"
-                matInput
-                required
-              />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Fecha</mat-label>
-            <input matInput [matDatepicker]="myPicker" formControlName="fechaControl" placeholder="Fecha"
-                (dateChange)="setFechaEstudio($event)" required [disabled]="estudioForm.disabled" />
-            <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
-            <mat-datepicker #myPicker></mat-datepicker>
-        </mat-form-field>
+  <p></p>
+  <form novalidate [formGroup]="estudioForm" (ngSubmit)="onGuardarEstudio(formNew)" #formNew="ngForm">
+    <mat-form-field>
+      <mat-label>Titulo</mat-label>
+      <input formControlName="tituloControl" [(ngModel)]="estudio.titulo" name="titulo" matInput required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Grado</mat-label>
+      <input formControlName="gradoControl" [(ngModel)]="estudio.grado" name="grado" matInput required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Institución</mat-label>
+      <input formControlName="institucionControl" [(ngModel)]="estudio.institucion" name="institucion" matInput
+        required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Área</mat-label>
+      <input formControlName="areaControl" [(ngModel)]="estudio.area" name="area" matInput required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Pais de la Institucion</mat-label>
+      <input formControlName="paisInstitucionControl" [(ngModel)]="estudio.paisInstitucion" name="paisInstitucion"
+        matInput required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="myPicker" formControlName="fechaControl" placeholder="Fecha"
+        (dateChange)="setFechaEstudio($event)" required [disabled]="estudioForm.disabled" />
+      <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+      <mat-datepicker #myPicker></mat-datepicker>
+    </mat-form-field>
 
-      <div mat-dialog-actions>
-        <button mat-button *ngIf="edicion==true" type="button" (click)="habilitarCampos()" >Editar</button>
-        <button mat-button *ngIf="edicion==false" type="submit" [disabled]="estudioForm.disabled">Guardar</button>
-        <button mat-button type="button" (click)="cancelarEdicion()" cdkFocusInitial>Cancelar</button>  
-      </div>
-    </form>
+    <div mat-dialog-actions>
+      <button mat-button *ngIf="edicion==true" type="button" (click)="habilitarCampos()">Editar</button>
+      <button mat-button *ngIf="edicion==false" type="submit" [disabled]="estudioForm.disabled">Guardar</button>
+      <button mat-button type="button" (click)="cancelarEdicion()" cdkFocusInitial>Cancelar</button>
+    </div>
+  </form>
 </div>

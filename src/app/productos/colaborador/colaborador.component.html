@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Agregar Colaborador Externos</h1>
+<div mat-dialog-content>
+    <p>Ingrese los datos del nuevo colaborador</p>
+    <form novalidate>
+      <mat-form-field>
+        <mat-label>Grado</mat-label>
+        <input name="titulo" matInput required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input name="grado" matInput required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Institución</mat-label>
+        <input name="institucion" matInput required />
+      </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Aceptar</button>
+</div>

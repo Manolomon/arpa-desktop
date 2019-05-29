@@ -7,6 +7,8 @@ import { MiembroService } from '../../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined } from 'util';
 import { NotifierService } from "angular-notifier";
+import { ColaboradorComponent } from '../colaborador/colaborador.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-articulo',
@@ -14,8 +16,6 @@ import { NotifierService } from "angular-notifier";
   styleUrls: ['./articulo.component.scss']
 })
 export class ArticuloComponent implements OnInit {
-
-
 
   @Input() private articuloObjeto: Articulo;
   @Input() private habilitaCampos: boolean;
@@ -93,6 +93,7 @@ export class ArticuloComponent implements OnInit {
     private productoService: ProductoService,
     private miembroService: MiembroService,
     private notifier: NotifierService,
+    public dialog: MatDialog,
   ) {
     this.articuloForm = new FormGroup({
       tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -258,5 +259,19 @@ export class ArticuloComponent implements OnInit {
       this.nuevoArticulo = !this.nuevoArticulo;
       this.creacionCancelada.emit(false);
     }
+  }
+
+  public agregarColaborador() {
+    var resultado: boolean
+    const dialogRef = this.dialog.open(ColaboradorComponent, {
+      width: '250px',
+      data: { grado: '', nombre: '', institucion: '' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+      if (result) {
+        this.ngOnInit();
+      }
+    });
   }
 }

@@ -101,6 +101,13 @@
       <mat-icon matSuffix class="material-icon">supervised_user_circle</mat-icon>
     </mat-form-field>
     <section class="example-section">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+        <button type="button" mat-raised-button color="primary" (click)="agregarColaborador()">
+          <mat-icon>group_add</mat-icon>
+        </button>
+      </div>
+    </section>
+    <section class="example-section">
       <mat-checkbox formControlName="btnConsideradoControl" [(ngModel)]="memoria.consideradoPCA"
         (change)="onChange($event)" class="example-margin" color="primary">
         Considerar para Cuerpo Académico

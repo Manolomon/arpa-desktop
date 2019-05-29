@@ -7,6 +7,8 @@ import { MiembroService } from '../../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined, isUndefined } from 'util';
 import { NotifierService } from "angular-notifier";
+import { MatDialog } from '@angular/material';
+import { ColaboradorComponent } from '../colaborador/colaborador.component';
 
 @Component({
   selector: 'app-libro',
@@ -15,7 +17,6 @@ import { NotifierService } from "angular-notifier";
 })
 
 export class LibroComponent implements OnInit, OnChanges {
-
 
   @Input() private libroObjeto: any;
   @Input() private habilitaCampos: boolean;
@@ -79,6 +80,7 @@ export class LibroComponent implements OnInit, OnChanges {
     private productoService: ProductoService,
     private miembroService: MiembroService,
     private notifier: NotifierService,
+    public dialog: MatDialog,
   ) {
 
     this.libroForm = new FormGroup({
@@ -238,6 +240,20 @@ export class LibroComponent implements OnInit, OnChanges {
     } else {
       this.notifier.notify("warning", "Datos incompletos o inválidos");
     }
+  }
+
+  public agregarColaborador() {
+    var resultado: boolean
+    const dialogRef = this.dialog.open(ColaboradorComponent, {
+      width: '250px',
+      data: { grado: '', nombre: '', institucion: '' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+      if (result) {
+        this.ngOnInit();
+      }
+    });
   }
 
 }

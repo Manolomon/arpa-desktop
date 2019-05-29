@@ -35,6 +35,7 @@ import { ProyectoComponent } from './proyectos/proyecto/proyecto.component';
 import { DialogoComponent } from './dialogo/dialogo.component';
 import { CuentaComponent } from './cuenta/cuenta.component';
 import { EstudioComponent } from './cuenta/estudio/estudio.component';
+import { ColaboradorComponent } from './productos/colaborador/colaborador.component';
 
 
 const customNotifierOptions: NotifierOptions = {
@@ -98,6 +99,7 @@ const customNotifierOptions: NotifierOptions = {
     DialogCurriculum,
     CuentaComponent,
     EstudioComponent,
+    ColaboradorComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,6 +128,7 @@ const customNotifierOptions: NotifierOptions = {
     DialogoComponent,
     DialogCurriculum,
     EstudioComponent,
+    ColaboradorComponent,
   ]
 })
 export class AppModule { }

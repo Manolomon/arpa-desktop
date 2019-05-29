@@ -6,8 +6,9 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { MiembroService } from '../../servicios/miembro.service';
 import * as firebase from 'firebase';
 import { isNullOrUndefined, isUndefined } from 'util';
-import { MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent, MatDialog } from '@angular/material';
 import { NotifierService } from "angular-notifier";
+import { ColaboradorComponent } from '../colaborador/colaborador.component';
 
 @Component({
   selector: 'app-produccion',
@@ -59,6 +60,7 @@ export class ProduccionComponent implements OnInit {
     private notifier: NotifierService,
     private miembroService: MiembroService,
     private productoService: ProductoService,
+    public dialog: MatDialog,
   ) {
     this.produccionForm = new FormGroup({
       tituloControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -247,4 +249,17 @@ export class ProduccionComponent implements OnInit {
     this.produccion.fechaPublicacion = firebase.firestore.Timestamp.fromDate(event.value);
   }
 
+  public agregarColaborador() {
+    var resultado: boolean
+    const dialogRef = this.dialog.open(ColaboradorComponent, {
+      width: '250px',
+      data: { grado: '', nombre: '', institucion: '' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+      if (result) {
+        this.ngOnInit();
+      }
+    });
+  }
 }
