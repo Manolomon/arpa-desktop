@@ -5,9 +5,10 @@ import { NotifierService } from 'angular-notifier';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms'
 import { isNullOrUndefined } from 'util';
 import * as firebase from 'firebase';
-import { MatDatepickerInputEvent } from '@angular/material'
-import { Miembro } from '../../models/MiembroInterface'
-import { ProductoService } from '../../servicios/productos.service'
+import { MatDatepickerInputEvent } from '@angular/material';
+import { Miembro } from '../../models/MiembroInterface';
+import { ProductoService } from '../../servicios/productos.service';
+import { MiembroService } from '../../servicios/miembro.service';
 
 @Component({
   selector: 'app-proyecto',
@@ -51,6 +52,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
     private proyectoService: ProyectoService,
     private notifier: NotifierService,
     private productoService: ProductoService,
+    private miembroService: MiembroService,
   ) {
     this.proyectoForm = new FormGroup({
       nombreControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -76,27 +78,28 @@ export class ProyectoComponent implements OnInit, OnChanges {
     } else {
       this.proyectoForm.disable();
     }
-    /*
+
     this.productosLista = [];
     var productosLista = this.productosLista;
     var refProductos = this.refProductos;
     var productosSeleccionados = this.productosSeleccionados;
     var productos = this.proyecto.productos;
-    this.productoService.obtenerProductos().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        const temporal: any = doc.data();
-        productosLista.push(temporal.nombre);
-        refProductos.set(temporal.nombre, doc.ref);
-        for (let docRef of productos) {
-          if (docRef.id == doc.ref.id) {
-            productosSeleccionados.push(temporal.nombre);
+    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo())
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const temporal: any = doc.data();
+          productosLista.push(temporal.titulo);
+          refProductos.set(temporal.titulo, doc.ref);
+          for (let docRef of productos) {
+            if (docRef.id == doc.ref.id) {
+              productosSeleccionados.push(temporal.titulo);
+            }
           }
-        }
+        });
       });
-    });
     this.productosLista = productosLista;
     this.refProductos = refProductos;
-    this.productosSeleccionados = productosSeleccionados;*/
+    this.productosSeleccionados = productosSeleccionados;
 
 
   }
@@ -131,7 +134,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
 
   public async onGuardarProyecto(myForm: NgForm) {
     if (this.proyectoForm.valid) {
-      this.proyecto.productos = this.productosSeleccionados;
+      this.pasarReferencias();
       console.log(this.productosSeleccionados);
       this.proyecto.idCreador = this.miembroObjeto.id;
       let idGenerado: string;
@@ -226,12 +229,12 @@ export class ProyectoComponent implements OnInit, OnChanges {
 
   }
 
-  /* private pasarReferencias() {
-     for (let producto of this.productosSeleccionados) {
-       if (this.refProductos.has(producto)) {
-         this.proyecto.productos.push(this.refProductos.get(producto));
-       }
-     }
-   }*/
+  private pasarReferencias() {
+    for (let producto of this.productosSeleccionados) {
+      if (this.refProductos.has(producto)) {
+        this.proyecto.productos.push(this.refProductos.get(producto));
+      }
+    }
+  }
 
 }
