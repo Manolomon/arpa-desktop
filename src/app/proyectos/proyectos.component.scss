@@ -73,3 +73,10 @@ mat-divider {
     Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
 }
+
+.p-title-limit {
+    width: 270px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }

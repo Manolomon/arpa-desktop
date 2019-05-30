@@ -27,3 +27,10 @@ mat-list.make-scrollable {
     width: 380px;
     overflow-y: scroll;
 }
+
+.p-title-limit {
+    width: 70%;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }

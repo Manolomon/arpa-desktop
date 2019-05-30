@@ -38,7 +38,7 @@
       (closed)="togglePanels(-1)" *ngFor="let proyecto of proyectos; let i = index" class="hideOption">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <p>{{proyecto.nombre}}</p>
+          <p class="p-title-limit">{{proyecto.nombre}}</p>
         </mat-panel-title>
         <mat-panel-description>
           <mat-chip-list>
