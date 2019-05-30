@@ -214,8 +214,8 @@ export class ProyectoComponent implements OnInit, OnChanges {
     let anioVal2 = this.proyecto.fechaTentativaFin.toDate().getFullYear();
     let monthVal = this.proyecto.fechaInicio.toDate().getMonth();
     let monthVal2 = this.proyecto.fechaTentativaFin.toDate().getMonth();
-    let dayVal = this.proyecto.fechaInicio.toDate().getDay();
-    let dayVal2 = this.proyecto.fechaTentativaFin.toDate().getDay();
+    let dayVal = this.proyecto.fechaInicio.toDate().getDate()
+    let dayVal2 = this.proyecto.fechaTentativaFin.toDate().getDate();
 
     if (anioVal > anioVal2) {
       console.log("año 1 mayor");

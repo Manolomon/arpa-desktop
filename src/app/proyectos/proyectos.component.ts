@@ -64,6 +64,7 @@ export class ProyectosComponent implements OnInit {
 
   public creacionCancelada(cancelado: boolean) {
     this.agregaProyecto = !this.agregaProyecto;
+    this.ngOnInit();
   }
 
   public cargarProyectos(cargar: boolean) {
