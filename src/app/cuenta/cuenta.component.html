@@ -9,18 +9,16 @@
 <div layout="row" style="padding-left: 25px; padding-right: 25px;">
   <div fxLayout="column" fxFlex="48">
     <mat-card class="example-card">
-        <mat-card-header>
+      <mat-card-header>
         <mat-card-title>&nbsp;Datos Personales</mat-card-title>
         <div class="example-icon showOption">
           <button mat-icon-button class="utility-icon" matTooltip="Editar" matTooltipPosition="above">
             <mat-icon aria-label="Edit Button">edit</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="Guardar"matTooltipPosition="above" color="primary">
-            <mat-icon aria-label="Save Button">save</mat-icon>
-          </button>
         </div>
       </mat-card-header>
-      <form fxLayout="column" fxLayoutGap="-1px">
+      <form [formGroup]="datosPersonalesForm" (ngSubmit)="console.log('HOlis')" #formNew="ngForm" fxLayout="column"
+        fxLayoutGap="-1px">
         <div layout="row" class="example-margin">
           <img style="padding-right: 15px;" width="90px" height="90px" src="../assets/user-icon.svg" alt="Product-Icon"
             fxFlex="20" />
@@ -36,7 +34,8 @@
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Contraseña</mat-label>
                 <input matInput required [type]="hide ? 'password' : 'text'">
-                <mat-icon matSuffix class="icon-color" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-icon matSuffix class="icon-color" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
+                </mat-icon>
               </mat-form-field>
             </div>
           </div>
@@ -66,10 +65,18 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field fxFlex appearance="outline">
-            <mat-label>SNI</mat-label>
-            <input name="nombreNuevo" matInput required />
+            <mat-label>Forma parte del SNI</mat-label>
+            <mat-select name="sni" required>
+              <mat-option value="si">Sí</mat-option>
+              <mat-option value="no">No</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
+        <div fxLayout="row" fxLayoutAlign="end center">
+            <div class="example-button-row">
+              <button type="submit" mat-raised-button color="primary">Guardar</button>
+            </div>
+          </div>
       </form>
     </mat-card>
   </div>
@@ -78,7 +85,7 @@
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>&nbsp;Datos Laborales</mat-card-title>
-        <button mat-raised-button color="primary" type = "button" (click)="agregarEstudio()">
+        <button mat-raised-button color="primary" type="button" (click)="agregarEstudio()">
           <mat-icon>add</mat-icon>
           Agregar Datos
         </button>

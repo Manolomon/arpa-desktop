@@ -78,3 +78,8 @@ mat-action-list.make-scrollable {
     height: 350px; //Or any other height you wish
     overflow-y: scroll;
 }
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}

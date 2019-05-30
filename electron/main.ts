@@ -20,7 +20,7 @@ function createWindow() {
         height: 800,
         minWidth: 1000,
         minHeight: 300,
-        icon: path.join(__dirname, '/../../assets/icons/png/128x128.png'),
+        icon: path.join(__dirname, '/../../assets/icons/mipmap-xhdpi/ic_launcher.png'),
         webPreferences: {
             nodeIntegration: false,
             nodeIntegrationInWorker: false,

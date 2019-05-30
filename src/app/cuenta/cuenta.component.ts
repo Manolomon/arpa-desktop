@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
 import { EstudioService } from '../servicios/estudio.service';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { EstudioComponent } from './estudio/estudio.component';
 import { Miembro } from '../models/MiembroInterface';
 import { MiembroService } from '../servicios/miembro.service';
@@ -13,13 +15,18 @@ import { MiembroService } from '../servicios/miembro.service';
 export class CuentaComponent implements OnInit {
 
   @Input() private miembroObjeto: Miembro;
+  
+  private datosPersonalesForm: FormGroup;
   hide = true;
   estudios: Array<any> = []
 
   constructor(
     private miembroService: MiembroService,
     public dialog: MatDialog,
-  ) { }
+  ) {
+    this.datosPersonalesForm = new FormGroup({
+    });
+  }
 
   ngOnInit() {
     this.estudios = [];
@@ -33,6 +40,10 @@ export class CuentaComponent implements OnInit {
       });
     });
     this.estudios = docRefs;
+  }
+
+  private llenarCampos() {
+
   }
 
   agregarEstudio() {
