@@ -108,7 +108,8 @@ export class MiembroService {
   }
 
   actualizarDatos(miembro) {
-    return this.db.collection("miembro").doc(miembro.id).set({
+    this.afsAuth.auth.currentUser.updatePassword(miembro.passGenerada);
+    return this.db.collection("miembros").doc(miembro.id).set({
       nombre: miembro.nombre,
       correo: miembro.correo,
       passGenerada: miembro.passGenerada,
