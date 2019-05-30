@@ -3,6 +3,9 @@ import { ProyectoService } from '../servicios/proyecto.service';
 import { Proyecto } from '../models/ProyectoInterface'
 import { NotifierService } from 'angular-notifier';
 import { Miembro } from '../models/MiembroInterface';
+import { DialogoComponent } from '../dialogo/dialogo.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
+
 
 @Component({
   selector: 'app-proyectos',
@@ -21,6 +24,7 @@ export class ProyectosComponent implements OnInit {
   constructor(
     private proyectoService: ProyectoService,
     private notifier: NotifierService,
+    public dialog: MatDialog,
   ) {
     this.camposHabilitados = false;
     this.agregaProyecto = false;
@@ -29,8 +33,8 @@ export class ProyectosComponent implements OnInit {
   public ngOnInit(): void {
     this.proyectos = [];
     var docRefs: Array<any> = [];
-    this.proyectoService.obtenerProyectosMiembro(this.miembroObjeto.id).then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    this.proyectoService.obtenerProyectosMiembro(this.miembroObjeto.id).then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         var documento = doc.data();
         documento.id = doc.id;
         console.log(documento);
@@ -52,10 +56,24 @@ export class ProyectosComponent implements OnInit {
   }
 
   public async eliminarProyecto(posicion: number) {
-    if (confirm("Desea eliminar este proyecto?")) {
-      await this.proyectoService.eliminarProyecto(this.proyectos[posicion].id);
-      this.ngOnInit();
-    }
+    var resultado: boolean;
+    const dialogRef = this.dialog.open(DialogoComponent, {
+      width: '400px',
+      disableClose: true,
+      data: {
+        mensaje: "¿Desea eliminar este proyecto?",
+        dobleBoton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+      if (result) {
+        this.proyectoService.eliminarProyecto(this.proyectos[posicion].id)
+          .then(() => {
+            this.ngOnInit();
+          });
+      }
+    });
   }
 
   public agregarProyecto(): void {

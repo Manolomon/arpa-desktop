@@ -131,6 +131,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
     this.proyecto.idCreador = this.proyectoObjeto.idCreador;
     this.considerar = this.proyectoObjeto.consideradoPCA;
     this.proyecto.productos = this.proyectoObjeto.productos;
+    console.log("Productos del proyecto");
     console.log(this.proyectoObjeto.productos);
   }
 

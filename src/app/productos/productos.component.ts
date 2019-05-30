@@ -4,6 +4,10 @@ import { MiembroService } from '../servicios/miembro.service';
 import { NotifierService } from "angular-notifier";
 import { LoginService } from '../servicios/login.service';
 import { Router } from '@angular/router';
+import { DialogoComponent } from '../dialogo/dialogo.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
+import { ProyectoService } from '../servicios/proyecto.service';
+
 
 @Component({
   selector: "app-productos",
@@ -24,6 +28,8 @@ export class ProductosComponent implements OnInit {
     private notifier: NotifierService,
     private loginServicio: LoginService,
     private router: Router,
+    public dialog: MatDialog,
+    private proyectoService: ProyectoService,
   ) {
     this.camposHabilitados = false;
     this.eliminaProducto = false;
@@ -31,16 +37,12 @@ export class ProductosComponent implements OnInit {
   }
 
   public ngOnInit() {
-    console.log("Inicio de gestionar productos");
     this.productos = [];
     var docRefs: Array<any> = [];
-    console.log(this.miembroService.getMiembroActivo());
-    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo()).then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        console.log(doc);
+    this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo()).then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         var documento = doc.data();
         documento.id = doc.id;
-        console.log(documento);
         docRefs.push(documento);
       });
     });
@@ -59,17 +61,48 @@ export class ProductosComponent implements OnInit {
   }
 
   public habilitarCampos() {
-    console.log("Habilitando campos...");
     this.camposHabilitados = !this.camposHabilitados;
   }
 
   async eliminarProducto(i: number) {
-    console.log("Eliminando producto..." + this.productos[i].id);
-    if (confirm("¿Desea borrar este producto de la base de datos?")) {
-      await this.productoService.eliminarProducto(this.productos[i].id);
-      this.notifier.notify("success", "Producto eliminado correctamente");
-    }
-    this.ngOnInit();
+    var resultado: boolean;
+    const dialogRef = this.dialog.open(DialogoComponent, {
+      width: '400px',
+      disableClose: true,
+      data: {
+        mensaje: "¿Desea eliminar este proyecto?",
+        dobleBoton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+      if (result) {
+        this.productoService.eliminarProducto(this.productos[i].id)
+          .then(async () => {
+            var proyectosAux: Array<any> = [];
+            await this.proyectoService.obtenerProyectos()
+              .then((querySnapshot) => {
+                querySnapshot.forEach(function (doc) {
+                  var documento = doc.data();
+                  documento.id = doc.id;
+                  proyectosAux.push(documento);
+                });
+              });
+            var proyectos: Array<any> = proyectosAux;
+            for (let proyecto of proyectos) {
+              var productosProyecto: any[] = proyecto.productos;
+              proyecto.productos = [];
+              for (let producto of productosProyecto) {
+                if (producto.id != this.productos[i].id) {
+                  proyecto.productos.push(producto);
+                }
+              }
+              await this.proyectoService.modificarProyecto(proyecto);
+            }
+            this.ngOnInit();
+          });
+      }
+    });
   }
 
   togglePanels(index: number) {
@@ -87,7 +120,6 @@ export class ProductosComponent implements OnInit {
   }
 
   public cargarProductos(cargar: boolean) {
-    console.log("cargando productos");
     this.ngOnInit();
   }
 
