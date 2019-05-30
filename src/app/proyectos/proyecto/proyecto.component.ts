@@ -34,7 +34,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
   private refProductos = new Map();
   private considerar: boolean;
   private noProductos: Number;
-
+  private productosProyecto: Array<any> = [];
   private actualYear = new Date().getFullYear();
   private minDate = new Date(2010, 1, 1);
   private maxDate = new Date(this.actualYear + 7, 31, 12);
@@ -84,6 +84,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
     var refProductos = this.refProductos;
     var productosSeleccionados = this.productosSeleccionados;
     var productos = this.proyecto.productos;
+    var productosProyecto: Array<any> = [];
     this.productoService.obtenerProductosMiembro(this.miembroService.getMiembroActivo())
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -92,14 +93,21 @@ export class ProyectoComponent implements OnInit, OnChanges {
           refProductos.set(temporal.titulo, doc.ref);
           for (let docRef of productos) {
             if (docRef.id == doc.ref.id) {
+              let productoAux = { titulo: '', tipo: '' };
+              productoAux.titulo = temporal.titulo;
+              productoAux.tipo = temporal.tipo;
+              productosProyecto.push(productoAux);
               productosSeleccionados.push(temporal.titulo);
             }
           }
         });
       });
+    this.productosProyecto = productosProyecto;
     this.productosLista = productosLista;
     this.refProductos = refProductos;
     this.productosSeleccionados = productosSeleccionados;
+    console.log("productos");
+    console.log(this.proyecto.productos);
 
 
   }
@@ -134,6 +142,7 @@ export class ProyectoComponent implements OnInit, OnChanges {
 
   public async onGuardarProyecto(myForm: NgForm) {
     if (this.proyectoForm.valid) {
+      this.proyecto.productos = [];
       this.pasarReferencias();
       console.log(this.productosSeleccionados);
       this.proyecto.idCreador = this.miembroObjeto.id;

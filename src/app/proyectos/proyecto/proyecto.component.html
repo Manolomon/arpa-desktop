@@ -60,9 +60,14 @@
       <mat-list class="make-scrollable" flex>
         <h2 mat-subheader>Productos Asociados</h2>
         <mat-divider></mat-divider>
-        <mat-list-item *ngFor="let producto of proyecto.productos; let i = index">
-        {{proyecto.productos[i]}}
-          <mat-icon mat-list-icon class="icon-color">description</mat-icon>
+        <mat-list-item *ngFor="let producto of productosProyecto; let i = index">
+        {{producto.titulo}}
+          <mat-icon  mat-list-icon class="icon-color" *ngIf="producto.tipo === 'articulo'" >import_contacts</mat-icon>
+          <mat-icon  mat-list-icon class="icon-color" *ngIf="producto.tipo === 'capitulo'" >chrome_reader_mode</mat-icon>
+          <mat-icon  mat-list-icon class="icon-color" *ngIf="producto.tipo === 'libro'" >book</mat-icon>
+          <mat-icon  mat-list-icon class="icon-color" *ngIf="producto.tipo === 'tesis'" >school</mat-icon>
+          <mat-icon  mat-list-icon class="icon-color" *ngIf="producto.tipo === 'memoria'" >recent_actors</mat-icon>
+          <mat-icon  mat-list-icon class="icon-color" *ngIf="producto.tipo === 'produccion'" >description</mat-icon>
         </mat-list-item>
       </mat-list>
     </div>
