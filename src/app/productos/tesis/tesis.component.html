@@ -39,14 +39,14 @@
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Fecha de Inicio</mat-label>
-        <input matInput type = "text" pattern="[a-zA-Z]*" [matDatepicker]="myPicker" formControlName="fechaInicioControl" placeholder="Fecha"
+        <input matInput [matDatepicker]="myPicker" formControlName="fechaInicioControl" placeholder="Fecha"
           (dateChange)="setFechaInicio($event)" required />
         <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
         <mat-datepicker #myPicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Fecha de Finalización</mat-label>
-        <input matInput type = "text" pattern="[a-zA-Z]*" [matDatepicker]="myPicker2" formControlName="fechaTerminoControl" placeholder="Fecha"
+        <input matInput [matDatepicker]="myPicker2" formControlName="fechaTerminoControl" placeholder="Fecha"
           (dateChange)="setFechaFin($event)" required />
         <mat-datepicker-toggle matSuffix [for]="myPicker2"></mat-datepicker-toggle>
         <mat-datepicker #myPicker2></mat-datepicker>

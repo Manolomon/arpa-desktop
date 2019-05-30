@@ -116,8 +116,8 @@ export class TesisComponent implements OnInit, OnChanges {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.tesis.colaboradores;
-    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -251,11 +251,17 @@ export class TesisComponent implements OnInit, OnChanges {
     try {
       this.tesis.fechaInicio = firebase.firestore.Timestamp.fromDate(event.value);
     } catch (exception) {
+      this.notifier.notify("warning", "La fecha de inicio no es válida");
       this.tesis.fechaInicio = firebase.firestore.Timestamp.fromDate(new Date());
     }
   }
   public setFechaFin(event: MatDatepickerInputEvent<Date>) {
-    this.tesis.fechaTermino = firebase.firestore.Timestamp.fromDate(event.value);
+    try {
+      this.tesis.fechaTermino = firebase.firestore.Timestamp.fromDate(event.value);
+    } catch (exception) {
+      this.notifier.notify("warning", "La fecha de finalización no es válida");
+      this.tesis.fechaTermino = firebase.firestore.Timestamp.fromDate(new Date());
+    }
   }
 
   public agregarColaborador() {
