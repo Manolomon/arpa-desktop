@@ -77,9 +77,9 @@ export class ArticuloComponent implements OnInit {
     consideradoPCA: false,
     year: 0,
     descripcion: '',
-    direccionElectronica: '',
+    direccionElectronica: ' ',
     editorial: '',
-    indice: '',
+    indice: ' ',
     tipoArticulo: '',
     nombreRevista: '',
     ISSN: '',
@@ -114,8 +114,8 @@ export class ArticuloComponent implements OnInit {
       autorControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       nombreRevistaControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       editorialControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      indiceControl: new FormControl('', [Validators.minLength(2)]),
-      direccionElectronicaControl: new FormControl('', [Validators.minLength(2)]),
+      indiceControl: new FormControl('', [Validators.minLength(1)]),
+      direccionElectronicaControl: new FormControl('', [Validators.minLength(1)]),
       lineaGeneracionControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
       btnConsideradoControl: new FormControl(''),
     });
@@ -144,8 +144,8 @@ export class ArticuloComponent implements OnInit {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.articulo.colaboradores;
-    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    this.miembroService.obtenerMiembros().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -205,7 +205,7 @@ export class ArticuloComponent implements OnInit {
 
   async onGuardarArticulo(myForm: NgForm) {
     this.cargaDeArchivo = 0;
-    if (this.articuloForm.valid) {
+    if (this.articuloForm.valid && this.validarArticulo()) {
       let idGenerado: string;
       this.pasarReferencias();
       console.log(this.idArticulo);
@@ -284,8 +284,31 @@ export class ArticuloComponent implements OnInit {
     } else if (tipo == 'arbitrado') {
       this.articulo.indice = ' ';
     } else {
-      this.articulo.direccionElectronica = ' ';
-      this.articulo.indice = ' ';
+      this.articulo.direccionElectronica = '-';
+      this.articulo.indice = '-';
     }
+  }
+
+  private validarArticulo() {
+
+    console.log(this.articulo.tipoArticulo);
+    console.log(this.articulo.indice.trim().length);
+    console.log(this.articulo.direccionElectronica);
+    switch (this.articulo.tipoArticulo) {
+      case 'indexado':
+        if (this.articulo.indice.trim().length == 0) {
+          return false;
+        }
+        break;
+      case 'arbitrado':
+        if (this.articulo.direccionElectronica.trim().length == 0) {
+          return false;
+        }
+        break;
+    }
+    if (this.articulo.paginaInicio > this.articulo.paginaFin) {
+      return false;
+    }
+    return true;
   }
 }

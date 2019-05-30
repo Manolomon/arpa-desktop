@@ -3,6 +3,8 @@ import { Miembro } from '../models/MiembroInterface';
 import { LoginService } from '../servicios/login.service';
 import { MiembroService } from '../servicios/miembro.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
+import { DialogoComponent } from 'src/app/dialogo/dialogo.component';
 
 @Component({
   selector: 'app-menu',
@@ -24,6 +26,7 @@ export class MenuComponent implements OnInit {
     private miembroService: MiembroService,
     private router: Router,
     private route: ActivatedRoute,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -34,7 +37,7 @@ export class MenuComponent implements OnInit {
       correo: ',',
       rol: '',
     };
-    this.miembroService.obtenerMiembro(this.correo).then(function (doc) {
+    this.miembroService.obtenerMiembro(this.correo).then(function(doc) {
       console.log(doc.docs[0].data());
       let temporal = doc.docs[0].data();
       miembroTemp.id = doc.docs[0].ref.id;
@@ -53,11 +56,22 @@ export class MenuComponent implements OnInit {
   }
 
   public onCerrarSesion(): void {
-    if (confirm("¿Desea cerrar la sesion?")) {
-      console.log(this.loginServicio.getUsuario());
-      this.loginServicio.cerrarSesion();
-      this.router.navigate(['login']);
-    }
+    var resultado: boolean;
+    const dialogRef = this.dialog.open(DialogoComponent, {
+      width: '400px',
+      disableClose: true,
+      data: {
+        mensaje: "Generando curriculum ¿Está seguro de continuar?",
+        dobleBoton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      resultado = result;
+      if (result) {
+        this.loginServicio.cerrarSesion();
+        this.router.navigate(['login']);
+      }
+    });
   }
 
 }
