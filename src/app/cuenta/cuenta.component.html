@@ -12,7 +12,7 @@
         <mat-card-header>
         <mat-card-title>&nbsp;Datos Personales</mat-card-title>
         <div class="example-icon showOption">
-          <button mat-icon-button matTooltip="Editar" matTooltipPosition="above">
+          <button mat-icon-button class="utility-icon" matTooltip="Editar" matTooltipPosition="above">
             <mat-icon aria-label="Edit Button">edit</mat-icon>
           </button>
           <button mat-icon-button matTooltip="Guardar"matTooltipPosition="above" color="primary">
@@ -35,8 +35,8 @@
             <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Contraseña</mat-label>
-                <input matInput required placeholder="Contraseña" [type]="hide ? 'password' : 'text'">
-                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <input matInput required [type]="hide ? 'password' : 'text'">
+                <mat-icon matSuffix class="icon-color" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </mat-form-field>
             </div>
           </div>
@@ -85,7 +85,7 @@
       </mat-card-header>
       <mat-action-list class="make-scrollable" flex>
         <mat-list-item *ngFor="let estudio of estudios; let i = index" (click)="editarEstudio(i)">
-          <mat-icon mat-list-icon>school</mat-icon>
+          <mat-icon mat-list-icon class="icon-color">school</mat-icon>
           <h4 mat-line>{{estudio.grado}}</h4>
           <p mat-line>{{estudio.institucion}}, {{estudio.paisInstitucion}}</p>
         </mat-list-item>

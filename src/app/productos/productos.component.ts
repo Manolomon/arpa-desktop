@@ -65,7 +65,7 @@ export class ProductosComponent implements OnInit {
 
   async eliminarProducto(i: number) {
     console.log("Eliminando producto..." + this.productos[i].id);
-    if (confirm("Desea borrar este producto de la base de datos?")) {
+    if (confirm("¿Desea borrar este producto de la base de datos?")) {
       await this.productoService.eliminarProducto(this.productos[i].id);
       this.notifier.notify("success", "Producto eliminado correctamente");
     }

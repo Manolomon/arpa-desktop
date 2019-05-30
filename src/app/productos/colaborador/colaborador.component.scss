@@ -1,7 +1,14 @@
 .example-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
-  }
-  
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.button-to-show {
+  display: none;
+}
+
+.list-item-on-hover:hover .button-to-show {
+  display: block;
+}

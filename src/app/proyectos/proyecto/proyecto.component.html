@@ -57,14 +57,14 @@
           <mat-option [value] = "'Adios'">Adios</mat-option>
           <mat-option [value] = "'K pex'">K pex</mat-option>
         </mat-select>
-        <mat-icon matSuffix class="material-icon">file_copy</mat-icon>
+        <mat-icon matSuffix class="icon-color">file_copy</mat-icon>
       </mat-form-field>
       <mat-list class="make-scrollable" flex>
         <h2 mat-subheader>Productos Asociados</h2>
         <mat-divider></mat-divider>
         <mat-list-item *ngFor="let producto of proyecto.productos; let i = index">
         {{proyecto.productos[i]}}
-          <mat-icon mat-list-icon>description</mat-icon>
+          <mat-icon mat-list-icon class="icon-color">description</mat-icon>
         </mat-list-item>
       </mat-list>
     </div>

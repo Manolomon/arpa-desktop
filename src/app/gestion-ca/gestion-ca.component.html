@@ -38,7 +38,7 @@
       <mat-action-list class="make-scrollable" flex>
         <h3 mat-subheader>Participantes en en Cuerpo Académico</h3>
         <mat-list-item *ngFor="let integrante of integrantes" (click)="clickMiembro(integrante)">
-          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <mat-icon mat-list-icon class="icon-color">account_circle</mat-icon>
           <h4 mat-line>{{ integrante.nombre }}</h4>
           <p mat-line>{{ integrante.rol }}</p>
         </mat-list-item>

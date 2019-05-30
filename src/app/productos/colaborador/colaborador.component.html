@@ -1,30 +1,62 @@
 <h1 mat-dialog-title>Agregar Colaborador Externos</h1>
 <div mat-dialog-content>
-    <p>Ingrese los datos del nuevo colaborador</p>
-    <form novalidate fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>Grado</mat-label>
-        <input name="titulo" matInput required />
-      </mat-form-field>
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input name="grado" matInput required />
-      </mat-form-field>
-      <mat-form-field fxFlex appearance="outline">
-        <mat-label>Institución</mat-label>
-        <input name="institucion" matInput required />
-      </mat-form-field>
-      <section class="example-section">
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
-          <button type="submit" mat-raised-button color="primary">
-            <mat-icon>group_add</mat-icon>
-          </button>
-        </div>
-      </section>
-    </form>
-    
+  <p>Ingrese los datos del nuevo colaborador</p>
+  <form novalidate fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+    <mat-form-field fxFlex appearance="outline">
+      <mat-label>Grado</mat-label>
+      <input name="titulo" matInput required />
+    </mat-form-field>
+    <mat-form-field fxFlex appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input name="grado" matInput required />
+    </mat-form-field>
+    <mat-form-field fxFlex appearance="outline">
+      <mat-label>Institución</mat-label>
+      <input name="institucion" matInput required />
+    </mat-form-field>
+    <section class="example-section">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+        <button type="submit" mat-raised-button color="primary">
+          <mat-icon>group_add</mat-icon>
+        </button>
+      </div>
+    </section>
+  </form>
+  <mat-action-list class="make-scrollable" flex>
+    <h3 mat-subheader>Colaboradores Externos Registrados</h3>
+    <mat-list-item class="list-item-on-hover">
+      <mat-icon mat-list-icon class="icon-color">supervised_user_circle</mat-icon>
+      <h4 mat-line>Barry Allen</h4>
+      <p mat-line>Central City University</p>
+      <div class="example-icon showOption">
+        <button mat-icon-button class="button-to-show icon-color" matTooltip="Eliminar" matTooltipPosition="above">
+          <mat-icon aria-label="Delete Button" class="utility-icon">delete</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+    <mat-list-item class="list-item-on-hover">
+      <mat-icon mat-list-icon class="icon-color">supervised_user_circle</mat-icon>
+      <h4 mat-line>Clark Kent</h4>
+      <p mat-line>Metropolis Institute of Arts</p>
+      <div class="example-icon showOption">
+        <button mat-icon-button class="button-to-show icon-color" matTooltip="Eliminar" matTooltipPosition="above">
+          <mat-icon aria-label="Delete Button" class="utility-icon">delete</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+    <mat-list-item class="list-item-on-hover">
+      <mat-icon mat-list-icon class="icon-color">supervised_user_circle</mat-icon>
+      <h4 mat-line>Bruce Wayne</h4>
+      <p mat-line>Gotham City University</p>
+      <div class="example-icon showOption">
+        <button mat-icon-button class="button-to-show" matTooltip="Eliminar" matTooltipPosition="above">
+          <mat-icon aria-label="Delete Button" class="utility-icon">delete</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+  </mat-action-list>
 </div>
 <div mat-dialog-actions fxLayoutAlign="end center">
-    <button mat-button (click)="onNoClick()">Cancelar</button>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Aceptar</button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Aceptar</button>
 </div>
