@@ -88,7 +88,8 @@ mat-divider {
 }
 
 .p-title-limit {
-  width: 250px;
+  width: 270px;
   overflow:hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }

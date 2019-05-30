@@ -70,7 +70,7 @@
   </app-memoria>
 </div>
 <div fxFlexAlign="center" fxLayoutAlign="center center">
-  <mat-accordion class="example-headers-align">
+  <mat-accordion class="example-headers-align" flex>
     <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i" (afterExpand)="indexExpanded = i"
       (closed)="togglePanels(-1)" *ngFor="let producto of productos; let i = index" class="hideOption">
       <mat-expansion-panel-header>
