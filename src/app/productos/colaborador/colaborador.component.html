@@ -10,52 +10,37 @@
   <form novalidate fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Grado</mat-label>
-      <input name="titulo" matInput required />
+      <mat-select [(ngModel)]="colaborador.grado" name="grado"
+        required>
+        <mat-option value="Estudiante">Estudiante</mat-option>
+        <mat-option value="Licenciado">Licenciado</mat-option>
+        <mat-option value="Maestro">Maestro</mat-option>
+        <mat-option value="Doctor">Doctor</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Nombre</mat-label>
-      <input name="grado" matInput required />
+      <input name="nombre" [(ngModel)]="colaborador.nombre" matInput required />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Institución</mat-label>
-      <input name="institucion" matInput required />
+      <input name="institucion" [(ngModel)]="colaborador.institucion" matInput required />
     </mat-form-field>
     <section class="example-section">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
-        <button type="submit" mat-raised-button color="primary">
+        <button type="submit" mat-raised-button color="primary" (click)="clickAgregarOActualizarColaborador()">
           <mat-icon>group_add</mat-icon>
         </button>
       </div>
     </section>
   </form>
   <mat-action-list class="make-scrollable" flex>
-    <h3 mat-subheader>Colaboradores Externos Registrados</h3>
-    <mat-list-item class="list-item-on-hover">
+    <mat-list-item *ngFor="let colaborador of listaColaboradores" (click)="clickColaborador(colaborador)" class="list-item-on-hover">
       <mat-icon mat-list-icon class="icon-color">supervised_user_circle</mat-icon>
-      <h4 mat-line>Barry Allen</h4>
-      <p mat-line>Central City University</p>
+      <h4 mat-line>{{colaborador.nombre}}</h4>
+      <p mat-line>{{colaborador.institucion}}</p>
       <div class="example-icon showOption">
-        <button mat-icon-button class="button-to-show icon-color" matTooltip="Eliminar" matTooltipPosition="above">
-          <mat-icon aria-label="Delete Button" class="utility-icon">delete</mat-icon>
-        </button>
-      </div>
-    </mat-list-item>
-    <mat-list-item class="list-item-on-hover">
-      <mat-icon mat-list-icon class="icon-color">supervised_user_circle</mat-icon>
-      <h4 mat-line>Clark Kent</h4>
-      <p mat-line>Metropolis Institute of Arts</p>
-      <div class="example-icon showOption">
-        <button mat-icon-button class="button-to-show icon-color" matTooltip="Eliminar" matTooltipPosition="above">
-          <mat-icon aria-label="Delete Button" class="utility-icon">delete</mat-icon>
-        </button>
-      </div>
-    </mat-list-item>
-    <mat-list-item class="list-item-on-hover">
-      <mat-icon mat-list-icon class="icon-color">supervised_user_circle</mat-icon>
-      <h4 mat-line>Bruce Wayne</h4>
-      <p mat-line>Gotham City University</p>
-      <div class="example-icon showOption">
-        <button mat-icon-button class="button-to-show" matTooltip="Eliminar" matTooltipPosition="above">
+        <button mat-icon-button class="button-to-show icon-color" matTooltip="Eliminar" matTooltipPosition="above" (click)="eliminarColaborador(colaborador.id)">
           <mat-icon aria-label="Delete Button" class="utility-icon">delete</mat-icon>
         </button>
       </div>

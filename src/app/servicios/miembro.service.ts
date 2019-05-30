@@ -3,6 +3,7 @@ import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Miembro } from '../models/MiembroInterface'
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
+import { isUndefined } from 'util';
 
 @Injectable({
   providedIn: "root"
@@ -118,6 +119,24 @@ export class MiembroService {
       puesto: miembro.puesto,
       sni: miembro.sni
     });
+  }
+
+  agregarOActualizarColaboradorExterno(idMiembro, colaborador) {    
+    console.log(colaborador);
+    if(isUndefined(colaborador.id)) {
+      console.log(idMiembro);
+      return this.db.collection("miembros").doc(idMiembro).collection("colaboradores").add(colaborador);
+    } else {
+      return this.db.collection("miembros").doc(idMiembro).collection("colaboradores").doc(colaborador.id).set(colaborador);
+    }
+  }
+
+  eliminarColaboradorExterno(idMiembro, idColaborador) {
+    return this.db.collection("miembros").doc(idMiembro).collection("colaboradores").doc(idColaborador).delete();
+  }
+
+  obtenerColaboradoresExternos(idMiembro) {
+    return this.db.collection("miembros").doc(idMiembro).collection("colaboradores").ref.orderBy("nombre").get();
   }
 
 }
