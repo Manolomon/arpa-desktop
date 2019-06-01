@@ -49,7 +49,7 @@ export class MiembroComponent implements OnInit {
       width: '400px',
       disableClose: true,
       data: {
-        mensaje: "Cambiar a este miembro le bloqueara el acceso al sistema, pero no perdera sus productos académicos. ¿Está seguro de hacer este cambio?",
+        mensaje: "Cambiar a este miembro le bloqueará el acceso al sistema, pero no perderá sus productos académicos. ¿Está seguro de hacer este cambio?",
         resultado: this.resultadoDialog,
         dobleBoton: true
       }

@@ -50,7 +50,7 @@ export class CuentaComponent implements OnInit {
     var resultado: boolean;
     console.log(this.miembroObjeto);
     const dialogRef = this.dialog.open(EstudioComponent, {
-      width: '400px',
+      width: '40%',
       data: { miembroObjeto: this.miembroObjeto, habilitaCampos: true, edicion: false }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -67,7 +67,7 @@ export class CuentaComponent implements OnInit {
     var resultado: boolean;
     console.log(this.miembroObjeto);
     const dialogRef = this.dialog.open(EstudioComponent, {
-      width: '400px',
+      width: '40%',
       data: {
         miembroObjeto: this.miembroObjeto,
         habilitaCampos: false,

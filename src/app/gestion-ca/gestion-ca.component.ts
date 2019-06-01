@@ -122,16 +122,22 @@ export class GestionCaComponent implements OnInit {
     this.mostrarCurriculum = false;
     var margins = {
       top: 25,
-      bottom: 60,
+      bottom: 30,
       left: 20,
       width: 522
     };
     const doc = new jsPDF("p", "pt", "letter");
     doc.internal.scaleFactor = 3;
-    doc.addHTML(this.content.nativeElement, margins.top, margins.left, { pagesplit: true }, function () {
+    doc.addHTML(this.content.nativeElement, margins.top, margins.left, {
+      pagesplit: true,
+      margin: {
+        top: margins.top,
+        bottom: margins.bottom,
+        left: margins.left,
+        useFor: 'page' }}, function() {
       doc.save('curriculum-ca.pdf');
+      this.ngOnInit();
     });
-    //this.router.navigateByUrl('/menu');
   }
 
   destroyComponent() {
