@@ -61,7 +61,7 @@ export class MenuComponent implements OnInit {
       width: '400px',
       disableClose: true,
       data: {
-        mensaje: "Generando curriculum ¿Está seguro de continuar?",
+        mensaje: "¿Está seguro que desea cerrar su sesión?",
         dobleBoton: true
       }
     });
