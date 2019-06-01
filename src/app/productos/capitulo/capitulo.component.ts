@@ -30,6 +30,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
+  private colaboradoresExternos: string[] = [];
   private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
   private refColaboladores = new Map();
@@ -59,6 +60,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     tituloLibro: '',
     lineaGeneracion: '',
     colaboradores: [],
+    colaboradoresExternos: [],
     evidencia: '',
   };
 
@@ -113,6 +115,7 @@ export class CapituloComponent implements OnInit, OnChanges {
     this.capitulo.registrado = this.capituloObjeto.registrado;
     this.capitulo.evidencia = this.capituloObjeto.evidencia;
     this.capitulo.colaboradores = this.capituloObjeto.colaboradores;
+    this.capitulo.colaboradoresExternos = this.capituloObjeto.colaboradoresExternos;
   }
 
   public ngOnInit() {
@@ -130,8 +133,8 @@ export class CapituloComponent implements OnInit, OnChanges {
     var refColaboladores = this.refColaboladores;
     var colaboradoresSeleccionados = this.colaboradoresSeleccionados;
     var colaboradores = this.capitulo.colaboradores;
-    this.miembroService.obtenerMiembros().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    this.miembroService.obtenerMiembros().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
         const temporal: any = doc.data();
         colaboradoresLista.push(temporal.nombre);
         refColaboladores.set(temporal.nombre, doc.ref);
@@ -155,6 +158,8 @@ export class CapituloComponent implements OnInit, OnChanges {
     });
     console.log(this.idCapitulo);
     console.log(this.capitulo.titulo);
+
+    this.actualizarColaboradoresExternos();
   }
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -195,7 +200,7 @@ export class CapituloComponent implements OnInit, OnChanges {
   async onGuardarCapitulo(myForm: NgForm) {
     if (this.capituloForm.valid) {
       this.pasarReferencias();
-      console.log(this.idCapitulo);
+      console.log(this.capitulo);
       let idGenerado: string;
       if (isUndefined(this.idCapitulo)) {
         console.log("Agregando producto");
@@ -249,16 +254,29 @@ export class CapituloComponent implements OnInit, OnChanges {
     }
   }
 
+  private actualizarColaboradoresExternos() {
+    this.colaboradoresExternos = [];
+    const listaExternos = this.colaboradoresExternos;
+    this.miembroService.obtenerColaboradoresExternos(this.miembroService.getMiembroActivo().id).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const temporal: any = doc.data();
+          const colaborador: string = temporal.nombre + " - " + temporal.institucion + " - " + temporal.grado;
+          console.log(colaborador);
+          listaExternos.push(colaborador);
+        });
+    });
+    this.colaboradoresExternos = listaExternos;
+  }
+
   public agregarColaborador() {
-    var resultado: boolean
     const dialogRef = this.dialog.open(ColaboradorComponent, {
       width: '120%',
       data: { grado: '', nombre: '', institucion: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
-      resultado = result;
       if (result) {
-        this.ngOnInit();
+        this.actualizarColaboradoresExternos();
+        this.notifier.notify("success", "Colaboradores externos actualizados");
       }
     });
   }

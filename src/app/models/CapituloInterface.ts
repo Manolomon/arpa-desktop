@@ -17,4 +17,5 @@ export interface Capitulo {
   colaboradores: firebase.firestore.DocumentReference[];
   registrado?: firebase.firestore.Timestamp;
   evidencia?: string;
+  colaboradoresExternos?: string[];
 }

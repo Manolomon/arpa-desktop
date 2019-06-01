@@ -28,6 +28,7 @@ export class ProduccionComponent implements OnInit {
   private colaboradoresExternosControl: FormControl = new FormControl();
   private fechaPublicacionControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(0)]);
   private btnConsideradoControl: FormControl = new FormControl();
+  private colaboradoresExternos: string[] = [];
   private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
   private refColaboladores = new Map();
@@ -59,6 +60,7 @@ export class ProduccionComponent implements OnInit {
     uso: '',
     usuario: '',
     colaboradores: [],
+    colaboradoresExternos: [],
     evidencia: '',
   }
 
@@ -105,6 +107,7 @@ export class ProduccionComponent implements OnInit {
     this.produccion.titulo = this.produccionObjeto.titulo;
     this.produccion.uso = this.produccionObjeto.uso;
     this.produccion.usuario = this.produccionObjeto.usuario;
+    this.produccion.colaboradoresExternos = this.produccionObjeto.colaboradoresExternos;
   }
 
   public ngOnInit() {
@@ -148,6 +151,8 @@ export class ProduccionComponent implements OnInit {
         this.lgac.push(temporal.nombre);
       }
     });
+
+    this.actualizarColaboradoresExternos();
   }
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -252,16 +257,29 @@ export class ProduccionComponent implements OnInit {
     this.produccion.fechaPublicacion = firebase.firestore.Timestamp.fromDate(event.value);
   }
 
+  private actualizarColaboradoresExternos() {
+    this.colaboradoresExternos = [];
+    const listaExternos = this.colaboradoresExternos;
+    this.miembroService.obtenerColaboradoresExternos(this.miembroService.getMiembroActivo().id).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const temporal: any = doc.data();
+          const colaborador: string = temporal.nombre + " - " + temporal.institucion + " - " + temporal.grado;
+          console.log(colaborador);
+          listaExternos.push(colaborador);
+        });
+    });
+    this.colaboradoresExternos = listaExternos;
+  }
+
   public agregarColaborador() {
-    var resultado: boolean
     const dialogRef = this.dialog.open(ColaboradorComponent, {
       width: '120%',
       data: { grado: '', nombre: '', institucion: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
-      resultado = result;
       if (result) {
-        this.ngOnInit();
+        this.actualizarColaboradoresExternos();
+	      this.notifier.notify("success", "Colaboradores externos actualizados");
       }
     });
   }

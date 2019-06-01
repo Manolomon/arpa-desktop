@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Colaborador } from '../../models/ColaboradorInterface';
 import { MiembroService } from 'src/app/servicios/miembro.service';
 import { FormControl } from '@angular/forms';
+import { NotifierService } from "angular-notifier";
 
 export interface DialogData {
   grado: string;
@@ -28,7 +29,8 @@ export class ColaboradorComponent implements OnInit {
   private gradoControl: FormControl = new FormControl();
 
   constructor(
-    private miembroService: MiembroService,    
+    private miembroService: MiembroService,
+    private notifier: NotifierService,
     public dialogRef: MatDialogRef<ColaboradorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
@@ -55,17 +57,27 @@ export class ColaboradorComponent implements OnInit {
 
   clickAgregarOActualizarColaborador(): void {
     const idMiembro = this.miembroService.getMiembroActivo().id;
-    this.miembroService.agregarOActualizarColaboradorExterno(idMiembro,this.colaborador);
-    this.dialogRef.close();
+    this.miembroService.agregarOActualizarColaboradorExterno(idMiembro, this.colaborador)
+    .catch((error) => {
+      this.notifier.notify("error", "Error con la conexión a la base de datos");
+      console.log("Error al actualizar o agregar colaborador: " + error);
+      this.dialogRef.close(false);
+    });
+    this.dialogRef.close(true);
   }
 
   eliminarColaborador(idColaborador): void {
-    this.miembroService.eliminarColaboradorExterno(this.miembroService.getMiembroActivo().id,idColaborador);
-    this.dialogRef.close();
+    this.miembroService.eliminarColaboradorExterno(this.miembroService.getMiembroActivo().id,idColaborador)
+    .catch((error) => {
+      this.notifier.notify("error", "Error con la conexión a la base de datos");
+      console.log("Error al eliminar colaborador: " + error);
+      this.dialogRef.close(false);
+    });
+    this.dialogRef.close(true);
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
 }

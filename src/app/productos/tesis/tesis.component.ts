@@ -31,6 +31,7 @@ export class TesisComponent implements OnInit, OnChanges {
   private gradoControl: FormControl = new FormControl('', [Validators.required]);
   private fechaInicioControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(0)]);
   private fechaTerminoControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(0)]);
+  private colaboradoresExternos: string[] = [];
   private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
   private refColaboladores = new Map();
@@ -57,6 +58,7 @@ export class TesisComponent implements OnInit, OnChanges {
     numAlumnos: 0,
     lineaGeneracion: '',
     colaboradores: [],
+    colaboradoresExternos: [],
     evidencia: '',
   };
 
@@ -95,6 +97,7 @@ export class TesisComponent implements OnInit, OnChanges {
     this.tesis.registrado = this.tesisObjeto.registrado;
     this.tesis.evidencia = this.tesisObjeto.evidencia;
     this.tesis.colaboradores = this.tesisObjeto.colaboradores;
+    this.tesis.colaboradoresExternos = this.tesisObjeto.colaboradoresExternos;
   }
 
   public ngOnInit() {
@@ -141,6 +144,8 @@ export class TesisComponent implements OnInit, OnChanges {
     });
     console.log(this.idTesis);
     console.log(this.tesis.titulo);
+
+    this.actualizarColaboradoresExternos();
   }
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -264,16 +269,29 @@ export class TesisComponent implements OnInit, OnChanges {
     }
   }
 
+  private actualizarColaboradoresExternos() {
+    this.colaboradoresExternos = [];
+    const listaExternos = this.colaboradoresExternos;
+    this.miembroService.obtenerColaboradoresExternos(this.miembroService.getMiembroActivo().id).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const temporal: any = doc.data();
+          const colaborador: string = temporal.nombre + " - " + temporal.institucion + " - " + temporal.grado;
+          console.log(colaborador);
+          listaExternos.push(colaborador);
+        });
+    });
+    this.colaboradoresExternos = listaExternos;
+  }
+
   public agregarColaborador() {
-    var resultado: boolean
     const dialogRef = this.dialog.open(ColaboradorComponent, {
       width: '120%',
       data: { grado: '', nombre: '', institucion: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
-      resultado = result;
       if (result) {
-        this.ngOnInit();
+        this.actualizarColaboradoresExternos();
+	      this.notifier.notify("success", "Colaboradores externos actualizados");
       }
     });
   }

@@ -34,10 +34,30 @@ export class LibroComponent implements OnInit, OnChanges {
   private btnEvidenciaControl: FormControl = new FormControl();
   private colaboradoresControl: FormControl = new FormControl();
   private colaboradoresExternosControl: FormControl = new FormControl();
+  private colaboradoresExternos: string[] = [];
   private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
   private refColaboladores = new Map();
   private colaboradoresSeleccionados: string[] = [];
+
+  public libro: Libro = {
+    titulo: '',
+    estado: '',
+    tipo: 'libro',
+    consideradoPCA: false,
+    year: 0,
+    editorial: '',
+    isbn: '',
+    numEdicion: 0,
+    paginas: 0,
+    pais: '',
+    proposito: '',
+    ejemplares: 0,
+    lineaGeneracion: '',
+    colaboradores: [],
+    colaboradoresExternos: [],
+    evidencia: '',
+  }
 
   private llenarCampos() {
     this.libro.titulo = this.libroObjeto.titulo;
@@ -58,24 +78,7 @@ export class LibroComponent implements OnInit, OnChanges {
     this.libro.registrado = this.libroObjeto.registrado;
     this.libro.ejemplares = this.libroObjeto.ejemplares;
     this.libro.colaboradores = this.libroObjeto.colaboradores;
-  }
-
-  public libro: Libro = {
-    titulo: '',
-    estado: '',
-    tipo: 'libro',
-    consideradoPCA: false,
-    year: 0,
-    editorial: '',
-    isbn: '',
-    numEdicion: 0,
-    paginas: 0,
-    pais: '',
-    proposito: '',
-    ejemplares: 0,
-    lineaGeneracion: '',
-    colaboradores: [],
-    evidencia: '',
+    this.libro.colaboradoresExternos = this.libroObjeto.colaboradoresExternos;
   }
 
   constructor(
@@ -146,6 +149,8 @@ export class LibroComponent implements OnInit, OnChanges {
         this.lgac.push(temporal.nombre);
       }
     });
+
+    this.actualizarColaboradoresExternos();
   }
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -241,16 +246,29 @@ export class LibroComponent implements OnInit, OnChanges {
     }
   }
 
+  private actualizarColaboradoresExternos() {
+    this.colaboradoresExternos = [];
+    const listaExternos = this.colaboradoresExternos;
+    this.miembroService.obtenerColaboradoresExternos(this.miembroService.getMiembroActivo().id).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const temporal: any = doc.data();
+          const colaborador: string = temporal.nombre + " - " + temporal.institucion + " - " + temporal.grado;
+          console.log(colaborador);
+          listaExternos.push(colaborador);
+        });
+    });
+    this.colaboradoresExternos = listaExternos;
+  }
+
   public agregarColaborador() {
-    var resultado: boolean
     const dialogRef = this.dialog.open(ColaboradorComponent, {
       width: '120%',
       data: { grado: '', nombre: '', institucion: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
-      resultado = result;
       if (result) {
-        this.ngOnInit();
+        this.actualizarColaboradoresExternos();
+	      this.notifier.notify("success", "Colaboradores externos actualizados");
       }
     });
   }

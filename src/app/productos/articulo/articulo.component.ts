@@ -36,11 +36,37 @@ export class ArticuloComponent implements OnInit {
   private colaboradoresExternosControl: FormControl = new FormControl();
   private estadoControl: FormControl = new FormControl('', [Validators.required]);
   private tipoArticuloControl: FormControl = new FormControl('', Validators.required);
+  private colaboradoresExternos: string[] = [];
   private colaboradoresLista: string[] = [];
   private lgac: string[] = [];
   private refColaboladores = new Map();
   private colaboradoresSeleccionados: string[] = [];
   private selected: string;
+
+  public articulo: Articulo = {
+    titulo: '',
+    estado: '',
+    tipo: 'articulo',
+    consideradoPCA: false,
+    year: 0,
+    descripcion: '',
+    direccionElectronica: ' ',
+    editorial: '',
+    indice: ' ',
+    tipoArticulo: '',
+    nombreRevista: '',
+    ISSN: '',
+    paginaInicio: 0,
+    paginaFin: 0,
+    pais: '',
+    proposito: '',
+    volumen: 0,
+    lineaGeneracion: '',
+    colaboradores: [],
+    colaboradoresExternos: [],
+    autor: '',
+    evidencia: '',
+  };
 
   private llenarCampos() {
     this.idArticulo = this.articuloObjeto.id;
@@ -68,31 +94,8 @@ export class ArticuloComponent implements OnInit {
     this.articulo.colaboradores = this.articuloObjeto.colaboradores;
     this.articulo.lineaGeneracion = this.articuloObjeto.lineaGeneracion;
     this.articulo.autor = this.articuloObjeto.autor;
+    this.articulo.colaboradoresExternos = this.articuloObjeto.colaboradoresExternos;
   }
-
-  public articulo: Articulo = {
-    titulo: '',
-    estado: '',
-    tipo: 'articulo',
-    consideradoPCA: false,
-    year: 0,
-    descripcion: '',
-    direccionElectronica: ' ',
-    editorial: '',
-    indice: ' ',
-    tipoArticulo: '',
-    nombreRevista: '',
-    ISSN: '',
-    paginaInicio: 0,
-    paginaFin: 0,
-    pais: '',
-    proposito: '',
-    volumen: 0,
-    lineaGeneracion: '',
-    colaboradores: [],
-    autor: '',
-    evidencia: '',
-  };
 
   constructor(
     private productoService: ProductoService,
@@ -167,6 +170,8 @@ export class ArticuloComponent implements OnInit {
         this.lgac.push(temporal.nombre);
       }
     });
+
+    this.actualizarColaboradoresExternos();
   }
 
   public ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -264,6 +269,20 @@ export class ArticuloComponent implements OnInit {
     }
   }
 
+  private actualizarColaboradoresExternos() {
+    this.colaboradoresExternos = [];
+    const listaExternos = this.colaboradoresExternos;
+    this.miembroService.obtenerColaboradoresExternos(this.miembroService.getMiembroActivo().id).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const temporal: any = doc.data();
+          const colaborador: string = temporal.nombre + " - " + temporal.institucion + " - " + temporal.grado;
+          console.log(colaborador);
+          listaExternos.push(colaborador);
+        });
+    });
+    this.colaboradoresExternos = listaExternos;
+  }
+
   public agregarColaborador() {
     var resultado: boolean
     const dialogRef = this.dialog.open(ColaboradorComponent, {
@@ -273,7 +292,8 @@ export class ArticuloComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       resultado = result;
       if (result) {
-        this.ngOnInit();
+        this.actualizarColaboradoresExternos();
+        this.notifier.notify("success", "Colaboradores externos actualizados");
       }
     });
   }

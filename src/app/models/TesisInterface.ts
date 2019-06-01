@@ -12,4 +12,5 @@ export interface Tesis {
     colaboradores: firebase.firestore.DocumentReference[];
     registrado?: firebase.firestore.Timestamp;
     evidencia?: string;
+    colaboradoresExternos?: string[];
 }

@@ -22,4 +22,5 @@ export interface Articulo {
     evidencia?: string;
     autor?: string;
     colaboradores?: firebase.firestore.DocumentReference[];
+    colaboradoresExternos?: string[];
 }

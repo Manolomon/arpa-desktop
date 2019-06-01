@@ -16,4 +16,5 @@ export interface Memoria {
   colaboradores?: firebase.firestore.DocumentReference[];
   registrado?: firebase.firestore.Timestamp;
   evidencia?: string;
+  colaboradoresExternos?: string[];
 }
