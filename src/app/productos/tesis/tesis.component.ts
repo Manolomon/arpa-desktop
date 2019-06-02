@@ -163,6 +163,7 @@ export class TesisComponent implements OnInit, OnChanges {
         this.tesis.colaboradores.push(this.refColaboladores.get(nombre));
       }
     }
+    this.tesis.colaboradores.push(this.miembroService.getMiembroActivo());
   }
 
   public hasError = (controlName: string, errorName: string) => {

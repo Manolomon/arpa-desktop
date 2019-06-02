@@ -172,6 +172,7 @@ export class MemoriaComponent implements OnInit, OnChanges {
         this.memoria.colaboradores.push(this.refColaboladores.get(nombre));
       }
     }
+    this.memoria.colaboradores.push(this.miembroService.getMiembroActivo());
   }
 
   public hasError = (controlName: string, errorName: string) => {

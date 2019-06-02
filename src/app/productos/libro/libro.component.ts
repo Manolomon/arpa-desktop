@@ -43,6 +43,7 @@ export class LibroComponent implements OnInit, OnChanges {
   public libro: Libro = {
     titulo: '',
     estado: '',
+    autor: '',
     tipo: 'libro',
     consideradoPCA: false,
     year: 0,
@@ -61,6 +62,7 @@ export class LibroComponent implements OnInit, OnChanges {
 
   private llenarCampos() {
     this.libro.titulo = this.libroObjeto.titulo;
+    this.libro.autor = this.libroObjeto.autor;
     this.libro.estado = this.libroObjeto.estado;
     this.libro.tipo = this.libroObjeto.tipo;
     this.libro.consideradoPCA = this.libroObjeto.consideradoPCA;
@@ -168,6 +170,7 @@ export class LibroComponent implements OnInit, OnChanges {
         this.libro.colaboradores.push(this.refColaboladores.get(nombre));
       }
     }
+    this.libro.colaboradores.push(this.miembroService.getMiembroActivo());
   }
 
   public hasError = (controlName: string, errorName: string) => {

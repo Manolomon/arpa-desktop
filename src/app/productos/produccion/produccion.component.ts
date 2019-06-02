@@ -170,6 +170,7 @@ export class ProduccionComponent implements OnInit {
         this.produccion.colaboradores.push(this.refColaboladores.get(nombre));
       }
     }
+    this.produccion.colaboradores.push(this.miembroService.getMiembroActivo());
   }
 
   public hasError = (controlName: string, errorName: string) => {

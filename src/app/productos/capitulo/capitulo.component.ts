@@ -178,6 +178,7 @@ export class CapituloComponent implements OnInit, OnChanges {
         this.capitulo.colaboradores.push(this.refColaboladores.get(nombre));
       }
     }
+    this.capitulo.colaboradores.push(this.miembroService.getMiembroActivo());
   }
 
   public hasError = (controlName: string, errorName: string) => {

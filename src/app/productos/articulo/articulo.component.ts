@@ -189,6 +189,7 @@ export class ArticuloComponent implements OnInit {
         this.articulo.colaboradores.push(this.refColaboladores.get(nombre));
       }
     }
+    this.articulo.colaboradores.push(this.miembroService.getMiembroActivo());
   }
 
   public hasError = (controlName: string, errorName: string) => {

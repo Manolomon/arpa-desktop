@@ -1,6 +1,7 @@
 export interface Libro {
     id?: string;
     titulo?: string;
+    autor?: string;
     estado?: string;
     tipo?: string;
     consideradoPCA?: boolean;
