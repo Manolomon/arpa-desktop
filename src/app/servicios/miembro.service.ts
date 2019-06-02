@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
-import { Miembro } from '../models/MiembroInterface'
+import { Miembro } from '../models/MiembroInterface';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import { isUndefined } from 'util';
@@ -13,8 +13,14 @@ export class MiembroService {
   public miembroDocRef: DocumentReference;
   public miembro: Miembro = {
     id: '',
-    correo: '',
     nombre: '',
+    correo: '',
+    passGenerada: '',
+    facultad: '',
+    institucion: '',
+    puesto: '',
+    rol: '',
+    sni: '',
   };
   private dictionary: Array<String>;
 
@@ -114,14 +120,15 @@ export class MiembroService {
       nombre: miembro.nombre,
       correo: miembro.correo,
       passGenerada: miembro.passGenerada,
-      facultdad: miembro.facultdad,
+      facultad: miembro.facultad,
       institucion: miembro.institucion,
       puesto: miembro.puesto,
-      sni: miembro.sni
+      sni: miembro.sni,
+      rol: miembro.rol
     });
   }
 
-  agregarOActualizarColaboradorExterno(idMiembro, colaborador) {    
+  agregarOActualizarColaboradorExterno(idMiembro, colaborador) {
     console.log(colaborador);
     if(isUndefined(colaborador.id)) {
       console.log(idMiembro);

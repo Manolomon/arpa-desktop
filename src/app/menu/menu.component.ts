@@ -18,9 +18,14 @@ export class MenuComponent implements OnInit {
   public miembro: Miembro = {
     id: '',
     nombre: '',
-    correo: ',',
+    correo: '',
+    passGenerada: '',
+    facultad: '',
+    institucion: '',
+    puesto: '',
     rol: '',
-  }
+    sni: '',
+  };
   constructor(
     private loginServicio: LoginService,
     private miembroService: MiembroService,
@@ -34,16 +39,26 @@ export class MenuComponent implements OnInit {
     var miembroTemp: Miembro = {
       id: '',
       nombre: '',
-      correo: ',',
+      correo: '',
+      passGenerada: '',
+      facultad: '',
+      institucion: '',
+      puesto: '',
       rol: '',
+      sni: '',
     };
-    this.miembroService.obtenerMiembro(this.correo).then(function(doc) {
+    this.miembroService.obtenerMiembro(this.correo).then(function (doc) {
       console.log(doc.docs[0].data());
       let temporal = doc.docs[0].data();
       miembroTemp.id = doc.docs[0].ref.id;
       miembroTemp.correo = temporal.correo;
       miembroTemp.nombre = temporal.nombre;
       miembroTemp.rol = temporal.rol;
+      miembroTemp.facultad = temporal.facultad;
+      miembroTemp.institucion = temporal.institucion;
+      miembroTemp.puesto = temporal.puesto;
+      miembroTemp.sni = temporal.sni;
+      miembroTemp.passGenerada = temporal.passGenerada;
     });
     this.ventana = 'productos';
     this.miembro = miembroTemp;

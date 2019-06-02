@@ -33,7 +33,7 @@
   </app-proyecto>
 </div>
 <div fxFlexAlign="center" fxLayoutAlign="center center">
-  <mat-accordion style="width: 80%" class="example-headers-align">
+  <mat-accordion style="width: 80%" class="example-headers-align" flex>
     <mat-expansion-panel [expanded]="indexExpanded == i" (opened)="indexExpanded = i" (afterExpand)="indexExpanded = i"
       (closed)="togglePanels(-1)" *ngFor="let proyecto of proyectos; let i = index" class="hideOption">
       <mat-expansion-panel-header>

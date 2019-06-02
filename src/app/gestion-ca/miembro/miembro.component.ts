@@ -74,7 +74,7 @@ export class MiembroComponent implements OnInit {
       width: '400px',
       disableClose: true,
       data: {
-        mensaje: "Cambiar a este colaborador le dará acceso al sistema y se generará una contraseña que no se mostrará denuevo ¿Está seguro de hacer este cambio?",
+        mensaje: "Cambiar a este colaborador le dará acceso al sistema y se generará una contraseña que no se mostrará de nuevo ¿Está seguro de hacer este cambio?",
         resultado: this.resultadoDialog,
         dobleBoton: true
       }

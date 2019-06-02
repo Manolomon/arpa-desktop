@@ -11,13 +11,14 @@
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>&nbsp;Datos Personales</mat-card-title>
+        <span class="example-spacer"></span>
         <div class="example-icon showOption">
           <button mat-icon-button class="utility-icon" matTooltip="Editar" matTooltipPosition="above">
-            <mat-icon aria-label="Edit Button">edit</mat-icon>
+            <mat-icon aria-label="Edit Button" (click)="habilitarCampos()">edit</mat-icon>
           </button>
         </div>
       </mat-card-header>
-      <form [formGroup]="datosPersonalesForm" (ngSubmit)="console.log('HOlis')" #formNew="ngForm" fxLayout="column"
+      <form novalidate [formGroup]="datosPersonalesForm" (ngSubmit)="onGuardarCambios(formNew)" #formNew="ngForm" fxLayout="column"
         fxLayoutGap="-1px">
         <div layout="row" class="example-margin">
           <img style="padding-right: 15px;" width="90px" height="90px" src="../assets/user-icon.svg" alt="Product-Icon"
@@ -27,13 +28,13 @@
             <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Correo Electrónico</mat-label>
-                <input name="nombreNuevo" matInput required />
+                <input formControlName="correoControl" [(ngModel)]="miembro.correo" name="correo" matInput required />
               </mat-form-field>
             </div>
             <div fxLayout="column" fxLayoutGap="-1px" fxFlex="80">
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Contraseña</mat-label>
-                <input matInput required [type]="hide ? 'password' : 'text'">
+                <input formControlName="passwordControl" [(ngModel)]="miembro.passGenerada" name="password" matInput required [type]="hide ? 'password' : 'text'">
                 <mat-icon matSuffix class="icon-color" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
                 </mat-icon>
               </mat-form-field>
@@ -43,38 +44,38 @@
         <div fxLayout="row">
           <mat-form-field fxFlex appearance="outline">
             <mat-label>Nombre</mat-label>
-            <input name="nombreNuevo" matInput required />
+            <input formControlName="nombreControl" [(ngModel)]="miembro.nombre" name="nombre" matInput required />
           </mat-form-field>
         </div>
         <div layout="row">
           <mat-form-field fxFlex appearance="outline">
             <mat-label>Facultad</mat-label>
-            <input name="nombreNuevo" matInput required />
+            <input formControlName="facultadControl" [(ngModel)]="miembro.facultad" name="facultad" matInput required />
           </mat-form-field>
           <mat-form-field fxFlex appearance="outline">
             <mat-label>Institución</mat-label>
-            <input name="nombreNuevo" matInput required />
+            <input formControlName="institucionControl" [(ngModel)]="miembro.institucion" name="institucion" matInput required />
           </mat-form-field>
         </div>
         <div layout="row">
           <mat-form-field fxFlex appearance="outline">
             <mat-label>Puesto</mat-label>
-            <mat-select name="puesto" required>
-              <mat-option value="docente_tcompleto">Docente de Tiempo Completo</mat-option>
-              <mat-option value="investigador">Investigador</mat-option>
+            <mat-select formControlName="puestoControl" [(ngModel)]="miembro.puesto" name="puesto"  required>
+              <mat-option value="Docente de Tiempo Completo">Docente de Tiempo Completo</mat-option>
+              <mat-option value="Investigador">Investigador</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field fxFlex appearance="outline">
             <mat-label>Forma parte del SNI</mat-label>
-            <mat-select name="sni" required>
-              <mat-option value="si">Sí</mat-option>
-              <mat-option value="no">No</mat-option>
+            <mat-select formControlName="sniControl" [(ngModel)]="miembro.sni" name="sni" required>
+              <mat-option value="Si">Sí</mat-option>
+              <mat-option value="No">No</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutAlign="end center">
             <div class="example-button-row">
-              <button type="submit" mat-raised-button color="primary">Guardar</button>
+              <button type="submit" *ngIf="editMode" mat-raised-button color="primary">Guardar</button>
             </div>
           </div>
       </form>
@@ -85,9 +86,9 @@
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>&nbsp;Datos Laborales</mat-card-title>
-        <button mat-raised-button color="primary" type="button" (click)="agregarEstudio()">
+        <span class="example-spacer"></span>
+        <button mat-mini-fab color="primary" type="button" (click)="agregarEstudio()">
           <mat-icon>add</mat-icon>
-          Agregar Datos
         </button>
       </mat-card-header>
       <mat-action-list class="make-scrollable" flex>
