@@ -71,6 +71,8 @@ export class ColaboradorComponent implements OnInit {
         this.dialogRef.close(false);
       });
       this.dialogRef.close(true);
+    } else  {
+      this.notifier.notify("warning", "Datos incompletos");
     }
   }
 

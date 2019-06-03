@@ -99,6 +99,7 @@ export class ProductosComponent implements OnInit {
               }
               await this.proyectoService.modificarProyecto(proyecto);
             }
+            this.notifier.notify("success","Producto eliminado correctamente");
             this.ngOnInit();
           });
       }
