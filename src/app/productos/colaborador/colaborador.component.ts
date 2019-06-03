@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Colaborador } from '../../models/ColaboradorInterface';
 import { MiembroService } from 'src/app/servicios/miembro.service';
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotifierService } from "angular-notifier";
 
 export interface DialogData {
@@ -20,13 +20,13 @@ export interface DialogData {
 export class ColaboradorComponent implements OnInit {
 
   private listaColaboradores: Array<Colaborador>;
+  private colaboradorForm: FormGroup;
   private colaborador: Colaborador = {
     nombre: '',
     institucion: '',
     grado: ''
   }
   private idColaborador: string = "";
-  private gradoControl: FormControl = new FormControl();
 
   constructor(
     private miembroService: MiembroService,
@@ -35,6 +35,12 @@ export class ColaboradorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit(): void {
+    this.colaboradorForm = new FormGroup({
+      nombreControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      gradoControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      institucionControl: new FormControl('', [Validators.required, Validators.minLength(2)])
+    })
+    
     var listaCol: Array<Colaborador> = [];
     this.miembroService.obtenerColaboradoresExternos(this.miembroService.getMiembroActivo().id).then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
@@ -56,14 +62,16 @@ export class ColaboradorComponent implements OnInit {
   }
 
   clickAgregarOActualizarColaborador(): void {
-    const idMiembro = this.miembroService.getMiembroActivo().id;
-    this.miembroService.agregarOActualizarColaboradorExterno(idMiembro, this.colaborador)
-    .catch((error) => {
-      this.notifier.notify("error", "Error con la conexión a la base de datos");
-      console.log("Error al actualizar o agregar colaborador: " + error);
-      this.dialogRef.close(false);
-    });
-    this.dialogRef.close(true);
+    if(this.colaboradorForm.valid) {
+      const idMiembro = this.miembroService.getMiembroActivo().id;
+      this.miembroService.agregarOActualizarColaboradorExterno(idMiembro, this.colaborador)
+      .catch((error) => {
+        this.notifier.notify("error", "Error con la conexión a la base de datos");
+        console.log("Error al actualizar o agregar colaborador: " + error);
+        this.dialogRef.close(false);
+      });
+      this.dialogRef.close(true);
+    }
   }
 
   eliminarColaborador(idColaborador): void {

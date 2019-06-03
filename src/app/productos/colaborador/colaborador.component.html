@@ -7,10 +7,10 @@
 </div>
 <div mat-dialog-content>
   <p>Ingrese los datos del nuevo colaborador</p>
-  <form novalidate fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
+  <form [formGroup]="colaboradorForm" fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Grado</mat-label>
-      <mat-select [(ngModel)]="colaborador.grado" name="grado"
+      <mat-select formControlName="gradoControl" [(ngModel)]="colaborador.grado" name="grado"
         required>
         <mat-option value="Estudiante">Estudiante</mat-option>
         <mat-option value="Licenciado">Licenciado</mat-option>
@@ -20,11 +20,11 @@
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Nombre</mat-label>
-      <input name="nombre" [(ngModel)]="colaborador.nombre" matInput required />
+      <input name="nombre" formControlName="nombreControl" [(ngModel)]="colaborador.nombre" matInput required />
     </mat-form-field>
     <mat-form-field fxFlex appearance="outline">
       <mat-label>Institución</mat-label>
-      <input name="institucion" [(ngModel)]="colaborador.institucion" matInput required />
+      <input name="institucion" formControlName="institucionControl" [(ngModel)]="colaborador.institucion" matInput required />
     </mat-form-field>
     <section class="example-section">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="7px" fxLayoutGap.sm="0px">
