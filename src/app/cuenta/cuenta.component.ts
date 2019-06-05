@@ -60,6 +60,7 @@ export class CuentaComponent implements OnInit {
       this.ngOnInit();
     } else {
       this.datosPersonalesForm.enable();
+      this.datosPersonalesForm.get('correoControl').disable();
     }
   }
 
@@ -70,6 +71,7 @@ export class CuentaComponent implements OnInit {
     }
     if (this.editMode) {
       this.datosPersonalesForm.enable();
+      this.datosPersonalesForm.get('correoControl').disable();
     } else {
       this.datosPersonalesForm.disable();
     }

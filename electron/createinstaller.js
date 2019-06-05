@@ -11,7 +11,7 @@ getInstallerConfig()
 function getInstallerConfig () {
   console.log('creating windows installer')
   const rootPath = path.join('./')
-  const outPath = path.join(rootPath, 'release-builds')
+  const outPath = path.join(rootPath, 'builds')
 
   return Promise.resolve({
     appDirectory: path.join(outPath, 'arpa-desktop-win32-x64/'),
